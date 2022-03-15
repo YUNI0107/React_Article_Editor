@@ -1,7 +1,21 @@
 import logo from './logo.svg'
 import './App.css'
+import { IComponentSchema } from './types/editor'
 
 function App() {
+  const a: IComponentSchema = {
+    groupType: 'images',
+    type: 'triplicate-circle',
+    childrenParagraph: [
+      {
+        type: 'paragraph',
+        groupType: 'paragraph',
+      },
+    ],
+  }
+
+  console.log(a)
+
   return (
     <div className="App">
       <header className="App-header">
