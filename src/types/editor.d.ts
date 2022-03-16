@@ -14,9 +14,14 @@ type imagesType =
   | 'double-circle'
   | 'double-rectangle'
 
+// gallery
+type galleryType = 'nine-square' | 'fence' | 'carousel' | 'irregular'
+
+type buttonType = 'button'
+
 // controlProps
 interface IControlProps {
-  borderRadius: string
+  [key: string]: string
 }
 
 /**
@@ -26,15 +31,39 @@ interface IControlProps {
  * 2. 每個props對應到一個controls
  */
 
-interface IComponentSchema {
-  groupType: groupType
-  type: paragraphType | imagesType
-  props?: IControlProps
-  control?: Array<ReactNode>
-  childrenParagraph?: Array<IChildrenParagraph & IComponentSchema>
-}
+type IComponentSchema = IParagraph | IImages | IGallery | IButton
 
-interface IChildrenParagraph {
+interface IParagraph {
   groupType: 'paragraph'
   type: paragraphType
+  props?: IControlProps
+  control?: Array<ReactNode>
+}
+interface IImages {
+  groupType: 'images'
+  type: imagesType
+  props?: IControlProps
+  control?: Array<ReactNode>
+  childrenParagraph?: Array<{
+    title: IParagraph
+    description: IParagraph
+  }>
+}
+interface IGallery {
+  groupType: 'gallery'
+  type: galleryType
+  props?: IControlProps
+  control?: Array<ReactNode>
+  childrenParagraph?: Array<{
+    title: IParagraph
+    description: IParagraph
+  }>
+}
+
+interface IButton {
+  groupType: 'button'
+  type: buttonType
+  props?: IControlProps
+  control?: Array<ReactNode>
+  innerParagraph?: IParagraph
 }

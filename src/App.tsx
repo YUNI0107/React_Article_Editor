@@ -5,16 +5,15 @@ import { IComponentSchema } from './types/editor'
 function App() {
   const a: IComponentSchema = {
     groupType: 'images',
-    type: 'triplicate-circle',
-    childrenParagraph: [
-      {
-        type: 'paragraph',
-        groupType: 'paragraph',
-      },
-    ],
+    type: 'double-circle',
   }
 
-  console.log(a)
+  const b: IComponentSchema = {
+    groupType: 'paragraph',
+    type: 'paragraph',
+  }
+
+  console.log(a, b)
 
   return (
     <div className="App">
