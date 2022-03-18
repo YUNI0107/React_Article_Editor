@@ -1,10 +1,20 @@
-import { useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
+
+// components
+import ImagesControlSection from './ImagesControlSection'
 
 // types
 import { IImages } from '../../../types/editor'
 
+// images
+import DefaultImage from '../../../assets/default.png'
+
 function ImagesComponent({ scheme }: { scheme: IImages }) {
-  const { type, props, control, childrenParagraph } = scheme
+  if (!scheme) return null
+
+  const { type, props, controls, childrenParagraph } = scheme
+
+  console.log(props, controls, childrenParagraph)
 
   const imagesCountArray = useMemo(() => {
     let count
@@ -24,13 +34,28 @@ function ImagesComponent({ scheme }: { scheme: IImages }) {
         count = 0
     }
 
-    return new Array(count)
+    return Array.from({ length: count })
   }, [])
 
   return (
     <div>
       {imagesCountArray.map((_, index) => {
-        return <div key={index}>img</div>
+        return (
+          <Fragment key={index}>
+            <div className="flex flex-col">
+              <div>
+                <img src={props?.imgPaths?.[index] || DefaultImage} alt="images" />
+              </div>
+
+              <div>
+                <h1>wwwww</h1>
+                <p>eeeee</p>
+              </div>
+            </div>
+
+            <ImagesControlSection controls={controls} />
+          </Fragment>
+        )
       })}
     </div>
   )

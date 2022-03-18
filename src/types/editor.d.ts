@@ -1,4 +1,4 @@
-import { ReactNode } from 'react'
+import { ReactNode, CSSProperties } from 'react'
 
 type groupType = 'paragraph' | 'images' | 'gallery' | 'button'
 
@@ -20,15 +20,15 @@ type galleryType = 'nine-square' | 'fence' | 'carousel' | 'irregular'
 type buttonType = 'button'
 
 // controlProps
-interface IControlProps {
-  [key: string]: string
+interface IControlProps extends CSSProperties {
+  imgPaths?: Array<string>
 }
 
 /**
  *
  * Set a schema for each components
- * 1. include: groupType, type, props ,controls(Only for editor mode)
- * 2. 每個props對應到一個controls
+ * 1. include: groupType, type, controlProps ,controls(Only for editor mode)
+ * 2. 每個controlProps對應到一個controls
  */
 
 type IComponentSchema = IParagraph | IImages | IGallery | IButton
@@ -37,13 +37,13 @@ interface IParagraph {
   groupType: 'paragraph'
   type: paragraphType
   props?: IControlProps
-  control?: Array<ReactNode>
+  controls?: Array<ReactNode>
 }
 interface IImages {
   groupType: 'images'
   type: imagesType
   props?: IControlProps
-  control?: Array<ReactNode>
+  controls?: Array<ReactNode>
   childrenParagraph?: Array<{
     title: IParagraph
     description: IParagraph
@@ -53,7 +53,7 @@ interface IGallery {
   groupType: 'gallery'
   type: galleryType
   props?: IControlProps
-  control?: Array<ReactNode>
+  controls?: Array<ReactNode>
   childrenParagraph?: Array<{
     title: IParagraph
     description: IParagraph
@@ -64,6 +64,6 @@ interface IButton {
   groupType: 'button'
   type: buttonType
   props?: IControlProps
-  control?: Array<ReactNode>
+  controls?: Array<ReactNode>
   innerParagraph?: IParagraph
 }

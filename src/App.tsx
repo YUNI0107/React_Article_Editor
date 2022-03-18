@@ -1,36 +1,21 @@
-import logo from './logo.svg'
 import './App.css'
 import { IComponentSchema } from './types/editor'
+import ImagesComponent from './components/layout/ImagesComponent'
+import ImgPathControl from './components/controls/ImgPathControl'
 
 function App() {
   const a: IComponentSchema = {
     groupType: 'images',
-    type: 'double-circle',
+    type: 'triplicate-square',
+    props: {
+      imgPaths: [],
+    },
+    controls: [ImgPathControl],
   }
-
-  const b: IComponentSchema = {
-    groupType: 'paragraph',
-    type: 'paragraph',
-  }
-
-  console.log(a, b)
 
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p className="bg-pink-400">
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <ImagesComponent scheme={a} />
     </div>
   )
 }
