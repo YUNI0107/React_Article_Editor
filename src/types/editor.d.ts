@@ -1,4 +1,4 @@
-import { ReactNode, CSSProperties } from 'react'
+import { CSSProperties } from 'react'
 
 type groupType = 'paragraph' | 'images' | 'gallery' | 'button'
 
@@ -20,9 +20,12 @@ type galleryType = 'nine-square' | 'fence' | 'carousel' | 'irregular'
 type buttonType = 'button'
 
 // controlProps
-interface IControlProps extends CSSProperties {
+export interface IControlProps extends CSSProperties {
   imgPaths?: Array<string>
 }
+
+// controls
+export type IControls = 'imgPathControl'
 
 /**
  *
@@ -37,13 +40,13 @@ interface IParagraph {
   groupType: 'paragraph'
   type: paragraphType
   props?: IControlProps
-  controls?: Array<ReactNode>
+  controls?: Array<IControls>
 }
 interface IImages {
   groupType: 'images'
   type: imagesType
   props?: IControlProps
-  controls?: Array<ReactNode>
+  controls?: Array<IControls>
   childrenParagraph?: Array<{
     title: IParagraph
     description: IParagraph
@@ -53,7 +56,7 @@ interface IGallery {
   groupType: 'gallery'
   type: galleryType
   props?: IControlProps
-  controls?: Array<ReactNode>
+  controls?: Array<IControls>
   childrenParagraph?: Array<{
     title: IParagraph
     description: IParagraph
@@ -64,6 +67,6 @@ interface IButton {
   groupType: 'button'
   type: buttonType
   props?: IControlProps
-  controls?: Array<ReactNode>
+  controls?: Array<IControls>
   innerParagraph?: IParagraph
 }

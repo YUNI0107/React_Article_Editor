@@ -53,7 +53,7 @@ function ImagesComponent({ scheme }: { scheme: IImages }) {
               </div>
             </div>
 
-            <ImagesControlSection controls={controls} />
+            <ImagesControlSection controls={controls} props={props} order={index} />
           </Fragment>
         )
       })}

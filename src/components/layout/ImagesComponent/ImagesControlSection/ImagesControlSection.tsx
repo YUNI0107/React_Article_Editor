@@ -1,10 +1,30 @@
-import { Fragment, ReactNode } from 'react'
+import { Fragment } from 'react'
 
-function ImagesControlSection({ controls }: { controls?: Array<ReactNode> }) {
+// types
+import { IControlProps, IControls } from '../../../../types/editor'
+
+// components
+import SwitchControl from '../../../common/SwitchControl'
+
+function ImagesControlSection({
+  controls,
+  props,
+  order,
+}: {
+  controls?: Array<IControls>
+  props?: IControlProps
+  order: number
+}) {
+  if (!props || !controls) return null
+
   return (
     <div>
-      {controls?.map((control, index) => {
-        return <Fragment key={index}>{control}</Fragment>
+      {controls.map((control, index) => {
+        return (
+          <Fragment key={index}>
+            {<SwitchControl control={control} props={props} order={order} />}
+          </Fragment>
+        )
       })}
     </div>
   )

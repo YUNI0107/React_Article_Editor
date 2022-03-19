@@ -1,16 +1,15 @@
 import './App.css'
 import { IComponentSchema } from './types/editor'
 import ImagesComponent from './components/layout/ImagesComponent'
-import ImgPathControl from './components/controls/ImgPathControl'
 
 function App() {
   const a: IComponentSchema = {
     groupType: 'images',
     type: 'triplicate-square',
     props: {
-      imgPaths: [],
+      imgPaths: ['https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png'],
     },
-    controls: [ImgPathControl],
+    controls: ['imgPathControl'],
   }
 
   return (
