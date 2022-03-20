@@ -1,19 +1,21 @@
 import { Fragment } from 'react'
 
 // types
-import { IControlProps, IControls } from '../../../../types/editor'
+import { IControlProps, IControls } from '../../../../../types/editor'
 
 // components
-import SwitchControl from '../../../common/SwitchControl'
+import SwitchControl from '../../../../common/SwitchControl'
 
 function ImagesControlSection({
+  order,
+  uuid,
   controls,
   props,
-  order,
 }: {
+  order: number
+  uuid: string
   controls?: Array<IControls>
   props?: IControlProps
-  order: number
 }) {
   if (!props || !controls) return null
 
@@ -22,7 +24,7 @@ function ImagesControlSection({
       {controls.map((control, index) => {
         return (
           <Fragment key={index}>
-            {<SwitchControl control={control} props={props} order={order} />}
+            {<SwitchControl control={control} props={props} order={order} uuid={uuid} />}
           </Fragment>
         )
       })}

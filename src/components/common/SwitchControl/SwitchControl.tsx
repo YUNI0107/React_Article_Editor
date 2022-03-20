@@ -8,14 +8,16 @@ function SwitchControl({
   control,
   props,
   order,
+  uuid,
 }: {
   control: IControls
   props: IControlProps
   order?: number
+  uuid: string
 }) {
   switch (control) {
     case 'imgPathControl':
-      return <ImgPathControl {...props} order={order} />
+      return <ImgPathControl {...props} order={order} uuid={uuid} />
     default:
       return <></>
   }
