@@ -1,6 +1,6 @@
 import { IComponentSchema, IImages } from '../types/editor'
 
-export class ControlHandler {
+class ControlHandler {
   controlName: string
   schemes: Array<IComponentSchema>
   handleScheme: (newSchemes: Array<IComponentSchema>) => void
@@ -30,3 +30,5 @@ export class ControlHandler {
     }
   }
 }
+
+export default ControlHandler
