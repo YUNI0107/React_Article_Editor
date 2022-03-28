@@ -3,7 +3,7 @@ import { useContext } from 'react'
 // types
 import { SchemeContext } from '../../../contexts/SchemeContextSection'
 import { IImages } from '../../../types/editor'
-import ImagesComponent from '../ImagesComponent'
+import ImagesComponent from '../../element/ImagesComponent'
 
 function EditorSection() {
   const { schemes } = useContext(SchemeContext)

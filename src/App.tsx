@@ -1,14 +1,12 @@
-import './App.css'
+import './styles/global.css'
 
-import EditorSection from './components/layout/EditorSection'
-import SchemeContextSection from './contexts/SchemeContextSection'
+// pages
+import MainPage from './pages/MainPage'
 
 function App() {
   return (
     <div className="App">
-      <SchemeContextSection>
-        <EditorSection />
-      </SchemeContextSection>
+      <MainPage />
     </div>
   )
 }
