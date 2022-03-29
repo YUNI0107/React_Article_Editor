@@ -24,9 +24,3 @@ function MainPage() {
 }
 
 export default MainPage
-
-{
-  /* <SchemeContextSection>
-<EditorSection />
-</SchemeContextSection> */
-}
