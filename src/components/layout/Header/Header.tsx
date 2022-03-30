@@ -12,9 +12,7 @@ function Header() {
       </div>
 
       {/* bottom */}
-      <div className="w-full bg-main-gray-300 h-8 relative">
-        <div className="h-8"></div>
-      </div>
+      <div className="w-full bg-main-gray-300 h-7 relative"></div>
     </div>
   )
 }

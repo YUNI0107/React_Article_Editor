@@ -1,18 +1,13 @@
 import classNames from 'classnames'
 
+// components
+import Ruler from './components/Ruler'
+import Drawer from './components/Drawer'
+
 // types
 import SchemeContextSection from '../../../contexts/SchemeContextSection'
 import { PreviewModesType } from '../../../types/layout.d'
 import EditorSection from '../EditorSection'
-
-// styles
-const editorContainerStyle = (mode: PreviewModesType) => {
-  const lgSize = 'w-desktop'
-  const mdSize = 'w-tablet'
-  const smSize = 'w-mobile'
-  const size = mode === 'lg' ? lgSize : mode === 'md' ? mdSize : smSize
-  return size
-}
 
 function MainEditorSection({
   previewMode,
@@ -24,17 +19,26 @@ function MainEditorSection({
   console.log(previewMode, handlePreviewMode)
 
   return (
-    <div>
+    <div className="flex">
       {/* left-drawer */}
-      <div className={classNames(editorContainerStyle(previewMode))}></div>
+      <Drawer />
 
       {/* main-editor-section */}
-      <div>
+      <div className={classNames('flex-1 flex flex-col items-center')}>
         {/* top-ruler */}
-        <div></div>
+        <Ruler previewMode={previewMode} handlePreviewMode={handlePreviewMode} />
         {/* bottom-preview */}
         <SchemeContextSection>
-          <div>
+          <div
+            className={classNames(
+              'min-h-screen h-full bg-white border-x-[2px] border-dashed border-main-gray-300 transition-all duration-700',
+              {
+                'w-mobile': previewMode === 'sm',
+                'w-tablet': previewMode === 'md',
+                'w-desktop': previewMode === 'lg',
+              }
+            )}
+          >
             <EditorSection />
           </div>
         </SchemeContextSection>

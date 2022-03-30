@@ -1,3 +1,7 @@
 .default-button {
   @apply py-1 px-4 rounded-lg outline-none cursor-pointer hover:brightness-110 active:contrast-125;
 }
+
+h4 {
+  @apply text-base;
+}
