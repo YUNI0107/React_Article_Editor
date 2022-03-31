@@ -2,6 +2,11 @@
   @apply py-1 px-4 rounded-lg outline-none cursor-pointer hover:brightness-110 active:contrast-125;
 }
 
+.square-button {
+  /* default style */
+  @apply w-12 h-12 text-4xl flex justify-center items-center text-white bg-main-blue hover:brightness-110 active:contrast-125;
+}
+
 h4 {
   @apply text-base;
 }
