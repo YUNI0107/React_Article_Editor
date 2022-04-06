@@ -49,7 +49,7 @@ function Drawer() {
 
       <div>
         <a target="_blank" href="https://github.com/YUNI0107" rel="noreferrer">
-          <i className="ri-github-fill text-5xl text-main-gray-300"></i>
+          <i className="ri-github-fill text-4xl text-main-gray-300 mx-2"></i>
         </a>
       </div>
     </div>
