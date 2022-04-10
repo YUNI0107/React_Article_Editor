@@ -16,7 +16,7 @@ function MainPage() {
   }
 
   return (
-    <div className="w-screen min-h-screen min-w-[1052px] bg-secondary-blue-100">
+    <div className="w-screen min-h-screen min-w-[1052px] bg-secondary-blue-100 flex flex-col">
       <Header />
       <MainEditorSection previewMode={previewMode} handlePreviewMode={handlePreviewMode} />
     </div>

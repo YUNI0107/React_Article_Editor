@@ -8,6 +8,7 @@ import Drawer from './components/Drawer'
 import SchemeContextSection from '../../../contexts/SchemeContextSection'
 import { PreviewModesType } from '../../../types/layout.d'
 import EditorSection from '../EditorSection'
+import BackDevice from './components/BackDevice'
 
 function MainEditorSection({
   previewMode,
@@ -19,19 +20,19 @@ function MainEditorSection({
   console.log(previewMode, handlePreviewMode)
 
   return (
-    <div className="flex">
+    <div className="flex-1 flex h-full">
       {/* left-drawer */}
       <Drawer />
 
       {/* main-editor-section */}
-      <div className={classNames('flex-1 flex flex-col items-center')}>
+      <div className="relative flex-1 flex flex-col items-center">
         {/* top-ruler */}
         <Ruler previewMode={previewMode} handlePreviewMode={handlePreviewMode} />
         {/* bottom-preview */}
         <SchemeContextSection>
           <div
             className={classNames(
-              'min-h-screen h-full bg-white border-x-[2px] border-dashed border-main-gray-300 transition-all duration-700',
+              'h-full border-x-[2px] border-dashed border-main-gray-300 transition-all duration-700 flex flex-col justify-center',
               {
                 'w-mobile': previewMode === 'sm',
                 'w-tablet': previewMode === 'md',
@@ -39,7 +40,19 @@ function MainEditorSection({
               }
             )}
           >
-            <EditorSection />
+            <div
+              className={classNames('relative', {
+                'h-mobile': previewMode === 'sm',
+                'h-tablet': previewMode === 'md',
+                'h-full': previewMode === 'lg',
+              })}
+            >
+              <div className="relative h-full w-full bg-white z-20 overflow-x-hidden overflow-y-auto">
+                <EditorSection />
+              </div>
+
+              <BackDevice previewMode={previewMode} />
+            </div>
           </div>
         </SchemeContextSection>
       </div>

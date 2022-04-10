@@ -7,6 +7,10 @@ module.exports = {
         tablet: '720px',
         mobile: '320px',
       },
+      height: {
+        tablet: '660px',
+        mobile: '600px',
+      },
       colors: {
         'main-blue': '#3742FA',
         'main-yellow': '#FFA502',
