@@ -21,10 +21,13 @@ function Drawer() {
 
   return (
     <div
-      className={classNames('flex flex-col bg-white transition-all duration-700 px-4 py-8', {
-        'w-[300px]': isShow,
-        'w-[80px]': !isShow,
-      })}
+      className={classNames(
+        'fixed z-30 flex flex-col bg-white transition-all duration-700 px-4 py-8 h-[calc(100%-80px)]',
+        {
+          'w-[300px]': isShow,
+          'w-[80px]': !isShow,
+        }
+      )}
     >
       <div className="flex-1">
         {isShow ? (

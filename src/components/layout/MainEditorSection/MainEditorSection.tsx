@@ -20,7 +20,7 @@ function MainEditorSection({
   console.log(previewMode, handlePreviewMode)
 
   return (
-    <div className="flex-1 flex h-full">
+    <div className="flex-1 flex h-full pt-20">
       {/* left-drawer */}
       <Drawer />
 
@@ -47,7 +47,15 @@ function MainEditorSection({
                 'h-full': previewMode === 'lg',
               })}
             >
-              <div className="relative h-full w-full bg-white z-20 overflow-x-hidden overflow-y-auto">
+              <div
+                className={classNames(
+                  'relative h-full w-full bg-white z-20 overflow-x-hidden overflow-y-auto',
+                  {
+                    'px-4': previewMode === 'md' || previewMode === 'sm',
+                    'px-6': previewMode === 'lg',
+                  }
+                )}
+              >
                 <EditorSection />
               </div>
 

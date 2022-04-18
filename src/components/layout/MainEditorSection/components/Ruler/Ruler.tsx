@@ -31,7 +31,7 @@ function Ruler({
   const modes: Array<PreviewModesType> = ['sm', 'md', 'lg']
 
   return (
-    <div className="absolute -mt-7 top-0">
+    <div className="fixed z-40 top-[52px] h-7">
       {modes.map((mode) => {
         return (
           <div
