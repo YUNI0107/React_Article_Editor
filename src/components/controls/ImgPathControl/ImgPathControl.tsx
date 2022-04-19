@@ -30,7 +30,7 @@ function ImgPathControl({ order, uuid }: { order?: number; uuid?: string }) {
 
   return (
     <div>
-      <h1>Control</h1>
+      <h1>ControlControlControlControlControlControlControlControl</h1>
       <input
         type="file"
         onChange={changeInputValue}

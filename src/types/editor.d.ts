@@ -1,6 +1,9 @@
 import { CSSProperties } from 'react'
 
-type groupType = 'paragraph' | 'images' | 'gallery' | 'button'
+type groupType = 'banner' | 'paragraph' | 'images' | 'gallery' | 'button'
+
+// banner
+type bannerType = 'banner'
 
 // paragraph
 type paragraphType = 'paragraph'
@@ -38,12 +41,18 @@ export type IControls = 'imgPathControl'
  * 2. 每個props對應到一個controls
  */
 
-type IComponentSchema = IParagraph | IImages | IGallery | IButton
+type IComponentSchema = IParagraph | IBanner | IImages | IGallery | IButton
 
+interface IBanner {
+  uuid: string
+  groupType: 'banner'
+  type: bannerType
+  props?: IControlProps
+  controls?: Array<IControls>
+}
 interface IParagraph {
   uuid: string
   groupType: 'paragraph'
-  type: string
   type: paragraphType
   props?: IControlProps
   controls?: Array<IControls>

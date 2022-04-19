@@ -48,13 +48,10 @@ function MainEditorSection({
               })}
             >
               <div
-                className={classNames(
-                  'relative h-full w-full bg-white z-20 overflow-x-hidden overflow-y-auto',
-                  {
-                    'px-4': previewMode === 'md' || previewMode === 'sm',
-                    'px-6': previewMode === 'lg',
-                  }
-                )}
+                className={classNames('relative h-full w-full bg-white z-20 overflow-y-auto', {
+                  'px-4': previewMode === 'md' || previewMode === 'sm',
+                  'px-6': previewMode === 'lg',
+                })}
               >
                 <EditorSection />
               </div>

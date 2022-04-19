@@ -17,18 +17,6 @@ const a: IComponentSchema = {
       },
       controls: ['imgPathControl'],
     },
-    {
-      props: {
-        imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
-      },
-      controls: ['imgPathControl'],
-    },
-    {
-      props: {
-        imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
-      },
-      controls: ['imgPathControl'],
-    },
   ],
 }
 

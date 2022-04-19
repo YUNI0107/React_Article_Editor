@@ -2,17 +2,34 @@ import { Fragment, useMemo } from 'react'
 
 // components
 import ImagesControlSection from './components/ImagesControlSection'
+import PopUp from '../../common/Popup'
 
 // types
 import { IImages } from '../../../types/editor'
 
 // images
 import DefaultImage from '../../../assets/default.png'
+import classNames from 'classnames'
 
-function ImagesComponent({ scheme }: { scheme: IImages }) {
+function ImagesComponent({
+  scheme,
+  PopupShowHandler,
+  isButtonShow,
+  isPopupShow,
+  setIsPopupShow,
+  distance,
+}: {
+  scheme: IImages
+  PopupShowHandler: () => void
+  isButtonShow: boolean
+  isPopupShow: boolean
+  setIsPopupShow: (isShow: boolean) => void
+  distance: { top: number; left: number }
+}) {
   if (!scheme) return null
 
   const { type, uuid, children } = scheme
+  const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 
   const imagesCountArray = useMemo(() => {
     let count
@@ -37,6 +54,9 @@ function ImagesComponent({ scheme }: { scheme: IImages }) {
 
   return (
     <div>
+      <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
+        編輯
+      </div>
       {imagesCountArray.map((_, index) => {
         const { props, controls } = children[index] || {}
 
@@ -46,14 +66,14 @@ function ImagesComponent({ scheme }: { scheme: IImages }) {
               <div>
                 <img src={props?.imgPath || DefaultImage} alt="images" />
               </div>
-
-              <div>
-                <h1>wwwww</h1>
-                <p>eeeee</p>
-              </div>
             </div>
 
-            <ImagesControlSection controls={controls} props={props} order={index} uuid={uuid} />
+            {/* controller container popup */}
+            <PopUp isPopupShow={isPopupShow} setIsPopupShow={setIsPopupShow} distance={distance}>
+              <div className="bg-pink-300">
+                <ImagesControlSection controls={controls} props={props} order={index} uuid={uuid} />
+              </div>
+            </PopUp>
           </Fragment>
         )
       })}

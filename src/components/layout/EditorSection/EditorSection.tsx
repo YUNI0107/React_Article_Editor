@@ -1,17 +1,18 @@
 import { useContext } from 'react'
 
+// components
+import FocusElement from '../../common/FocusElement/FocusElement'
+
 // types
 import { SchemeContext } from '../../../contexts/SchemeContextSection'
 import { IImages } from '../../../types/editor'
-import ImagesComponent from '../../element/ImagesComponent'
 
 function EditorSection() {
   const { schemes } = useContext(SchemeContext)
 
   return (
     <div>
-      <ImagesComponent scheme={schemes[0] as IImages} />
-      <ImagesComponent scheme={schemes[1] as IImages} />
+      <FocusElement scheme={schemes[0] as IImages} />
     </div>
   )
 }
