@@ -1,14 +1,15 @@
-import { useState, useRef, useMemo, FocusEvent } from 'react'
+import { useState, useRef, FocusEvent, useContext, forwardRef } from 'react'
 import classNames from 'classnames'
 
 // components
 import SingleEachContainer from './SingleEachContainer'
 
-// utils
-import getElementPosition from '../../../utils/getElementPosition'
-
 // types
 import { IComponentSchema } from '../../../types/editor'
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+
+// contexts
+// import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 /**
  *A Component contain focus & pop up feature
@@ -32,18 +33,9 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
   const [isPopupShow, setIsPopupShow] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
-  const mainContent = useRef<HTMLDivElement | null>(null)
-  const container = useRef<HTMLDivElement | null>(null)
-
-  // memos
-  const distance = useMemo(() => {
-    console.log('rerender')
-    const { x: elementX, y: elementY } = getElementPosition(mainContent.current || null)
-    return {
-      top: elementX - 100,
-      left: elementY - 100,
-    }
-  }, [])
+  const focusElement = useRef<HTMLDivElement | null>(null)
+  // const { previewMode } = useContext(EditorInfoContext)
+  const { distance } = useContext(EditorInfoContext)
 
   // operation
   const PopupShowHandler = () => {
@@ -77,13 +69,12 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
       onBlur={elementBlur}
       onMouseEnter={() => setIsButtonShow(true)}
       onMouseLeave={elementMouseLeave}
-      ref={container}
       tabIndex={-1}
       className="relative"
     >
       {/* element */}
       <div
-        ref={mainContent}
+        ref={focusElement}
         className={classNames({ 'ring-4 ring-secondary-blue-300-blue': isFocused })}
       >
         {(scheme.groupType === 'button' ||
@@ -103,4 +94,4 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
   )
 }
 
-export default FocusElement
+export default forwardRef(FocusElement)

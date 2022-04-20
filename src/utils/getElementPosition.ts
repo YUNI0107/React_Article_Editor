@@ -1,7 +1,8 @@
 function getElementPosition(element: HTMLElement | null) {
+  const bindRect = element?.getBoundingClientRect()
   return {
-    x: element?.offsetTop || 0,
-    y: element?.offsetLeft || 0,
+    top: bindRect?.top || 0,
+    left: bindRect?.left || 0,
   }
 }
 

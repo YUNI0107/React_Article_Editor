@@ -28,7 +28,7 @@ const defaultSchemes: {
 export const SchemeContext = createContext(defaultSchemes)
 
 function SchemeContextSection({ children }: { children: ReactNode }) {
-  const [schemes, setSchemes] = useState<Array<IComponentSchema>>([a])
+  const [schemes, setSchemes] = useState<Array<IComponentSchema>>([a, a, a, a])
 
   return (
     <SchemeContext.Provider

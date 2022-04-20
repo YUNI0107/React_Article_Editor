@@ -16,42 +16,40 @@ function MainEditorContainer() {
   const { previewMode } = useContext(EditorInfoContext)
 
   return (
-    <div className="relative flex-1 flex flex-col items-center">
+    <div className="relative flex-1 flex flex-col items-center justify-center">
       {/* top-ruler */}
       <Ruler />
 
       {/* bottom-preview */}
       <div
         className={classNames(
-          'h-full border-x-[2px] border-dashed border-main-gray-300 transition-all duration-700 flex flex-col justify-center',
+          'w-full border-x-[2px] border-dashed border-main-gray-300 transition-all duration-700 flex justify-center overflow-y-auto',
           {
-            'w-mobile py-16': previewMode === 'sm',
-            'w-tablet py-16': previewMode === 'md',
-            'w-desktop': previewMode === 'lg',
+            'max-h-mobile': previewMode === 'sm',
+            'max-h-tablet': previewMode === 'md',
+            'h-full': previewMode === 'lg',
           }
         )}
       >
         <div
           className={classNames('relative h-full', {
-            'max-h-mobile': previewMode === 'sm',
-            'max-h-tablet': previewMode === 'md',
-            'h-full': previewMode === 'lg',
+            'w-mobile py-16': previewMode === 'sm',
+            'w-tablet py-14': previewMode === 'md',
+            'w-desktop': previewMode === 'lg',
           })}
         >
           <div
-            className={classNames('relative h-full w-full bg-white z-20', {
+            className={classNames('relative h-full w-full z-20', {
               'p-4': previewMode === 'md' || previewMode === 'sm',
-              'p-6': previewMode === 'lg',
+              'p-6 bg-white': previewMode === 'lg',
             })}
-            style={{ overflowX: 'visible' }}
           >
             <SchemeContextSection>
               <EditorSection />
             </SchemeContextSection>
           </div>
-
-          <BackDevice />
         </div>
+        <BackDevice />
       </div>
     </div>
   )

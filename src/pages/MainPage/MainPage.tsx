@@ -17,7 +17,7 @@ function MainPage() {
 
         {/* main-editor-container */}
         <EditorInfoContextSection>
-          <MainEditorContainer></MainEditorContainer>
+          <MainEditorContainer />
         </EditorInfoContextSection>
       </div>
     </div>
