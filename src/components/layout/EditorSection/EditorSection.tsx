@@ -10,7 +10,7 @@ function EditorSection() {
   const { schemes } = useContext(SchemeContext)
 
   return (
-    <div>
+    <>
       {schemes.map((scheme) => {
         switch (scheme.groupType) {
           case 'banner':
@@ -33,7 +33,7 @@ function EditorSection() {
             )
         }
       })}
-    </div>
+    </>
   )
 }
 

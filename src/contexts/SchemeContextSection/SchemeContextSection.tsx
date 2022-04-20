@@ -2,14 +2,18 @@ import { ReactNode, createContext, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 // types
-import { IComponentSchema } from '../../types/editor'
+import { IComponentSchema, IBanner } from '../../types/editor'
 
 const uuid1 = uuidv4()
 
-const a: IComponentSchema = {
+const a: IBanner = {
   uuid: uuid1,
   groupType: 'banner',
   type: 'banner',
+  props: {
+    imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
+  },
+  controls: ['imgPathControl'],
 }
 
 const defaultSchemes: {

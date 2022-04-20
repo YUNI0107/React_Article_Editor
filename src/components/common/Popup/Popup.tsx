@@ -24,18 +24,27 @@ function PopUp({
   }, [isPopupShow])
 
   return (
-    <>
-      {isPopupShow && (
-        <div
-          className="absolute z-[100]"
-          onTransitionEnd={() => transitionEnd(isVisible)}
-          style={{ top: `${top}px`, left: `${left}px` }}
-        >
-          {/* popup */}
-          {children}
-        </div>
-      )}
-    </>
+    <div
+      className="absolute z-[100]"
+      onTransitionEnd={() => transitionEnd(isVisible)}
+      style={{ top: `${top}px`, left: `${left}px` }}
+    >
+      {/* popup */}
+      {children}
+    </div>
+
+    // <>
+    //   {isPopupShow && (
+    //     <div
+    //       className="absolute z-[100]"
+    //       onTransitionEnd={() => transitionEnd(isVisible)}
+    //       style={{ top: `${top}px`, left: `${left}px` }}
+    //     >
+    //       {/* popup */}
+    //       {children}
+    //     </div>
+    //   )}
+    // </>
   )
 }
 

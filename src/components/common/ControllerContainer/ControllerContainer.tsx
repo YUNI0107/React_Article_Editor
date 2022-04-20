@@ -20,7 +20,7 @@ function ControllerContainer({
   if (!props || !controls) return null
 
   return (
-    <div>
+    <div className="bg-pink-300">
       {controls.map((control, index) => {
         return (
           <Fragment key={index}>

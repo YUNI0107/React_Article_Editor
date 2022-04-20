@@ -39,10 +39,11 @@ function MainEditorContainer() {
           })}
         >
           <div
-            className={classNames('relative h-full w-full bg-white z-20 overflow-y-auto', {
+            className={classNames('relative h-full w-full bg-white z-20', {
               'p-4': previewMode === 'md' || previewMode === 'sm',
               'p-6': previewMode === 'lg',
             })}
+            style={{ overflowX: 'visible' }}
           >
             <SchemeContextSection>
               <EditorSection />

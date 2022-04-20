@@ -1,3 +1,5 @@
+import classNames from 'classnames'
+
 // components
 import PopUp from '../../common/Popup'
 import ControllerContainer from '../../common/ControllerContainer'
@@ -6,7 +8,7 @@ import ControllerContainer from '../../common/ControllerContainer'
 import { IBanner } from '../../../types/editor'
 
 // images
-import classNames from 'classnames'
+import DefaultImage from '../../../assets/default.png'
 
 function BannerComponent({
   scheme,
@@ -25,12 +27,13 @@ function BannerComponent({
 }) {
   if (!scheme) return null
 
-  const { uuid, controls } = scheme
+  const { uuid, controls, props } = scheme
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 
   return (
     <div>
       <div>
+        <img src={props?.imgPath || DefaultImage} alt="images" />
         <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
           編輯
         </div>
@@ -38,9 +41,7 @@ function BannerComponent({
       </div>
 
       <PopUp isPopupShow={isPopupShow} setIsPopupShow={setIsPopupShow} distance={distance}>
-        <div className="bg-pink-300">
-          <ControllerContainer controls={controls} uuid={uuid} />
-        </div>
+        <ControllerContainer props={props} controls={controls} uuid={uuid} />
       </PopUp>
     </div>
   )

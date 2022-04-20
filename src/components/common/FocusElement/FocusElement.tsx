@@ -40,8 +40,8 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
     console.log('rerender')
     const { x: elementX, y: elementY } = getElementPosition(mainContent.current || null)
     return {
-      top: elementX + 100,
-      left: elementY + 100,
+      top: elementX - 100,
+      left: elementY - 100,
     }
   }, [])
 
@@ -82,7 +82,10 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
       className="relative"
     >
       {/* element */}
-      <div ref={mainContent} className={classNames({ 'ring-4': isFocused })}>
+      <div
+        ref={mainContent}
+        className={classNames({ 'ring-4 ring-secondary-blue-300-blue': isFocused })}
+      >
         {(scheme.groupType === 'button' ||
           scheme.groupType === 'banner' ||
           scheme.groupType === 'gallery') && (

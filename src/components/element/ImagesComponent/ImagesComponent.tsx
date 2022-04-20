@@ -1,4 +1,5 @@
 import { Fragment, useMemo } from 'react'
+import classNames from 'classnames'
 
 // components
 import PopUp from '../../common/Popup'
@@ -8,7 +9,6 @@ import { IImages } from '../../../types/editor'
 
 // images
 import DefaultImage from '../../../assets/default.png'
-import classNames from 'classnames'
 
 function ImagesComponent({
   scheme,
@@ -27,7 +27,7 @@ function ImagesComponent({
 }) {
   if (!scheme) return null
 
-  const { type, uuid, children } = scheme
+  const { type, children } = scheme
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 
   const imagesCountArray = useMemo(() => {

@@ -10,15 +10,15 @@ import imageTypeValidate from '../../../validator/imageTypeValidate'
 // contexts
 import { SchemeContext } from '../../../contexts/SchemeContextSection'
 
-function ImgPathControl({ order, uuid }: { order?: number; uuid?: string }) {
+function ImgPathControl({ uuid, order }: { uuid: string; order?: number }) {
   const { schemes, handleScheme } = useContext(SchemeContext)
   const controlHandler = new ControlHandler('imgPath', schemes, handleScheme)
 
-  if (order === undefined || !uuid) return null
-
   const changeInputValue = async (event: ChangeEvent<HTMLInputElement>) => {
+    console.log(order, uuid)
+
     if (!event.target.files?.[0] || !imageTypeValidate(event.target.files?.[0])) {
-      console.log('NOT Correct Type')
+      console.log('Not Correct Type')
       return
     }
 
@@ -29,7 +29,7 @@ function ImgPathControl({ order, uuid }: { order?: number; uuid?: string }) {
   }
 
   return (
-    <div>
+    <div className="p-10">
       <h1>ControlControlControlControlControlControlControlControl</h1>
       <input
         type="file"
