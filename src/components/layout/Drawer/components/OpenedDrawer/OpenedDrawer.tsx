@@ -1,9 +1,9 @@
 // components
-import AddDrawer from '../../components/AddDrawer'
-import InfoDrawer from '../../components/InfoDrawer'
+import AddDrawer from '../AddDrawer'
+import InfoDrawer from '../InfoDrawer'
 
 // types
-import { DrawerStateType } from '../../../../../../../types/layout'
+import { DrawerStateType } from '../../../../../types/layout'
 
 function OpenedDrawer({
   drawerState,

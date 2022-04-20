@@ -2,7 +2,7 @@ import { useState } from 'react'
 import classNames from 'classnames'
 
 // types
-import { DrawerStateType } from '../../../../../types/layout'
+import { DrawerStateType } from '../../../types/layout'
 
 // components
 import OpenedDrawer from './components/OpenedDrawer'

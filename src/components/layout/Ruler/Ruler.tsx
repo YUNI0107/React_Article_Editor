@@ -1,20 +1,19 @@
-import { useMemo } from 'react'
+import { useContext, useMemo } from 'react'
 import classNames from 'classnames'
 
 // types
-import { PreviewModesType } from '../../../../../types/layout'
+import { PreviewModesType } from '../../../types/layout'
+
+// contexts
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 // styles
 const ruler =
   'h-7 border-x border-white flex justify-center items-center absolute left-1/2 -translate-x-1/2 cursor-pointer hover:brightness-110 active:contrast-125'
 
-function Ruler({
-  previewMode,
-  handlePreviewMode,
-}: {
-  previewMode: PreviewModesType
-  handlePreviewMode: (mode: PreviewModesType) => void
-}) {
+function Ruler() {
+  const { previewMode, handlePreviewMode } = useContext(EditorInfoContext)
+
   const previewModeText = useMemo(() => {
     switch (previewMode) {
       case 'sm':

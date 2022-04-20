@@ -1,24 +1,25 @@
-import { useState } from 'react'
-
 // components
 import Header from '../../components/layout/Header'
-import MainEditorSection from '../../components/layout/MainEditorSection'
+import Drawer from '../../components/layout/Drawer'
 
-// types
-import { PreviewModesType } from '../../types/layout.d'
+// contexts
+import EditorInfoContextSection from '../../contexts/EditorInfoContextSection'
+import MainEditorContainer from './components/MainEditorContainer'
 
 function MainPage() {
-  const [previewMode, setPreviewMode] = useState<PreviewModesType>('lg')
-
-  // operations
-  const handlePreviewMode = (mode: PreviewModesType) => {
-    setPreviewMode(mode)
-  }
-
   return (
     <div className="w-screen min-h-screen min-w-[1052px] bg-secondary-blue-100 flex flex-col">
       <Header />
-      <MainEditorSection previewMode={previewMode} handlePreviewMode={handlePreviewMode} />
+
+      <div className="flex-1 flex h-full pt-20">
+        {/* left-drawer */}
+        <Drawer />
+
+        {/* main-editor-container */}
+        <EditorInfoContextSection>
+          <MainEditorContainer></MainEditorContainer>
+        </EditorInfoContextSection>
+      </div>
     </div>
   )
 }

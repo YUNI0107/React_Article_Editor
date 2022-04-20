@@ -3,33 +3,24 @@ import ImagesComponent from '../../element/ImagesComponent'
 
 import { IImages } from '../../../types/editor'
 
-const EachContainer = ({
-  scheme,
-  PopupShowHandler,
-  isButtonShow,
-  isPopupShow,
-  setIsPopupShow,
-  distance,
-}: {
+interface IEachContainer {
   scheme: IImages
   PopupShowHandler: () => void
   isButtonShow: boolean
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
   distance: { top: number; left: number }
-}) => {
-  return (
-    <>
-      <ImagesComponent
-        scheme={scheme}
-        PopupShowHandler={PopupShowHandler}
-        isButtonShow={isButtonShow}
-        isPopupShow={isPopupShow}
-        setIsPopupShow={setIsPopupShow}
-        distance={distance}
-      />
-    </>
-  )
+}
+
+function EachContainer(props: IEachContainer) {
+  const { scheme } = props
+
+  switch (scheme.groupType) {
+    case 'images':
+      return <ImagesComponent {...props} />
+    default:
+      return <></>
+  }
 }
 
 export default EachContainer

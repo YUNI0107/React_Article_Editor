@@ -1,9 +1,12 @@
 import classNames from 'classnames'
+import { useContext } from 'react'
 
-// types
-import { PreviewModesType } from '../../../../../types/layout'
+// contexts
+import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
 
-function BackDevice({ previewMode }: { previewMode: PreviewModesType }) {
+function BackDevice() {
+  const { previewMode } = useContext(EditorInfoContext)
+
   return (
     <div
       className={classNames(

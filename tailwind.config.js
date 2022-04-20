@@ -11,6 +11,10 @@ module.exports = {
         tablet: '660px',
         mobile: '600px',
       },
+      maxHeight: {
+        tablet: '660px',
+        mobile: '600px',
+      },
       colors: {
         'main-blue': '#3742FA',
         'main-yellow': '#FFA502',
