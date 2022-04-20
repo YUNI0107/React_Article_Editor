@@ -2,15 +2,16 @@ import { useState, useRef, useMemo, FocusEvent } from 'react'
 import classNames from 'classnames'
 
 // components
-import EachContainer from '../EachContainer'
+import SingleEachContainer from './SingleEachContainer'
 
 // utils
 import getElementPosition from '../../../utils/getElementPosition'
 
 // types
-import { IImages } from '../../../types/editor'
+import { IComponentSchema } from '../../../types/editor'
 
 /**
+ *A Component contain focus & pop up feature
  *
  * There are 2 conditions
  *
@@ -27,7 +28,7 @@ import { IImages } from '../../../types/editor'
  *
  */
 
-function FocusElement({ scheme }: { scheme: IImages }) {
+function FocusElement({ scheme }: { scheme: IComponentSchema }) {
   const [isPopupShow, setIsPopupShow] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
@@ -35,7 +36,6 @@ function FocusElement({ scheme }: { scheme: IImages }) {
   const container = useRef<HTMLDivElement | null>(null)
 
   // memos
-
   const distance = useMemo(() => {
     console.log('rerender')
     const { x: elementX, y: elementY } = getElementPosition(mainContent.current || null)
@@ -83,14 +83,18 @@ function FocusElement({ scheme }: { scheme: IImages }) {
     >
       {/* element */}
       <div ref={mainContent} className={classNames({ 'ring-4': isFocused })}>
-        <EachContainer
-          scheme={scheme}
-          PopupShowHandler={PopupShowHandler}
-          isButtonShow={isButtonShow}
-          isPopupShow={isPopupShow}
-          setIsPopupShow={setIsPopupShow}
-          distance={distance}
-        />
+        {(scheme.groupType === 'button' ||
+          scheme.groupType === 'banner' ||
+          scheme.groupType === 'gallery') && (
+          <SingleEachContainer
+            scheme={scheme}
+            PopupShowHandler={PopupShowHandler}
+            isButtonShow={isButtonShow}
+            isPopupShow={isPopupShow}
+            setIsPopupShow={setIsPopupShow}
+            distance={distance}
+          />
+        )}
       </div>
     </div>
   )

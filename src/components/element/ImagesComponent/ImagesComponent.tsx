@@ -1,7 +1,6 @@
 import { Fragment, useMemo } from 'react'
 
 // components
-import ImagesControlSection from './components/ImagesControlSection'
 import PopUp from '../../common/Popup'
 
 // types
@@ -58,7 +57,7 @@ function ImagesComponent({
         編輯
       </div>
       {imagesCountArray.map((_, index) => {
-        const { props, controls } = children[index] || {}
+        const { props } = children[index] || {}
 
         return (
           <Fragment key={index}>
@@ -70,9 +69,7 @@ function ImagesComponent({
 
             {/* controller container popup */}
             <PopUp isPopupShow={isPopupShow} setIsPopupShow={setIsPopupShow} distance={distance}>
-              <div className="bg-pink-300">
-                <ImagesControlSection controls={controls} props={props} order={index} uuid={uuid} />
-              </div>
+              <div className="bg-pink-300"></div>
             </PopUp>
           </Fragment>
         )

@@ -1,19 +1,19 @@
 import { Fragment } from 'react'
 
 // types
-import { IControlProps, IControls } from '../../../../../types/editor'
+import { IControlProps, IControls } from '../../../types/editor'
 
 // components
-import SwitchControl from '../../../../common/SwitchControl'
+import SwitchControl from '../SwitchControl'
 
-function ImagesControlSection({
-  order,
+function ControllerContainer({
   uuid,
+  order,
   controls,
   props,
 }: {
-  order: number
   uuid: string
+  order?: number
   controls?: Array<IControls>
   props?: IControlProps
 }) {
@@ -32,4 +32,4 @@ function ImagesControlSection({
   )
 }
 
-export default ImagesControlSection
+export default ControllerContainer

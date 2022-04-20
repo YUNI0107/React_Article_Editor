@@ -7,13 +7,13 @@ import ImgPathControl from '../../controls/ImgPathControl'
 function SwitchControl({
   control,
   props,
-  order,
   uuid,
+  order,
 }: {
   control: IControls
   props: IControlProps
-  order?: number
   uuid: string
+  order?: number
 }) {
   switch (control) {
     case 'imgPathControl':

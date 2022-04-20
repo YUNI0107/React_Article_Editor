@@ -40,8 +40,8 @@ function MainEditorContainer() {
         >
           <div
             className={classNames('relative h-full w-full bg-white z-20 overflow-y-auto', {
-              'px-4': previewMode === 'md' || previewMode === 'sm',
-              'px-6': previewMode === 'lg',
+              'p-4': previewMode === 'md' || previewMode === 'sm',
+              'p-6': previewMode === 'lg',
             })}
           >
             <SchemeContextSection>

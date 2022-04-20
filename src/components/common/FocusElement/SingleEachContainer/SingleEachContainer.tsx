@@ -1,10 +1,11 @@
 // components
-import ImagesComponent from '../../element/ImagesComponent'
+import BannerComponent from '../../../element/BannerComponent'
 
-import { IImages } from '../../../types/editor'
+// types
+import { ISingleSchema } from '../../../../types/editor'
 
 interface IEachContainer {
-  scheme: IImages
+  scheme: ISingleSchema
   PopupShowHandler: () => void
   isButtonShow: boolean
   isPopupShow: boolean
@@ -16,8 +17,8 @@ function EachContainer(props: IEachContainer) {
   const { scheme } = props
 
   switch (scheme.groupType) {
-    case 'images':
-      return <ImagesComponent {...props} />
+    case 'banner':
+      return <BannerComponent {...props} scheme={scheme} />
     default:
       return <></>
   }

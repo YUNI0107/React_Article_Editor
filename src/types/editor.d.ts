@@ -42,6 +42,7 @@ export type IControls = 'imgPathControl'
  */
 
 type IComponentSchema = IParagraph | IBanner | IImages | IGallery | IButton
+type ISingleSchema = IBanner | IGallery | IButton
 
 interface IBanner {
   uuid: string

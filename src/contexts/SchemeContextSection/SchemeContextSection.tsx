@@ -8,16 +8,8 @@ const uuid1 = uuidv4()
 
 const a: IComponentSchema = {
   uuid: uuid1,
-  groupType: 'images',
-  type: 'triplicate-square',
-  children: [
-    {
-      props: {
-        imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
-      },
-      controls: ['imgPathControl'],
-    },
-  ],
+  groupType: 'banner',
+  type: 'banner',
 }
 
 const defaultSchemes: {

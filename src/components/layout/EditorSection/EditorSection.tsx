@@ -1,18 +1,38 @@
-import { useContext } from 'react'
+import { Fragment, useContext } from 'react'
 
 // components
-import FocusElement from '../../common/FocusElement/FocusElement'
+import SingleFocusElement from '../../common/SingleFocusElement'
 
 // types
 import { SchemeContext } from '../../../contexts/SchemeContextSection'
-import { IImages } from '../../../types/editor'
 
 function EditorSection() {
   const { schemes } = useContext(SchemeContext)
 
   return (
     <div>
-      <FocusElement scheme={schemes[0] as IImages} />
+      {schemes.map((scheme) => {
+        switch (scheme.groupType) {
+          case 'banner':
+          case 'button':
+          case 'gallery':
+            return (
+              <Fragment key={scheme.uuid}>
+                <SingleFocusElement scheme={scheme} />
+              </Fragment>
+            )
+          case 'images':
+            return <Fragment key={scheme.uuid}></Fragment>
+          case 'paragraph':
+            return <Fragment key={scheme.uuid}></Fragment>
+          default:
+            return (
+              <Fragment key={'error-display'}>
+                <p>Error display</p>
+              </Fragment>
+            )
+        }
+      })}
     </div>
   )
 }
