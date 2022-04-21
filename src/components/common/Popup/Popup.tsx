@@ -1,17 +1,11 @@
-import { useState, useEffect, ReactNode } from 'react'
+import { useState, useEffect, ReactNode, useContext } from 'react'
 
-function PopUp({
-  children,
-  isPopupShow,
-  setIsPopupShow,
-  distance,
-}: {
-  children: ReactNode
-  isPopupShow: boolean
-  setIsPopupShow: (isPopupShow: boolean) => void
-  distance: { top: number; left: number }
-}) {
+// contexts
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+
+function PopUp({ children }: { children: ReactNode }) {
   const [isVisible, setIsVisible] = useState(false)
+  const { distance, isPopupShow, setIsPopupShow } = useContext(EditorInfoContext)
   const { top, left } = distance
 
   const transitionEnd = (isVisible: boolean) => {
@@ -23,28 +17,21 @@ function PopUp({
     if (isPopupShow) setIsVisible(true)
   }, [isPopupShow])
 
-  return (
-    <div
-      className="absolute z-[100]"
-      onTransitionEnd={() => transitionEnd(isVisible)}
-      style={{ top: `${top}px`, left: `${left}px` }}
-    >
-      {/* popup */}
-      {children}
-    </div>
+  console.log(isPopupShow)
 
-    // <>
-    //   {isPopupShow && (
-    //     <div
-    //       className="absolute z-[100]"
-    //       onTransitionEnd={() => transitionEnd(isVisible)}
-    //       style={{ top: `${top}px`, left: `${left}px` }}
-    //     >
-    //       {/* popup */}
-    //       {children}
-    //     </div>
-    //   )}
-    // </>
+  return (
+    <>
+      {isPopupShow && (
+        <div
+          className="absolute z-20"
+          onTransitionEnd={() => transitionEnd(isVisible)}
+          style={{ top: `${top}px`, left: `${left}px` }}
+        >
+          {/* popup */}
+          {children}
+        </div>
+      )}
+    </>
   )
 }
 

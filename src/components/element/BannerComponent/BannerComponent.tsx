@@ -1,9 +1,5 @@
 import classNames from 'classnames'
 
-// components
-import PopUp from '../../common/Popup'
-import ControllerContainer from '../../common/ControllerContainer'
-
 // types
 import { IBanner } from '../../../types/editor'
 
@@ -14,9 +10,6 @@ function BannerComponent({
   scheme,
   PopupShowHandler,
   isButtonShow,
-  isPopupShow,
-  setIsPopupShow,
-  distance,
 }: {
   scheme: IBanner
   PopupShowHandler: () => void
@@ -27,7 +20,7 @@ function BannerComponent({
 }) {
   if (!scheme) return null
 
-  const { uuid, controls, props } = scheme
+  const { props } = scheme
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 
   return (
@@ -39,10 +32,6 @@ function BannerComponent({
         </div>
         <h1>Banner</h1>
       </div>
-
-      <PopUp isPopupShow={isPopupShow} setIsPopupShow={setIsPopupShow} distance={distance}>
-        <ControllerContainer props={props} controls={controls} uuid={uuid} />
-      </PopUp>
     </div>
   )
 }

@@ -1,4 +1,4 @@
-import { useState, useRef, FocusEvent, useContext, forwardRef } from 'react'
+import { useState, useRef, FocusEvent, useContext, useEffect } from 'react'
 import classNames from 'classnames'
 
 // components
@@ -8,8 +8,8 @@ import SingleEachContainer from './SingleEachContainer'
 import { IComponentSchema } from '../../../types/editor'
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
-// contexts
-// import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+// utils
+import getElementPosition from '../../../utils/getElementPosition'
 
 /**
  *A Component contain focus & pop up feature
@@ -30,12 +30,11 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
  */
 
 function FocusElement({ scheme }: { scheme: IComponentSchema }) {
-  const [isPopupShow, setIsPopupShow] = useState(false)
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
   const focusElement = useRef<HTMLDivElement | null>(null)
-  // const { previewMode } = useContext(EditorInfoContext)
-  const { distance } = useContext(EditorInfoContext)
+  const { distance, setFocusElementSchema, setElementPosition, isPopupShow, setIsPopupShow } =
+    useContext(EditorInfoContext)
 
   // operation
   const PopupShowHandler = () => {
@@ -62,6 +61,15 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
   const elementMouseLeave = () => {
     if (!isFocused) setIsButtonShow(false)
   }
+
+  useEffect(() => {
+    if (isFocused) {
+      const elementPosition = getElementPosition(focusElement.current || null)
+
+      setFocusElementSchema(scheme)
+      setElementPosition(elementPosition)
+    }
+  }, [isFocused, focusElement.current])
 
   return (
     <div
@@ -94,4 +102,4 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
   )
 }
 
-export default forwardRef(FocusElement)
+export default FocusElement

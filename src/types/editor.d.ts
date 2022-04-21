@@ -66,6 +66,7 @@ interface IImages {
 }
 
 interface IImage {
+  uuid: string
   props?: IControlProps
   controls?: Array<IControls>
   childrenParagraph?: {

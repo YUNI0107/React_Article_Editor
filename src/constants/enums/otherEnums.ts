@@ -9,3 +9,5 @@ export enum ModeSizes {
   Tablet = 720,
   Mobile = 320,
 }
+
+export const controlContainerWidth = 240

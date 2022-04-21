@@ -5,9 +5,29 @@ import { v4 as uuidv4 } from 'uuid'
 import { IComponentSchema, IBanner } from '../../types/editor'
 
 const uuid1 = uuidv4()
+const uuid2 = uuidv4()
+const uuid3 = uuidv4()
 
 const a: IBanner = {
   uuid: uuid1,
+  groupType: 'banner',
+  type: 'banner',
+  props: {
+    imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
+  },
+  controls: ['imgPathControl'],
+}
+const b: IBanner = {
+  uuid: uuid2,
+  groupType: 'banner',
+  type: 'banner',
+  props: {
+    imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
+  },
+  controls: ['imgPathControl'],
+}
+const c: IBanner = {
+  uuid: uuid3,
   groupType: 'banner',
   type: 'banner',
   props: {
@@ -28,7 +48,7 @@ const defaultSchemes: {
 export const SchemeContext = createContext(defaultSchemes)
 
 function SchemeContextSection({ children }: { children: ReactNode }) {
-  const [schemes, setSchemes] = useState<Array<IComponentSchema>>([a, a, a, a])
+  const [schemes, setSchemes] = useState<Array<IComponentSchema>>([a, b, c])
 
   return (
     <SchemeContext.Provider

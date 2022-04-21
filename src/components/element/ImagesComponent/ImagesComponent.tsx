@@ -1,9 +1,6 @@
 import { Fragment, useMemo } from 'react'
 import classNames from 'classnames'
 
-// components
-import PopUp from '../../common/Popup'
-
 // types
 import { IImages } from '../../../types/editor'
 
@@ -14,16 +11,12 @@ function ImagesComponent({
   scheme,
   PopupShowHandler,
   isButtonShow,
-  isPopupShow,
-  setIsPopupShow,
-  distance,
 }: {
   scheme: IImages
   PopupShowHandler: () => void
   isButtonShow: boolean
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
-  distance: { top: number; left: number }
 }) {
   if (!scheme) return null
 
@@ -66,11 +59,6 @@ function ImagesComponent({
                 <img src={props?.imgPath || DefaultImage} alt="images" />
               </div>
             </div>
-
-            {/* controller container popup */}
-            <PopUp isPopupShow={isPopupShow} setIsPopupShow={setIsPopupShow} distance={distance}>
-              <div className="bg-pink-300"></div>
-            </PopUp>
           </Fragment>
         )
       })}
