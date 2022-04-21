@@ -1,6 +1,6 @@
 function Header() {
   return (
-    <div className="fixed z-30 w-full bg-white h-20 flex flex-col drop-shadow-[0_0px_15px_rgba(0,0,0,0.10)]">
+    <div className="fixed z-30 w-full bg-white h-20 flex flex-col basic-shadow">
       {/* top */}
       <div className="flex-1 flex justify-end px-5 items-center">
         <div>

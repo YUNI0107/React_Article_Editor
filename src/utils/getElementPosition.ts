@@ -16,7 +16,7 @@ function getElementPosition(element: HTMLElement | null) {
   const padding = 20
 
   const left =
-    originalLeft > window.innerWidth - bindRect.width
+    originalLeft > window.innerWidth - controlContainerWidth
       ? window.innerWidth - controlContainerWidth - padding
       : originalLeft + padding
   const top = originalTop > headerHeight + padding ? originalTop : headerHeight + padding
