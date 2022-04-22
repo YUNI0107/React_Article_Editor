@@ -21,8 +21,6 @@ function getElementPosition(element: HTMLElement | null) {
       : originalLeft + padding
   const top = originalTop > headerHeight + padding ? originalTop : headerHeight + padding
 
-  console.log(top)
-
   return {
     top,
     left,

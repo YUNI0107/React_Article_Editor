@@ -5,6 +5,7 @@ import Drawer from '../../components/layout/Drawer'
 // contexts
 import EditorInfoContextSection from '../../contexts/EditorInfoContextSection'
 import MainEditorContainer from './components/MainEditorContainer'
+import SchemeContextSection from '../../contexts/SchemeContextSection'
 
 function MainPage() {
   return (
@@ -16,9 +17,11 @@ function MainPage() {
         <Drawer />
 
         {/* main-editor-container */}
-        <EditorInfoContextSection>
-          <MainEditorContainer />
-        </EditorInfoContextSection>
+        <SchemeContextSection>
+          <EditorInfoContextSection>
+            <MainEditorContainer />
+          </EditorInfoContextSection>
+        </SchemeContextSection>
       </div>
     </div>
   )

@@ -11,12 +11,12 @@ import { controlContainerWidth } from '../../../constants/enums/otherEnums'
 
 function ControllerContainer({
   uuid,
-  order,
+  childUuid,
   controls,
   props,
 }: {
   uuid?: string
-  order?: number
+  childUuid?: string
   controls?: Array<IControls>
   props?: IControlProps
 }) {
@@ -27,7 +27,7 @@ function ControllerContainer({
       {controls.map((control, index) => {
         return (
           <Fragment key={index}>
-            {<SwitchControl control={control} props={props} order={order} uuid={uuid} />}
+            {<SwitchControl control={control} props={props} childUuid={childUuid} uuid={uuid} />}
           </Fragment>
         )
       })}

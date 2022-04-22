@@ -24,7 +24,7 @@ const b: IBanner = {
   props: {
     imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
   },
-  controls: ['imgPathControl'],
+  controls: ['imgPathControl', 'imgFilterControl'],
 }
 const c: IBanner = {
   uuid: uuid3,

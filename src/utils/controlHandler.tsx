@@ -1,4 +1,4 @@
-import { IComponentSchema, IImages } from '../types/editor'
+import { IComponentSchema, IMultipleSchema, ISingleSchema } from '../types/editor'
 
 class ControlHandler {
   controlName: string
@@ -15,17 +15,29 @@ class ControlHandler {
     this.handleScheme = handleScheme
   }
 
-  changeValue(value: string, uuid: string, order?: number) {
+  changeValue(value: string, uuid: string, childUuid?: string) {
     const newSchemes = this.schemes
     const targetIndex = newSchemes.findIndex((item) => item.uuid === uuid)
 
-    if (order !== undefined && 'children' in newSchemes[targetIndex]) {
-      const scheme = newSchemes[targetIndex] as IImages
+    if (!childUuid) {
+      const schemes = newSchemes[targetIndex] as ISingleSchema
+      const targetProp = schemes.props
 
-      if (scheme.children[order].props) {
-        // TODO: 不要用驚嘆號
-        scheme.children[order].props![this.controlName] = value
+      if (targetProp) {
+        targetProp[this.controlName] = value
+
         this.handleScheme(newSchemes)
+      }
+    } else if ('children' in newSchemes[targetIndex]) {
+      {
+        const scheme = newSchemes[targetIndex] as IMultipleSchema
+        const childrenTargetIndex = scheme.children.findIndex((item) => item.uuid === childUuid)
+        const targetProp = scheme.children[childrenTargetIndex].props
+
+        if (targetProp) {
+          targetProp[this.controlName] = value
+          this.handleScheme(newSchemes)
+        }
       }
     }
   }

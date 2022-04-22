@@ -14,19 +14,21 @@ function BannerComponent({
   scheme: IBanner
   PopupShowHandler: () => void
   isButtonShow: boolean
-  isPopupShow: boolean
-  setIsPopupShow: (isShow: boolean) => void
-  distance: { top: number; left: number }
 }) {
   if (!scheme) return null
 
   const { props } = scheme
+  const filterStyleClass = props?.filter
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 
   return (
     <div>
       <div>
-        <img src={props?.imgPath || DefaultImage} alt="images" />
+        <img
+          className={classNames(filterStyleClass)}
+          src={props?.imgPath || DefaultImage}
+          alt="images"
+        />
         <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
           編輯
         </div>

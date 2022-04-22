@@ -32,7 +32,7 @@ export interface IControlProps extends CSSProperties {
 export type IControlPropsKey = keyof IControlProps
 
 // controls
-export type IControls = 'imgPathControl'
+export type IControls = 'imgPathControl' | 'imgFilterControl'
 
 /**
  *
@@ -43,6 +43,7 @@ export type IControls = 'imgPathControl'
 
 type IComponentSchema = IParagraph | IBanner | IImages | IGallery | IButton
 type ISingleSchema = IBanner | IGallery | IButton
+type IMultipleSchema = IImages
 
 interface IBanner {
   uuid: string

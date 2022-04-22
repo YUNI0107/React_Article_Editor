@@ -10,13 +10,11 @@ import imageTypeValidate from '../../../validator/imageTypeValidate'
 // contexts
 import { SchemeContext } from '../../../contexts/SchemeContextSection'
 
-function ImgPathControl({ uuid, order }: { uuid: string; order?: number }) {
+function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
   const { schemes, handleScheme } = useContext(SchemeContext)
   const controlHandler = new ControlHandler('imgPath', schemes, handleScheme)
 
   const changeInputValue = async (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(order, uuid)
-
     if (!event.target.files?.[0] || !imageTypeValidate(event.target.files?.[0])) {
       console.log('Not Correct Type')
       return
@@ -24,7 +22,7 @@ function ImgPathControl({ uuid, order }: { uuid: string; order?: number }) {
 
     const imageBase64 = await getBase64(event.target.files[0])
     if (typeof imageBase64 === 'string') {
-      controlHandler.changeValue(imageBase64, uuid, order)
+      controlHandler.changeValue(imageBase64, uuid, childUuid)
     }
   }
 

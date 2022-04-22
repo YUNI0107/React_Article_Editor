@@ -17,11 +17,9 @@ function PopUp({ children }: { children: ReactNode }) {
     if (isPopupShow) setIsVisible(true)
   }, [isPopupShow])
 
-  console.log(isPopupShow)
-
   return (
     <>
-      {isPopupShow && (
+      {
         <div
           className="absolute z-20"
           onTransitionEnd={() => transitionEnd(isVisible)}
@@ -30,8 +28,20 @@ function PopUp({ children }: { children: ReactNode }) {
           {/* popup */}
           {children}
         </div>
-      )}
+      }
     </>
+    // <>
+    //   {isPopupShow && (
+    //     <div
+    //       className="absolute z-20"
+    //       onTransitionEnd={() => transitionEnd(isVisible)}
+    //       style={{ top: `${top}px`, left: `${left}px` }}
+    //     >
+    //       {/* popup */}
+    //       {children}
+    //     </div>
+    //   )}
+    // </>
   )
 }
 

@@ -11,7 +11,6 @@ import BackDevice from '../BackDevice'
 // contexts
 import { useContext } from 'react'
 import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
-import SchemeContextSection from '../../../../contexts/SchemeContextSection'
 import PopUp from '../../../../components/common/Popup'
 
 function MainEditorContainer() {
@@ -48,9 +47,7 @@ function MainEditorContainer() {
                 'p-6': previewMode === 'lg',
               })}
             >
-              <SchemeContextSection>
-                <EditorSection />
-              </SchemeContextSection>
+              <EditorSection />
             </div>
             <BackDevice />
           </div>
