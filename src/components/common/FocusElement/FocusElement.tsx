@@ -1,4 +1,4 @@
-import { useState, useRef, FocusEvent, useContext, useEffect } from 'react'
+import { useState, useRef, useContext, useEffect } from 'react'
 import classNames from 'classnames'
 
 // components
@@ -33,8 +33,14 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
   const focusElement = useRef<HTMLDivElement | null>(null)
-  const { distance, setFocusElementSchema, setElementPosition, isPopupShow, setIsPopupShow } =
-    useContext(EditorInfoContext)
+  const {
+    distance,
+    focusElementSchema,
+    setFocusElementSchema,
+    setElementPosition,
+    isPopupShow,
+    setIsPopupShow,
+  } = useContext(EditorInfoContext)
 
   // operation
   const PopupShowHandler = () => {
@@ -45,16 +51,31 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
     }
   }
 
-  const elementBlur = (event: FocusEvent<HTMLDivElement, Element>) => {
-    // FocusEvent.relatedTarget : https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/relatedTarget
-    // Reference : https://stackoverflow.com/questions/12092261/prevent-firing-the-blur-event-if-any-one-of-its-children-receives-focus
-    if (!event.currentTarget.contains(event.relatedTarget)) {
-      // Did the focus element contains in whole container
-      // target : The EventTarget losing focus
-      // relatedTarget : The EventTarget receiving focus
-      setIsPopupShow(false)
-      setIsFocused(false)
-      setIsButtonShow(false)
+  // const elementBlur = (event: FocusEvent<HTMLDivElement, Element>) => {
+  //   // FocusEvent.relatedTarget : https://developer.mozilla.org/en-US/docs/Web/API/FocusEvent/relatedTarget
+  //   // Reference : https://stackoverflow.com/questions/12092261/prevent-firing-the-blur-event-if-any-one-of-its-children-receives-focus
+
+  //   console.log(event)
+
+  //   if (!event.currentTarget.contains(event.relatedTarget)) {
+  //     // Did the focus element contains in whole container
+  //     // target : The EventTarget losing focus
+  //     // relatedTarget : The EventTarget receiving focus
+  //     // setIsPopupShow(false)
+  //     // setIsFocused(false)
+  //     // setIsButtonShow(false)
+  //   }
+  // }
+
+  const elementBlur = () => {
+    setIsPopupShow(false)
+    setIsFocused(false)
+    setIsButtonShow(false)
+  }
+
+  const focusEventHandler = () => {
+    if (!isFocused) {
+      setIsFocused(true)
     }
   }
 
@@ -71,10 +92,17 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
     }
   }, [isFocused, focusElement.current])
 
+  useEffect(() => {
+    // Check whether the current focusElementSchema uuid is same to this component or not
+    if (focusElementSchema?.uuid !== scheme.uuid) {
+      elementBlur()
+    }
+  }, [focusElementSchema])
+
   return (
     <div
-      onFocus={() => setIsFocused(true)}
-      onBlur={elementBlur}
+      // Because Popup is not inside of the component, so use click to imitate blue event
+      onClick={focusEventHandler}
       onMouseEnter={() => setIsButtonShow(true)}
       onMouseLeave={elementMouseLeave}
       tabIndex={-1}
