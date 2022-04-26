@@ -1,4 +1,3 @@
-// import { MouseEvent } from 'react'
 import classNames from 'classnames'
 
 // types
@@ -30,12 +29,7 @@ function BannerComponent({
           src={props?.imgPath || DefaultImage}
           alt="images"
         />
-        <div
-          onClick={() => {
-            PopupShowHandler()
-          }}
-          className={classNames(buttonStyle)}
-        >
+        <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
           編輯
         </div>
         <h1>Banner</h1>
