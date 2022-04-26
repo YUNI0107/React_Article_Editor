@@ -8,8 +8,6 @@ interface IEachContainer {
   scheme: ISingleSchema
   PopupShowHandler: () => void
   isButtonShow: boolean
-  isPopupShow: boolean
-  setIsPopupShow: (isShow: boolean) => void
   distance: { top: number; left: number }
 }
 

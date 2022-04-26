@@ -72,25 +72,19 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
     setIsFocused(false)
     setIsButtonShow(false)
   }
-
   const focusEventHandler = () => {
-    if (!isFocused) {
+    if (!isFocused && focusElement.current) {
       setIsFocused(true)
+      const elementPosition = getElementPosition(focusElement.current || null)
+
+      setFocusElementSchema(scheme)
+      setElementPosition(elementPosition)
     }
   }
 
   const elementMouseLeave = () => {
     if (!isFocused) setIsButtonShow(false)
   }
-
-  useEffect(() => {
-    if (isFocused) {
-      const elementPosition = getElementPosition(focusElement.current || null)
-
-      setFocusElementSchema(scheme)
-      setElementPosition(elementPosition)
-    }
-  }, [isFocused, focusElement.current])
 
   useEffect(() => {
     // Check whether the current focusElementSchema uuid is same to this component or not
@@ -102,7 +96,7 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
   return (
     <div
       // Because Popup is not inside of the component, so use click to imitate blue event
-      onClick={focusEventHandler}
+      onClickCapture={focusEventHandler}
       onMouseEnter={() => setIsButtonShow(true)}
       onMouseLeave={elementMouseLeave}
       tabIndex={-1}
@@ -120,8 +114,6 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
             scheme={scheme}
             PopupShowHandler={PopupShowHandler}
             isButtonShow={isButtonShow}
-            isPopupShow={isPopupShow}
-            setIsPopupShow={setIsPopupShow}
             distance={distance}
           />
         )}
