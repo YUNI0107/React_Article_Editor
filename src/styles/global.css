@@ -11,6 +11,10 @@
   @apply drop-shadow-[0_0px_15px_rgba(0,0,0,0.10)];
 }
 
+.popup-shadow {
+  @apply drop-shadow-[2px_10px_10px_rgba(0,0,0,0.25)];
+}
+
 h4 {
   @apply text-base;
 }

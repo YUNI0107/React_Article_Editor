@@ -2,15 +2,8 @@ import { createContext, ReactNode, useState } from 'react'
 
 // types
 import { PreviewModesType } from '../../types/layout'
-import {
-  IBanner,
-  IButton,
-  IComponentSchema,
-  IGallery,
-  IImage,
-  IParagraph,
-} from '../../types/editor'
-type SingleControlSchemaType = IParagraph | IBanner | IGallery | IButton | IImage
+import { IComponentSchema, SingleControlSchemaType } from '../../types/editor'
+
 interface IDistance {
   top: number
   left: number

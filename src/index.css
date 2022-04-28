@@ -10,4 +10,5 @@ body {
   font-family: 'Roboto', 'Noto Sans TC', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply break-words;
 }

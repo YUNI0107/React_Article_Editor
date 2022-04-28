@@ -27,8 +27,8 @@ function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string 
   }
 
   return (
-    <div className="p-10">
-      <h1>ControlControlControlControlControlControlControlControl</h1>
+    <div>
+      <h1>ControlControlControl</h1>
       <input
         type="file"
         onChange={changeInputValue}

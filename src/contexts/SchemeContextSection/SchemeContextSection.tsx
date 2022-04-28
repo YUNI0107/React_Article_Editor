@@ -1,6 +1,9 @@
 import { ReactNode, createContext, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
+// constants
+import { groupTypeEnum } from '../../constants/enums/editorEnums'
+
 // types
 import { IComponentSchema, IBanner } from '../../types/editor'
 
@@ -10,30 +13,30 @@ const uuid3 = uuidv4()
 
 const a: IBanner = {
   uuid: uuid1,
-  groupType: 'banner',
+  groupType: groupTypeEnum.banner,
   type: 'banner',
   props: {
     imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
   },
-  controls: ['imgPathControl'],
+  controls: ['imgFilterControl'],
 }
 const b: IBanner = {
   uuid: uuid2,
-  groupType: 'banner',
+  groupType: groupTypeEnum.banner,
   type: 'banner',
   props: {
     imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
   },
-  controls: ['imgPathControl', 'imgFilterControl'],
+  controls: ['imgFilterControl'],
 }
 const c: IBanner = {
   uuid: uuid3,
-  groupType: 'banner',
+  groupType: groupTypeEnum.banner,
   type: 'banner',
   props: {
     imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
   },
-  controls: ['imgPathControl'],
+  controls: ['imgFilterControl'],
 }
 
 const defaultSchemes: {

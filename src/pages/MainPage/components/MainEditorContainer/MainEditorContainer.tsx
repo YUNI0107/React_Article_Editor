@@ -15,7 +15,12 @@ import PopUp from '../../../../components/common/Popup'
 
 function MainEditorContainer() {
   const { previewMode, focusElementSchema } = useContext(EditorInfoContext)
-  const { props: focusProps, controls: focusControls, uuid: focusUUid } = focusElementSchema || {}
+  const {
+    props: focusProps,
+    controls: focusControls,
+    uuid: focusUUid,
+    groupType: focusGroupType,
+  } = focusElementSchema || {}
 
   return (
     <>
@@ -55,7 +60,12 @@ function MainEditorContainer() {
       </div>
 
       <PopUp>
-        <ControllerContainer props={focusProps} controls={focusControls} uuid={focusUUid} />
+        <ControllerContainer
+          props={focusProps}
+          controls={focusControls}
+          uuid={focusUUid}
+          groupName={focusGroupType}
+        />
       </PopUp>
     </>
   )
