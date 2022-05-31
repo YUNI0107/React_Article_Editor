@@ -57,7 +57,7 @@ function ControllerContainer({
         {controls.map((control, index) => {
           return (
             <div className="py-2" key={index}>
-              {<SwitchControl control={control} props={props} childUuid={childUuid} uuid={uuid} />}
+              <SwitchControl control={control} props={props} childUuid={childUuid} uuid={uuid} />
             </div>
           )
         })}
