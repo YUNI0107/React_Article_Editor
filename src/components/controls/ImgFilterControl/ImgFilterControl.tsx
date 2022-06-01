@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 
 // utils
 import ControlHandler from '../../../utils/controlHandler'
@@ -19,23 +19,28 @@ import { filterControlList } from '../../../constants/controller'
 const FilterBox = ({
   label,
   filterStyle,
+  selected,
   changeFilterValue,
 }: {
   label: string
-  filterStyle?: string
+  filterStyle: string
+  selected: boolean
   changeFilterValue: (filter: string) => void
 }) => {
   return (
-    <div
-      className="flex flex-col items-center"
-      onClick={() => filterStyle && changeFilterValue(filterStyle)}
-    >
-      <div className="relative w-full pb-[100%] bg-purple-400 mb-1">
-        <img
-          src={DefaultImage}
-          alt="demo"
-          className={classNames('absolute top-0 left-0 w-full h-full object-cover', filterStyle)}
-        />
+    <div className="flex flex-col items-center" onClick={() => changeFilterValue(filterStyle)}>
+      <div className="relative w-full pb-[100%] box-border">
+        <div
+          className={classNames('absolute top-0 left-0 w-full h-full', {
+            'border-[2px] border-main-blue': selected,
+          })}
+        >
+          <img
+            src={DefaultImage}
+            alt="demo"
+            className={classNames('absolute top-0 left-0 w-full h-full object-cover', filterStyle)}
+          />
+        </div>
       </div>
       <p className="text-[10px]">{label}</p>
     </div>
@@ -45,11 +50,13 @@ const FilterBox = ({
 function ImgFilterControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
   const { schemes, handleScheme } = useContext(SchemeContext)
   const controlHandler = new ControlHandler('filter', schemes, handleScheme)
+  const [filter, serFilter] = useState('')
 
   const changeFilterValue = (filterStyle: string) => {
     // 這邊直接使用Tailwind作為className參數
     const filterClassName = filterStyle || ''
     controlHandler.changeValue(filterClassName, uuid, childUuid)
+    serFilter(filterClassName)
   }
 
   return (
@@ -58,13 +65,17 @@ function ImgFilterControl({ uuid, childUuid }: { uuid: string; childUuid?: strin
 
       <div className="grid grid-cols-3 gap-x-2 gap-y-4">
         {filterControlList.map((item, index) => {
+          const selected = filter === item.filterStyle
+
           return (
-            <FilterBox
-              label={item.label}
-              filterStyle={item.filterStyle}
-              changeFilterValue={changeFilterValue}
-              key={index}
-            />
+            <div key={index}>
+              <FilterBox
+                label={item.label}
+                filterStyle={item.filterStyle}
+                changeFilterValue={changeFilterValue}
+                selected={selected}
+              />
+            </div>
           )
         })}
       </div>

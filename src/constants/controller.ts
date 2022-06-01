@@ -1,5 +1,5 @@
-export const filterControlList: Array<{ label: string; filterStyle?: string }> = [
-  { label: '無' },
+export const filterControlList: Array<{ label: string; filterStyle: string }> = [
+  { label: '無', filterStyle: '' },
   { label: '加亮', filterStyle: 'brightness-125' },
   { label: '加深', filterStyle: 'brightness-75' },
   { label: '黑白', filterStyle: 'grayscale' },
