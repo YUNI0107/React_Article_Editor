@@ -12,7 +12,7 @@ const ruler =
   'h-7 border-x border-white flex justify-center items-center absolute left-1/2 -translate-x-1/2 cursor-pointer hover:brightness-110 active:contrast-125'
 
 function Ruler() {
-  const { previewMode, handlePreviewMode } = useContext(EditorInfoContext)
+  const { previewMode, handlePreviewMode, setIsPopupShow } = useContext(EditorInfoContext)
 
   const previewModeText = useMemo(() => {
     switch (previewMode) {
@@ -29,13 +29,18 @@ function Ruler() {
 
   const modes: Array<PreviewModesType> = ['sm', 'md', 'lg']
 
+  const clickPreviewMode = (mode: PreviewModesType) => {
+    handlePreviewMode(mode)
+    setIsPopupShow(false)
+  }
+
   return (
     <div className="fixed z-40 top-[52px] h-7">
       {modes.map((mode) => {
         return (
           <div
             key={mode}
-            onClick={() => handlePreviewMode(mode)}
+            onClick={() => clickPreviewMode(mode)}
             className={classNames(
               ruler,
               {
