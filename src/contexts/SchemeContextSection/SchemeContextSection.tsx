@@ -18,7 +18,7 @@ const a: IBanner = {
   props: {
     imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
   },
-  controls: ['imgFilterControl'],
+  controls: ['imgFilterControl', 'clickEventControl'],
 }
 const b: IBanner = {
   uuid: uuid2,
@@ -27,7 +27,7 @@ const b: IBanner = {
   props: {
     imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
   },
-  controls: ['imgFilterControl'],
+  controls: ['imgFilterControl', 'clickEventControl'],
 }
 const c: IBanner = {
   uuid: uuid3,
@@ -36,7 +36,7 @@ const c: IBanner = {
   props: {
     imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
   },
-  controls: ['imgFilterControl'],
+  controls: ['imgFilterControl', 'clickEventControl'],
 }
 
 const defaultSchemes: {
