@@ -5,11 +5,13 @@ function RadioButton<ValueType>({
   name,
   onValueChange,
   checked,
+  id,
 }: {
   value: ValueType
   name: string
   onValueChange: (value: ValueType) => void
   checked: boolean
+  id: string
 }) {
   const inputValue = value as unknown as string
 
@@ -18,7 +20,16 @@ function RadioButton<ValueType>({
     onValueChange(inputChangedValue)
   }
 
-  return <input type="radio" value={inputValue} onChange={onChange} name={name} checked={checked} />
+  return (
+    <input
+      type="radio"
+      value={inputValue}
+      onChange={onChange}
+      name={name}
+      checked={checked}
+      id={id}
+    />
+  )
 }
 
 export default RadioButton

@@ -19,21 +19,27 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
         <div className="flex items-center mb-2">
           <RadioButton
             value="image-popup"
-            name="clickEvent"
+            name="radio"
+            id="image-popup"
             onValueChange={setEventKey}
             checked={eventKey === 'image-popup'}
           />
-          <label className="text-[10px] ml-2">圖片彈窗</label>
+          <label className="text-[10px] ml-2" htmlFor="image-popup">
+            圖片彈窗
+          </label>
         </div>
 
         <div className="flex items-center">
           <RadioButton
             value="link"
-            name="clickEvent"
+            name="radio"
+            id="link"
             onValueChange={setEventKey}
             checked={eventKey === 'link'}
           />
-          <label className="text-[10px] ml-2">超連結</label>
+          <label className="text-[10px] ml-2" htmlFor="link">
+            超連結
+          </label>
         </div>
       </div>
     </div>
