@@ -28,6 +28,7 @@ function RadioButton<ValueType>({
       name={name}
       checked={checked}
       id={id}
+      className="custom-radio-button"
     />
   )
 }
