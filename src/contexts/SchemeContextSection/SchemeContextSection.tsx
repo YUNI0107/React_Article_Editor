@@ -42,22 +42,32 @@ const c: IBanner = {
 const defaultSchemes: {
   schemes: Array<IComponentSchema>
   handleScheme: (newSchemes: Array<IComponentSchema>) => void
+  addScheme: (newScheme: IComponentSchema) => void
 } = {
   schemes: [],
   handleScheme: (newSchemes: Array<IComponentSchema>) => {
     console.log(newSchemes)
   },
+  addScheme: (newScheme: IComponentSchema) => {
+    console.log(newScheme)
+  },
 }
+
 export const SchemeContext = createContext(defaultSchemes)
 
 function SchemeContextSection({ children }: { children: ReactNode }) {
   const [schemes, setSchemes] = useState<Array<IComponentSchema>>([a, b, c])
+
+  const addScheme = (newScheme: IComponentSchema) => {
+    setSchemes((prevScheme) => [...prevScheme, newScheme])
+  }
 
   return (
     <SchemeContext.Provider
       value={{
         schemes,
         handleScheme: (newSchemes: Array<IComponentSchema>) => setSchemes([...newSchemes]),
+        addScheme,
       }}
     >
       {children}

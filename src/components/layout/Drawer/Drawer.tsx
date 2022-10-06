@@ -22,7 +22,7 @@ function Drawer() {
   return (
     <div
       className={classNames(
-        'fixed z-30 flex flex-col bg-white transition-all duration-700 px-4 py-8 h-[calc(100%-80px)] basic-shadow',
+        'fixed z-30 flex flex-col bg-white transition-all duration-700 h-[calc(100%-80px)] basic-shadow overflow-hidden',
         {
           'w-[300px]': isShow,
           'w-[80px]': !isShow,
@@ -31,7 +31,9 @@ function Drawer() {
     >
       <div className="flex-1">
         {isShow ? (
-          <OpenedDrawer setIsShow={setIsShow} drawerState={drawerState} />
+          <div className="min-w-[300px] px-4 pt-8">
+            <OpenedDrawer setIsShow={setIsShow} drawerState={drawerState} />
+          </div>
         ) : (
           <div className="flex flex-col h-full justify-center items-center">
             <button
@@ -50,7 +52,7 @@ function Drawer() {
         )}
       </div>
 
-      <div>
+      <div className="px-4 pb-8">
         <a target="_blank" href="https://github.com/YUNI0107" rel="noreferrer">
           <i className="ri-github-fill text-4xl text-main-gray-300 mx-2"></i>
         </a>
