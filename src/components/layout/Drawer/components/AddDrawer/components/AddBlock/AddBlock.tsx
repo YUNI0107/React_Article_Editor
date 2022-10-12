@@ -5,12 +5,7 @@ import { v4 as uuidv4 } from 'uuid'
 import { SchemeContext } from '../../../../../../../contexts/SchemeContextSection'
 
 // types
-import {
-  groupTypes,
-  IComponentSchema,
-  IMultipleSchema,
-  ISingleSchema,
-} from '../../../../../../../types/editor'
+import { groupTypes, IComponentSchema } from '../../../../../../../types/editor'
 
 function AddBlock({
   title,
@@ -23,24 +18,16 @@ function AddBlock({
   groupType: groupTypes
   defaultScheme: Omit<IComponentSchema, 'uuid'>
 }) {
-  const { addScheme, schemes } = useContext(SchemeContext)
+  const { addScheme } = useContext(SchemeContext)
 
   const addNewScheme = (defaultScheme: Omit<IComponentSchema, 'uuid'>) => {
     const uuid = uuidv4()
-
-    if ('children' in defaultScheme) {
-      const scheme: IMultipleSchema = {
-        uuid,
-        ...(defaultScheme as Omit<IMultipleSchema, 'uuid'>),
-      }
-      addScheme(scheme)
-    } else {
-      const scheme: ISingleSchema = {
-        uuid,
-        ...(defaultScheme as Omit<ISingleSchema, 'uuid'>),
-      }
-      addScheme(scheme)
+    const scheme = {
+      uuid,
+      ...defaultScheme,
     }
+
+    addScheme(scheme as unknown as IComponentSchema)
   }
 
   return (
