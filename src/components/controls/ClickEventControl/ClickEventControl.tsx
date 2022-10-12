@@ -16,7 +16,7 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
       <ControllerTitle title="點擊事件" />
 
       <div>
-        <div className="flex items-center mb-2">
+        <div className="flex items-start mb-2">
           <RadioButton
             value="image-popup"
             name="radio"
@@ -24,12 +24,12 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
             onValueChange={setEventKey}
             checked={eventKey === 'image-popup'}
           />
-          <label className="text-[10px] ml-2" htmlFor="image-popup">
+          <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="image-popup">
             圖片彈窗
           </label>
         </div>
 
-        <div className="flex items-center">
+        <div className="flex items-start">
           <RadioButton
             value="link"
             name="radio"
@@ -37,7 +37,7 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
             onValueChange={setEventKey}
             checked={eventKey === 'link'}
           />
-          <label className="text-[10px] ml-2" htmlFor="link">
+          <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="link">
             超連結
           </label>
         </div>
