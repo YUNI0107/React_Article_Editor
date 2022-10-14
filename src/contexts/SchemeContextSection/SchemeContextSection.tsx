@@ -43,6 +43,8 @@ const defaultSchemes: {
   schemes: Array<IComponentSchema>
   handleScheme: (newSchemes: Array<IComponentSchema>) => void
   addScheme: (newScheme: IComponentSchema) => void
+  moveScheme: (schemeUuid: string, direction: 'up' | 'down') => void
+  deleteScheme: (schemeUuid: string) => void
 } = {
   schemes: [],
   handleScheme: (newSchemes: Array<IComponentSchema>) => {
@@ -50,6 +52,12 @@ const defaultSchemes: {
   },
   addScheme: (newScheme: IComponentSchema) => {
     console.log(newScheme)
+  },
+  moveScheme: (schemeUuid: string, direction: 'up' | 'down') => {
+    console.log(schemeUuid, direction)
+  },
+  deleteScheme: (schemeUuid: string) => {
+    console.log(schemeUuid)
   },
 }
 
@@ -62,12 +70,47 @@ function SchemeContextSection({ children }: { children: ReactNode }) {
     setSchemes((prevScheme) => [...prevScheme, newScheme])
   }
 
+  const moveScheme = (schemeUuid: string, direction: 'up' | 'down') => {
+    const targetIndex = schemes.findIndex((scheme) => scheme.uuid === schemeUuid)
+
+    if (
+      (targetIndex === 0 && direction === 'up') ||
+      (targetIndex === schemes.length - 1 && direction === 'down')
+    ) {
+      // Check: If the scheme is at the limit, can't move it
+      return
+    }
+
+    const newIndex = direction === 'up' ? targetIndex - 1 : targetIndex + 1
+    exchangeScheme(targetIndex, newIndex)
+  }
+
+  const exchangeScheme = (originalIndex: number, newIndex: number) => {
+    setSchemes((prevScheme) => {
+      const arrangeSchemes = [...prevScheme]
+      ;[arrangeSchemes[originalIndex], arrangeSchemes[newIndex]] = [
+        arrangeSchemes[newIndex],
+        arrangeSchemes[originalIndex],
+      ]
+      return arrangeSchemes
+    })
+  }
+
+  const deleteScheme = (schemeUuid: string) => {
+    setSchemes((prevScheme) => {
+      const arrangeSchemes = prevScheme.filter((scheme) => scheme.uuid !== schemeUuid)
+      return arrangeSchemes
+    })
+  }
+
   return (
     <SchemeContext.Provider
       value={{
         schemes,
         handleScheme: (newSchemes: Array<IComponentSchema>) => setSchemes([...newSchemes]),
         addScheme,
+        moveScheme,
+        deleteScheme,
       }}
     >
       {children}

@@ -22,7 +22,6 @@ class ControlHandler {
     if (!childUuid) {
       const schemes = newSchemes[targetIndex] as ISingleSchema
       const targetProp = schemes.props
-      console.log(targetProp)
 
       if (targetProp) {
         targetProp[this.controlName] = value

@@ -48,7 +48,7 @@ export type IControls = 'imgPathControl' | 'imgFilterControl' | 'clickEventContr
  */
 
 type ISingleSchema = IBanner | IGallery | IButton | IParagraph
-type IMultipleSchema = IImages | IBanner
+type IMultipleSchema = IImages
 type IComponentSchema = ISingleSchema | IMultipleSchema
 type SingleControlSchemaType = IParagraph | IBanner | IGallery | IButton | IImage
 

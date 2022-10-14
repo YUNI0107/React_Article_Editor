@@ -50,3 +50,7 @@ p {
 .custom-radio-button:checked:before {
   transform: scale(1);
 }
+
+.rounded-button {
+  @apply p-1 flex items-center justify-center rounded-lg mb-2 w-10 h-10 hover:brightness-110;
+}
