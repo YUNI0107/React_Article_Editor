@@ -23,17 +23,15 @@ function BannerComponent({
 
   return (
     <div>
-      <div>
-        <img
-          className={classNames(filterStyleClass)}
-          src={props?.imgPath || DefaultImage}
-          alt="images"
-        />
-        <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
-          編輯
-        </div>
-        <h1>Banner</h1>
+      <img
+        className={classNames(filterStyleClass)}
+        src={props?.imgPath || DefaultImage}
+        alt="images"
+      />
+      <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
+        編輯
       </div>
+      <h1>Banner</h1>
     </div>
   )
 }

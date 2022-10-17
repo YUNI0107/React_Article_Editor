@@ -1,13 +1,22 @@
 import { Fragment, useContext } from 'react'
+import classNames from 'classnames'
 
 // components
 import SingleFocusElement from '../../common/SingleFocusElement'
+import ButtonsControl from '../ButtonsControl'
 
-// types
+// contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 function EditorSection() {
   const { schemas } = useContext(SchemaContext)
+  const { previewMode } = useContext(EditorInfoContext)
+  const widthSetting = {
+    'w-mobile': previewMode === 'sm',
+    'w-tablet': previewMode === 'md',
+    'w-desktop': previewMode === 'lg',
+  }
 
   return (
     <>
@@ -18,7 +27,10 @@ function EditorSection() {
           case 'gallery':
             return (
               <Fragment key={schema.uuid}>
-                <SingleFocusElement schema={schema} />
+                <div className={classNames('relative px-2', widthSetting)}>
+                  <SingleFocusElement schema={schema} />
+                  <ButtonsControl />
+                </div>
               </Fragment>
             )
           case 'images':

@@ -13,7 +13,7 @@ function MainPage() {
       <Header />
 
       <SchemaContextSection>
-        <div className="flex-1 flex h-full pt-20">
+        <div className="flex-1 flex h-full pt-20 overflow-y-auto">
           {/* left-drawer */}
           <Drawer />
 

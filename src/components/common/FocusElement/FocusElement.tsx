@@ -9,7 +9,6 @@ import { IComponentSchema } from '../../../types/editor'
 
 // context
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
-import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // utils
 import getElementPosition from '../../../utils/getElementPosition'
@@ -44,7 +43,6 @@ function FocusElement({ schema }: { schema: IComponentSchema }) {
     isPopupShow,
     setIsPopupShow,
   } = useContext(EditorInfoContext)
-  const { moveSchema, deleteSchema } = useContext(SchemaContext)
 
   // operation
   const PopupShowHandler = () => {
@@ -95,32 +93,6 @@ function FocusElement({ schema }: { schema: IComponentSchema }) {
         ref={focusElement}
         className={classNames('relative', { 'ring-4 ring-secondary-blue-300-blue': isFocused })}
       >
-        {/* button controls */}
-        <div
-          className={classNames('absolute right-0 bottom-0 translate-x-[calc(100%+10px)] z-40 ', {
-            hidden: !isFocused,
-          })}
-        >
-          <button
-            className="rounded-button bg-main-blue mb-2"
-            onClick={() => moveSchema(schema.uuid, 'up')}
-          >
-            <i className="ri-arrow-up-s-line text-3xl text-white"></i>
-          </button>
-          <button
-            className="rounded-button bg-main-blue mb-2"
-            onClick={() => moveSchema(schema.uuid, 'down')}
-          >
-            <i className="ri-arrow-down-s-line text-3xl text-white"></i>
-          </button>
-          <button
-            className="rounded-button bg-main-yellow"
-            onClick={() => deleteSchema(schema.uuid)}
-          >
-            <i className="ri-close-line text-3xl text-white"></i>
-          </button>
-        </div>
-
         {(schema.groupType === 'button' ||
           schema.groupType === 'banner' ||
           schema.groupType === 'gallery') && (

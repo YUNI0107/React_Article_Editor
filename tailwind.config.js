@@ -4,16 +4,20 @@ module.exports = {
     extend: {
       width: {
         desktop: '1026px',
-        tablet: '720px',
+        tablet: '650px',
         mobile: '320px',
       },
       height: {
-        tablet: '660px',
-        mobile: '600px',
+        tablet: '600px',
+        mobile: '580px',
       },
       maxHeight: {
-        tablet: '660px',
-        mobile: '600px',
+        tablet: '600px',
+        mobile: '580px',
+      },
+      minHeight: {
+        tablet: '600px',
+        mobile: '580px',
       },
       colors: {
         'main-blue': '#3742FA',

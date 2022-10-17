@@ -10,11 +10,13 @@ function BackDevice() {
   return (
     <div
       className={classNames(
-        'absolute left-1/2 -top-[24px] -translate-x-1/2  bg-main-gray-300 rounded-[10px] z-10',
+        'absolute left-1/2 -top-[24px] -translate-x-1/2  bg-main-gray-300 rounded-[10px] z-10 p-6 pb-10',
         { hidden: previewMode === 'lg' }
       )}
       style={{ width: 'calc(100% + 48px)', height: 'calc(100% + 64px)' }}
-    ></div>
+    >
+      <div className="bg-white w-full h-full"></div>
+    </div>
   )
 }
 
