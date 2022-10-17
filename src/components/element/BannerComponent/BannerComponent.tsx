@@ -7,17 +7,17 @@ import { IBanner } from '../../../types/editor'
 import DefaultImage from '../../../assets/default.png'
 
 function BannerComponent({
-  scheme,
+  schema,
   PopupShowHandler,
   isButtonShow,
 }: {
-  scheme: IBanner
+  schema: IBanner
   PopupShowHandler: () => void
   isButtonShow: boolean
 }) {
-  if (!scheme) return null
+  if (!schema) return null
 
-  const { props } = scheme
+  const { props } = schema
   const filterStyleClass = props?.filter
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 

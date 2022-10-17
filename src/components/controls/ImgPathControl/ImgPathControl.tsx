@@ -8,11 +8,11 @@ import getBase64 from '../../../utils/getBase64'
 import imageTypeValidate from '../../../validator/imageTypeValidate'
 
 // contexts
-import { SchemeContext } from '../../../contexts/SchemeContextSection'
+import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
-  const { schemes, handleScheme } = useContext(SchemeContext)
-  const controlHandler = new ControlHandler('imgPath', schemes, handleScheme)
+  const { schemas, handleSchema } = useContext(SchemaContext)
+  const controlHandler = new ControlHandler('imgPath', schemas, handleSchema)
 
   const changeInputValue = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.[0] || !imageTypeValidate(event.target.files?.[0])) {

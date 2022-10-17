@@ -2,41 +2,41 @@ import { IComponentSchema, IMultipleSchema, ISingleSchema } from '../types/edito
 
 class ControlHandler {
   controlName: string
-  schemes: Array<IComponentSchema>
-  handleScheme: (newSchemes: Array<IComponentSchema>) => void
+  schemas: Array<IComponentSchema>
+  handleSchema: (newSchemas: Array<IComponentSchema>) => void
 
   constructor(
     controlName: string,
-    schemes: Array<IComponentSchema>,
-    handleScheme: (newSchemes: Array<IComponentSchema>) => void
+    schemas: Array<IComponentSchema>,
+    handleSchema: (newSchemas: Array<IComponentSchema>) => void
   ) {
     this.controlName = controlName
-    this.schemes = schemes
-    this.handleScheme = handleScheme
+    this.schemas = schemas
+    this.handleSchema = handleSchema
   }
 
   changeValue(value: string, uuid: string, childUuid?: string) {
-    const newSchemes = this.schemes
-    const targetIndex = newSchemes.findIndex((item) => item.uuid === uuid)
+    const newSchemas = this.schemas
+    const targetIndex = newSchemas.findIndex((item) => item.uuid === uuid)
 
     if (!childUuid) {
-      const schemes = newSchemes[targetIndex] as ISingleSchema
-      const targetProp = schemes.props
+      const schemas = newSchemas[targetIndex] as ISingleSchema
+      const targetProp = schemas.props
 
       if (targetProp) {
         targetProp[this.controlName] = value
 
-        this.handleScheme(newSchemes)
+        this.handleSchema(newSchemas)
       }
-    } else if ('children' in newSchemes[targetIndex]) {
+    } else if ('children' in newSchemas[targetIndex]) {
       {
-        const scheme = newSchemes[targetIndex] as IMultipleSchema
-        const childrenTargetIndex = scheme.children.findIndex((item) => item.uuid === childUuid)
-        const targetProp = scheme.children[childrenTargetIndex].props
+        const schema = newSchemas[targetIndex] as IMultipleSchema
+        const childrenTargetIndex = schema.children.findIndex((item) => item.uuid === childUuid)
+        const targetProp = schema.children[childrenTargetIndex].props
 
         if (targetProp) {
           targetProp[this.controlName] = value
-          this.handleScheme(newSchemes)
+          this.handleSchema(newSchemas)
         }
       }
     }

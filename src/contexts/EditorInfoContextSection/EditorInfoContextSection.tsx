@@ -14,7 +14,7 @@ const defaultInformation: {
   handlePreviewMode: (mode: PreviewModesType) => void
   distance: { top: number; left: number }
   focusElementSchema: SingleControlSchemaType | null
-  setFocusElementSchema: (scheme: IComponentSchema | null) => void
+  setFocusElementSchema: (schema: IComponentSchema | null) => void
   setElementPosition: (distance: IDistance) => void
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
@@ -23,7 +23,7 @@ const defaultInformation: {
   handlePreviewMode: (mode: PreviewModesType) => console.log(mode),
   distance: { left: 0, top: 0 },
   focusElementSchema: null,
-  setFocusElementSchema: (scheme) => console.log(scheme),
+  setFocusElementSchema: (schema) => console.log(schema),
   setElementPosition: (position) => console.log(position),
   isPopupShow: false,
   setIsPopupShow: (isShow) => console.log(isShow),
@@ -42,10 +42,10 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
     setPreviewMode(mode)
   }
 
-  const focusElementSchemaHandler = (scheme: IComponentSchema | null) => {
-    if (scheme?.groupType === 'images') return null
+  const focusElementSchemaHandler = (schema: IComponentSchema | null) => {
+    if (schema?.groupType === 'images') return null
 
-    setFocusElementSchema(scheme)
+    setFocusElementSchema(schema)
   }
 
   return (

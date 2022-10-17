@@ -3156,9 +3156,9 @@ css-minimizer-webpack-plugin@^3.2.0:
     serialize-javascript "^6.0.0"
     source-map "^0.6.1"
 
-css-prefers-color-scheme@^6.0.3:
+css-prefers-color-schema@^6.0.3:
   version "6.0.3"
-  resolved "https://registry.npmjs.org/css-prefers-color-scheme/-/css-prefers-color-scheme-6.0.3.tgz"
+  resolved "https://registry.npmjs.org/css-prefers-color-schema/-/css-prefers-color-schema-6.0.3.tgz"
   integrity sha512-4BqMbZksRkJQx2zAjrokiGMd07RqOa2IxIrrN10lyBe9xhn9DEvjUK79J6jkeiv9D9hQFXKb6g1jwU62jziJZA==
 
 css-select-base-adapter@^0.1.1:
@@ -6762,7 +6762,7 @@ postcss-preset-env@^7.0.1:
     browserslist "^4.19.3"
     css-blank-pseudo "^3.0.3"
     css-has-pseudo "^3.0.4"
-    css-prefers-color-scheme "^6.0.3"
+    css-prefers-color-schema "^6.0.3"
     cssdb "^6.4.0"
     postcss-attribute-case-insensitive "^5.0.0"
     postcss-color-functional-notation "^4.2.2"

@@ -8,19 +8,19 @@ import { IImages } from '../../../types/editor'
 import DefaultImage from '../../../assets/default.png'
 
 function ImagesComponent({
-  scheme,
+  schema,
   PopupShowHandler,
   isButtonShow,
 }: {
-  scheme: IImages
+  schema: IImages
   PopupShowHandler: () => void
   isButtonShow: boolean
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
 }) {
-  if (!scheme) return null
+  if (!schema) return null
 
-  const { type, children } = scheme
+  const { type, children } = schema
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 
   const imagesCountArray = useMemo(() => {

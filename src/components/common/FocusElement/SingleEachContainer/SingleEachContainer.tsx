@@ -5,18 +5,18 @@ import BannerComponent from '../../../element/BannerComponent'
 import { ISingleSchema } from '../../../../types/editor'
 
 interface IEachContainer {
-  scheme: ISingleSchema
+  schema: ISingleSchema
   PopupShowHandler: () => void
   isButtonShow: boolean
   distance: { top: number; left: number }
 }
 
 function EachContainer(props: IEachContainer) {
-  const { scheme } = props
+  const { schema } = props
 
-  switch (scheme.groupType) {
+  switch (schema.groupType) {
     case 'banner':
-      return <BannerComponent {...props} scheme={scheme} />
+      return <BannerComponent {...props} schema={schema} />
     default:
       return <></>
   }

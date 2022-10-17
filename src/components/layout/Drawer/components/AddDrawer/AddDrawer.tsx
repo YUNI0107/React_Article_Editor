@@ -9,7 +9,7 @@ import { groupTypeEnum } from '../../../../../constants/enums/editorEnums'
 import { IBanner } from '../../../../../types/editor'
 
 function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
-  const defaultBannerScheme: Omit<IBanner, 'uuid'> = {
+  const defaultBannerSchema: Omit<IBanner, 'uuid'> = {
     groupType: groupTypeEnum.banner,
     type: 'banner',
     props: {
@@ -40,7 +40,7 @@ function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
           title="帶狀圖片模組"
           imgPath={AddBannerImage}
           groupType={groupTypeEnum.banner}
-          defaultScheme={defaultBannerScheme}
+          defaultSchema={defaultBannerSchema}
         />
       </div>
     </>

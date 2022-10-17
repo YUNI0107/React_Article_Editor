@@ -9,7 +9,7 @@ import { IComponentSchema } from '../../../types/editor'
 
 // context
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
-import { SchemeContext } from '../../../contexts/SchemeContextSection'
+import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // utils
 import getElementPosition from '../../../utils/getElementPosition'
@@ -32,7 +32,7 @@ import getElementPosition from '../../../utils/getElementPosition'
  *
  */
 
-function FocusElement({ scheme }: { scheme: IComponentSchema }) {
+function FocusElement({ schema }: { schema: IComponentSchema }) {
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
   const focusElement = useRef<HTMLDivElement | null>(null)
@@ -44,7 +44,7 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
     isPopupShow,
     setIsPopupShow,
   } = useContext(EditorInfoContext)
-  const { moveScheme, deleteScheme } = useContext(SchemeContext)
+  const { moveSchema, deleteSchema } = useContext(SchemaContext)
 
   // operation
   const PopupShowHandler = () => {
@@ -65,7 +65,7 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
       setIsFocused(true)
       const elementPosition = getElementPosition(focusElement.current || null)
 
-      setFocusElementSchema(scheme)
+      setFocusElementSchema(schema)
       setElementPosition(elementPosition)
     }
   }
@@ -76,7 +76,7 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
 
   useEffect(() => {
     // Check whether the current focusElementSchema uuid is same to this component or not
-    if (focusElementSchema?.uuid !== scheme.uuid) {
+    if (focusElementSchema?.uuid !== schema.uuid) {
       elementBlur()
     }
   }, [focusElementSchema])
@@ -103,29 +103,29 @@ function FocusElement({ scheme }: { scheme: IComponentSchema }) {
         >
           <button
             className="rounded-button bg-main-blue mb-2"
-            onClick={() => moveScheme(scheme.uuid, 'up')}
+            onClick={() => moveSchema(schema.uuid, 'up')}
           >
             <i className="ri-arrow-up-s-line text-3xl text-white"></i>
           </button>
           <button
             className="rounded-button bg-main-blue mb-2"
-            onClick={() => moveScheme(scheme.uuid, 'down')}
+            onClick={() => moveSchema(schema.uuid, 'down')}
           >
             <i className="ri-arrow-down-s-line text-3xl text-white"></i>
           </button>
           <button
             className="rounded-button bg-main-yellow"
-            onClick={() => deleteScheme(scheme.uuid)}
+            onClick={() => deleteSchema(schema.uuid)}
           >
             <i className="ri-close-line text-3xl text-white"></i>
           </button>
         </div>
 
-        {(scheme.groupType === 'button' ||
-          scheme.groupType === 'banner' ||
-          scheme.groupType === 'gallery') && (
+        {(schema.groupType === 'button' ||
+          schema.groupType === 'banner' ||
+          schema.groupType === 'gallery') && (
           <SingleEachContainer
-            scheme={scheme}
+            schema={schema}
             PopupShowHandler={PopupShowHandler}
             isButtonShow={isButtonShow}
             distance={distance}

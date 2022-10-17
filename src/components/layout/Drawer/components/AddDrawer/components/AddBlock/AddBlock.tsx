@@ -2,7 +2,7 @@ import { useContext } from 'react'
 import { v4 as uuidv4 } from 'uuid'
 
 // contexts
-import { SchemeContext } from '../../../../../../../contexts/SchemeContextSection'
+import { SchemaContext } from '../../../../../../../contexts/SchemaContextSection'
 
 // types
 import { groupTypes, IComponentSchema } from '../../../../../../../types/editor'
@@ -11,23 +11,23 @@ function AddBlock({
   title,
   imgPath,
   groupType,
-  defaultScheme,
+  defaultSchema,
 }: {
   title: string
   imgPath: string
   groupType: groupTypes
-  defaultScheme: Omit<IComponentSchema, 'uuid'>
+  defaultSchema: Omit<IComponentSchema, 'uuid'>
 }) {
-  const { addScheme } = useContext(SchemeContext)
+  const { addSchema } = useContext(SchemaContext)
 
-  const addNewScheme = (defaultScheme: Omit<IComponentSchema, 'uuid'>) => {
+  const addNewSchema = (defaultSchema: Omit<IComponentSchema, 'uuid'>) => {
     const uuid = uuidv4()
-    const scheme = {
+    const schema = {
       uuid,
-      ...defaultScheme,
+      ...defaultSchema,
     }
 
-    addScheme(scheme as unknown as IComponentSchema)
+    addSchema(schema as unknown as IComponentSchema)
   }
 
   return (
@@ -35,7 +35,7 @@ function AddBlock({
       <p className="font-extrabold mb-[10px]">{title}</p>
       <div
         className="w-full border-2 border-main-gray-300 cursor-pointer"
-        onClick={() => addNewScheme(defaultScheme)}
+        onClick={() => addNewSchema(defaultSchema)}
       >
         <img src={imgPath} alt={groupType} />
       </div>

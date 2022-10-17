@@ -5,7 +5,7 @@ import { useContext, useState } from 'react'
 import ControlHandler from '../../../utils/controlHandler'
 
 // contexts
-import { SchemeContext } from '../../../contexts/SchemeContextSection'
+import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // components
 import ControllerTitle from '../components/ControllerTitle'
@@ -48,8 +48,8 @@ const FilterBox = ({
 }
 
 function ImgFilterControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
-  const { schemes, handleScheme } = useContext(SchemeContext)
-  const controlHandler = new ControlHandler('filter', schemes, handleScheme)
+  const { schemas, handleSchema } = useContext(SchemaContext)
+  const controlHandler = new ControlHandler('filter', schemas, handleSchema)
   const [filter, serFilter] = useState('')
 
   const changeFilterValue = (filterStyle: string) => {
