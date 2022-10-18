@@ -12,11 +12,11 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 function EditorSection() {
   const { schemas } = useContext(SchemaContext)
   const { previewMode } = useContext(EditorInfoContext)
-  const widthSetting = {
+  const schemaStyleSetting = classNames('relative px-2 transition-all duration-700', {
     'w-mobile': previewMode === 'sm',
     'w-tablet': previewMode === 'md',
     'w-desktop': previewMode === 'lg',
-  }
+  })
 
   return (
     <>
@@ -27,9 +27,9 @@ function EditorSection() {
           case 'gallery':
             return (
               <Fragment key={schema.uuid}>
-                <div className={classNames('relative px-2', widthSetting)}>
+                <div className={schemaStyleSetting}>
                   <SingleFocusElement schema={schema} />
-                  <ButtonsControl />
+                  <ButtonsControl uuid={schema.uuid} />
                 </div>
               </Fragment>
             )

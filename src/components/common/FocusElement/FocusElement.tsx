@@ -91,7 +91,8 @@ function FocusElement({ schema }: { schema: IComponentSchema }) {
       {/* element */}
       <div
         ref={focusElement}
-        className={classNames('relative', { 'ring-4 ring-secondary-blue-300-blue': isFocused })}
+        className={classNames('relative', { 'border-4 border-secondary-blue-300': isFocused })}
+        // className={classNames('relative', { 'ring-4 ring-secondary-blue-300-blue': isFocused })}
       >
         {(schema.groupType === 'button' ||
           schema.groupType === 'banner' ||
