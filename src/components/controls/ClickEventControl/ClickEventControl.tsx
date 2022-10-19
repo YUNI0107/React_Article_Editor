@@ -7,8 +7,9 @@ import RadioButton from '../../common/RadioButton'
 // types
 import { ClickEventType } from '../../../types/control'
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
-  console.log(uuid, childUuid)
+  // console.log(uuid, childUuid)
   const [eventKey, setEventKey] = useState<ClickEventType>('image-popup')
 
   return (

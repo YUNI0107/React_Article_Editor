@@ -28,7 +28,7 @@ function BannerComponent({
         src={props?.imgPath || DefaultImage}
         alt="images"
       />
-      <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
+      <div onClick={PopupShowHandler} className={classNames(buttonStyle)} data-type="popupEdit">
         編輯
       </div>
       <h1>Banner</h1>

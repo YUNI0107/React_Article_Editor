@@ -1,3 +1,6 @@
+import { DndProvider } from 'react-dnd'
+import { HTML5Backend } from 'react-dnd-html5-backend'
+
 // components
 import Header from '../../components/layout/Header'
 import Drawer from '../../components/layout/Drawer'
@@ -13,16 +16,18 @@ function MainPage() {
       <Header />
 
       <SchemaContextSection>
-        <div className="flex-1 flex h-full pt-20 overflow-y-auto">
-          {/* left-drawer */}
-          <Drawer />
+        <DndProvider backend={HTML5Backend}>
+          <div className="flex-1 flex h-full pt-20 overflow-y-auto">
+            {/* left-drawer */}
+            <Drawer />
 
-          {/* main-editor-container */}
+            {/* main-editor-container */}
 
-          <EditorInfoContextSection>
-            <MainEditorContainer />
-          </EditorInfoContextSection>
-        </div>
+            <EditorInfoContextSection>
+              <MainEditorContainer />
+            </EditorInfoContextSection>
+          </div>
+        </DndProvider>
       </SchemaContextSection>
     </div>
   )

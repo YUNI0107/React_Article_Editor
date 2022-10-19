@@ -34,6 +34,7 @@ import getElementPosition from '../../../utils/getElementPosition'
 function FocusElement({ schema }: { schema: IComponentSchema }) {
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
+  const [isFirstClickButton, setIsFirstClickButton] = useState(false)
   const focusElement = useRef<HTMLDivElement | null>(null)
   const {
     distance,
@@ -42,34 +43,51 @@ function FocusElement({ schema }: { schema: IComponentSchema }) {
     setElementPosition,
     isPopupShow,
     setIsPopupShow,
+    previewMode,
   } = useContext(EditorInfoContext)
 
   // operation
   const PopupShowHandler = () => {
-    if (!isPopupShow && isFocused) {
-      setIsPopupShow(true)
+    if (isFirstClickButton) {
+      setIsPopupShow(isFocused)
+      setIsFirstClickButton(false)
     } else {
-      setIsPopupShow(false)
+      setIsPopupShow(!isPopupShow && isFocused)
     }
   }
 
   const elementBlur = () => {
-    setIsPopupShow(false)
     setIsFocused(false)
     setIsButtonShow(false)
   }
-  const focusEventHandler = () => {
+
+  const focusEventHandler = (event: React.MouseEvent<HTMLDivElement, MouseEvent>) => {
     if (!isFocused && focusElement.current) {
       setIsFocused(true)
       const elementPosition = getElementPosition(focusElement.current || null)
 
       setFocusElementSchema(schema)
       setElementPosition(elementPosition)
+
+      const target = event.target as HTMLDivElement
+      if (target.dataset?.type === 'popupEdit') {
+        setIsFirstClickButton(true)
+      }
     }
   }
 
   const elementMouseLeave = () => {
     if (!isFocused) setIsButtonShow(false)
+  }
+
+  const clearFocused = () => {
+    // context
+    setFocusElementSchema(null)
+    setIsPopupShow(false)
+    // states
+    setIsFocused(false)
+    setIsButtonShow(false)
+    setIsFirstClickButton(false)
   }
 
   useEffect(() => {
@@ -79,20 +97,22 @@ function FocusElement({ schema }: { schema: IComponentSchema }) {
     }
   }, [focusElementSchema])
 
+  useEffect(() => {
+    clearFocused()
+  }, [previewMode])
+
   return (
     <div
       // Because Popup is not inside of the component, so use click to imitate blue event
       onClickCapture={focusEventHandler}
       onMouseEnter={() => setIsButtonShow(true)}
       onMouseLeave={elementMouseLeave}
-      tabIndex={-1}
       className="relative"
     >
       {/* element */}
       <div
         ref={focusElement}
         className={classNames('relative', { 'border-4 border-secondary-blue-300': isFocused })}
-        // className={classNames('relative', { 'ring-4 ring-secondary-blue-300-blue': isFocused })}
       >
         {(schema.groupType === 'button' ||
           schema.groupType === 'banner' ||

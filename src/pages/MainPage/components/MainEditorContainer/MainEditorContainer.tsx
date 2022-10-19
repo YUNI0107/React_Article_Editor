@@ -1,4 +1,6 @@
+import { useCallback, useEffect } from 'react'
 import classNames from 'classnames'
+import { useDrop, XYCoord } from 'react-dnd'
 
 // components
 import Ruler from '../../../../components/layout/Ruler'
@@ -10,21 +12,56 @@ import BackDevice from '../BackDevice'
 import PopUp from '../../../../components/common/Popup'
 
 // contexts
-import { useContext } from 'react'
+import { useContext, useState } from 'react'
 import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
 
+// types
+interface DragItem {
+  type: string
+  top: number
+  left: number
+}
+
 function MainEditorContainer() {
-  const { previewMode, focusElementSchema } = useContext(EditorInfoContext)
+  const { previewMode, focusElementSchema, distance } = useContext(EditorInfoContext)
   const {
     props: focusProps,
     controls: focusControls,
     uuid: focusUUid,
     groupType: focusGroupType,
   } = focusElementSchema || {}
+  const [popupDistance, setPopupDistance] = useState(distance)
+
+  // operations
+  const movePopup = useCallback(
+    (top: number, left: number) => {
+      setPopupDistance({ top, left })
+    },
+    [setPopupDistance]
+  )
+
+  // effects
+  useEffect(() => {
+    setPopupDistance(distance)
+  }, [distance])
+
+  const [, drop] = useDrop(
+    () => ({
+      accept: 'popup',
+      drop(item: DragItem, monitor) {
+        const delta = monitor.getDifferenceFromInitialOffset() as XYCoord
+        const left = Math.round(item.left + delta.x)
+        const top = Math.round(item.top + delta.y)
+        movePopup(top, left)
+        return undefined
+      },
+    }),
+    [movePopup]
+  )
 
   return (
     <>
-      <div className="relative flex-1 flex flex-col items-center">
+      <div className="relative flex-1 flex flex-col items-center" ref={drop}>
         {/* top-ruler */}
         <Ruler />
 
@@ -76,7 +113,7 @@ function MainEditorContainer() {
         </div>
       </div>
 
-      <PopUp>
+      <PopUp popupDistance={popupDistance}>
         <ControllerContainer
           props={focusProps}
           controls={focusControls}

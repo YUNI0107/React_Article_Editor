@@ -12,7 +12,7 @@ const ruler =
   'h-7 border-x border-white flex justify-center items-center absolute left-1/2 -translate-x-1/2 cursor-pointer hover:brightness-110 active:contrast-125'
 
 function Ruler() {
-  const { previewMode, handlePreviewMode, setIsPopupShow } = useContext(EditorInfoContext)
+  const { previewMode, handlePreviewMode } = useContext(EditorInfoContext)
 
   const previewModeText = useMemo(() => {
     switch (previewMode) {
@@ -31,7 +31,6 @@ function Ruler() {
 
   const clickPreviewMode = (mode: PreviewModesType) => {
     handlePreviewMode(mode)
-    setIsPopupShow(false)
   }
 
   return (

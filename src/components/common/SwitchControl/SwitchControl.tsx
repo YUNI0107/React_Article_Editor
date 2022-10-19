@@ -17,8 +17,6 @@ function SwitchControl({
   uuid: string
   childUuid?: string
 }) {
-  console.log(control)
-
   switch (control) {
     case 'imgPathControl':
       return <ImgPathControl {...props} childUuid={childUuid} uuid={uuid} />
