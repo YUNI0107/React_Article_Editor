@@ -1,6 +1,6 @@
 import { useCallback, useEffect } from 'react'
 import classNames from 'classnames'
-import { useDrop, XYCoord } from 'react-dnd'
+import { useDrag, useDrop, XYCoord } from 'react-dnd'
 
 // components
 import Ruler from '../../../../components/layout/Ruler'
@@ -31,6 +31,7 @@ function MainEditorContainer() {
     groupType: focusGroupType,
   } = focusElementSchema || {}
   const [popupDistance, setPopupDistance] = useState(distance)
+  const { top, left } = popupDistance
 
   // operations
   const movePopup = useCallback(
@@ -57,6 +58,17 @@ function MainEditorContainer() {
       },
     }),
     [movePopup]
+  )
+
+  const [{ isDragging }, drag, preview] = useDrag(
+    () => ({
+      type: 'popup',
+      item: { left, top },
+      collect: (monitor) => ({
+        isDragging: monitor.isDragging(),
+      }),
+    }),
+    [left, top]
   )
 
   return (
@@ -113,12 +125,13 @@ function MainEditorContainer() {
         </div>
       </div>
 
-      <PopUp popupDistance={popupDistance}>
+      <PopUp popupDistance={popupDistance} isDragging={isDragging} preview={preview}>
         <ControllerContainer
           props={focusProps}
           controls={focusControls}
           uuid={focusUUid}
           groupName={focusGroupType}
+          drag={drag}
         />
       </PopUp>
     </>

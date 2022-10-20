@@ -1,4 +1,5 @@
 import { useContext, useMemo } from 'react'
+import { ConnectDragSource } from 'react-dnd'
 
 // types
 import { groupTypes, IControlProps, IControls } from '../../../types/editor'
@@ -19,12 +20,14 @@ function ControllerContainer({
   controls,
   props,
   groupName,
+  drag,
 }: {
   uuid?: string
   childUuid?: string
   controls?: Array<IControls>
   props?: IControlProps
   groupName?: groupTypes
+  drag: ConnectDragSource
 }) {
   if (!props || !controls || !uuid) return null
 
@@ -46,7 +49,10 @@ function ControllerContainer({
       style={{ width: `${controlContainerWidth}px` }}
     >
       {/* header */}
-      <div className="bg-main-blue w-full px-3 py-2 flex justify-between items-center">
+      <div
+        ref={drag}
+        className="bg-main-blue w-full px-3 py-2 flex justify-between items-center cursor-move"
+      >
         <h1 className="text-base text-white font-bold">{controllerName}設定</h1>
         <button onClick={() => setIsPopupShow(false)}>
           <i className="ri-close-fill text-[28px] text-white hover:text-main-gray-300"></i>

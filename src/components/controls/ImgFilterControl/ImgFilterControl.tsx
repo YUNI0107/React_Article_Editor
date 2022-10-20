@@ -28,7 +28,10 @@ const FilterBox = ({
   changeFilterValue: (filter: string) => void
 }) => {
   return (
-    <div className="flex flex-col items-center" onClick={() => changeFilterValue(filterStyle)}>
+    <div
+      className="flex flex-col items-center cursor-pointer"
+      onClick={() => changeFilterValue(filterStyle)}
+    >
       <div className="relative w-full pb-[100%] box-border">
         <div
           className={classNames('absolute top-0 left-0 w-full h-full', {
