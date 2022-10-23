@@ -1,5 +1,6 @@
 import { ReactNode, createContext, useState } from 'react'
 import { v4 as uuidv4 } from 'uuid'
+import update from 'immutability-helper'
 
 // constants
 import { groupTypeEnum } from '../../constants/enums/editorEnums'
@@ -48,6 +49,7 @@ const defaultSchemas: {
   addSchema: (newSchema: IComponentSchema) => void
   moveSchema: (schemaUuid: string, direction: 'up' | 'down') => void
   deleteSchema: (schemaUuid: string) => void
+  dragMoveSchema: (dragIndex: number, hoverIndex: number) => void
 } = {
   schemas: [],
   handleSchema: (newSchemas: Array<IComponentSchema>) => {
@@ -61,6 +63,9 @@ const defaultSchemas: {
   },
   deleteSchema: (schemaUuid: string) => {
     console.log(schemaUuid)
+  },
+  dragMoveSchema: (dragIndex: number, hoverIndex: number) => {
+    console.log(dragIndex, hoverIndex)
   },
 }
 
@@ -89,14 +94,18 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
   }
 
   const exchangeSchema = (originalIndex: number, newIndex: number) => {
-    setSchemas((prevSchema) => {
-      const arrangeSchemas = [...prevSchema]
-      ;[arrangeSchemas[originalIndex], arrangeSchemas[newIndex]] = [
-        arrangeSchemas[newIndex],
-        arrangeSchemas[originalIndex],
-      ]
-      return arrangeSchemas
-    })
+    setSchemas((prevSchema: Array<IComponentSchema>) =>
+      update(prevSchema, {
+        $splice: [
+          [newIndex, 1],
+          [originalIndex, 0, prevSchema[newIndex] as IComponentSchema],
+        ],
+      })
+    )
+  }
+
+  const dragMoveSchema = (dragIndex: number, hoverIndex: number) => {
+    exchangeSchema(hoverIndex, dragIndex)
   }
 
   const deleteSchema = (schemaUuid: string) => {
@@ -114,6 +123,7 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         addSchema,
         moveSchema,
         deleteSchema,
+        dragMoveSchema,
       }}
     >
       {children}

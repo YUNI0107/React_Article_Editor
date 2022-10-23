@@ -20,7 +20,9 @@ function EditorSection() {
 
   return (
     <>
-      {schemas.map((schema) => {
+      {schemas.map((schema, schemaIndex) => {
+        if (!schema) return null
+
         switch (schema.groupType) {
           case 'banner':
           case 'button':
@@ -28,7 +30,7 @@ function EditorSection() {
             return (
               <Fragment key={schema.uuid}>
                 <div className={schemaStyleSetting}>
-                  <SingleFocusElement schema={schema} />
+                  <SingleFocusElement schema={schema} schemaIndex={schemaIndex} />
                   <ButtonsControl uuid={schema.uuid} />
                 </div>
               </Fragment>

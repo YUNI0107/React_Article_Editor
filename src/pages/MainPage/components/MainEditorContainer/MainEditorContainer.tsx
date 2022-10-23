@@ -1,26 +1,19 @@
-import { useCallback, useEffect } from 'react'
+import { useCallback, useEffect, useContext, useState } from 'react'
 import classNames from 'classnames'
 import { useDrag, useDrop, XYCoord } from 'react-dnd'
 
 // components
 import Ruler from '../../../../components/layout/Ruler'
 import ControllerContainer from '../../../../components/common/ControllerContainer'
-
-// types
+import PopUp from '../../../../components/common/Popup'
 import EditorSection from '../../../../components/layout/EditorSection'
 import BackDevice from '../BackDevice'
-import PopUp from '../../../../components/common/Popup'
-
-// contexts
-import { useContext, useState } from 'react'
-import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
 
 // types
-interface DragItem {
-  type: string
-  top: number
-  left: number
-}
+import { PopupDragItem } from '../../../../types/layout'
+
+// contexts
+import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
 
 function MainEditorContainer() {
   const { previewMode, focusElementSchema, distance } = useContext(EditorInfoContext)
@@ -49,7 +42,7 @@ function MainEditorContainer() {
   const [, drop] = useDrop(
     () => ({
       accept: 'popup',
-      drop(item: DragItem, monitor) {
+      drop(item: PopupDragItem, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset() as XYCoord
         const left = Math.round(item.left + delta.x)
         const top = Math.round(item.top + delta.y)

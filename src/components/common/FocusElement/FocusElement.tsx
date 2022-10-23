@@ -1,14 +1,18 @@
 import { useState, useRef, useContext, useEffect } from 'react'
 import classNames from 'classnames'
+import { useDrag, useDrop } from 'react-dnd'
+import type { Identifier, XYCoord } from 'dnd-core'
 
 // components
 import SingleEachContainer from './SingleEachContainer'
 
 // types
 import { IComponentSchema } from '../../../types/editor'
+import { SchemaDragItem } from '../../../types/layout'
 
 // context
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // utils
 import getElementPosition from '../../../utils/getElementPosition'
@@ -31,10 +35,19 @@ import getElementPosition from '../../../utils/getElementPosition'
  *
  */
 
-function FocusElement({ schema }: { schema: IComponentSchema }) {
+function FocusElement({
+  schema,
+  schemaIndex,
+  id,
+}: {
+  schema: IComponentSchema
+  schemaIndex: number
+  id: string
+}) {
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
   const [isFirstClickButton, setIsFirstClickButton] = useState(false)
+  const dropRef = useRef<HTMLDivElement>(null)
   const focusElement = useRef<HTMLDivElement | null>(null)
   const {
     distance,
@@ -45,6 +58,75 @@ function FocusElement({ schema }: { schema: IComponentSchema }) {
     setIsPopupShow,
     previewMode,
   } = useContext(EditorInfoContext)
+  const { dragMoveSchema: moveSchema } = useContext(SchemaContext)
+
+  const [{ handlerId }, drop] = useDrop<SchemaDragItem, void, { handlerId: Identifier | null }>({
+    accept: 'schema',
+    collect(monitor) {
+      return {
+        handlerId: monitor.getHandlerId(),
+      }
+    },
+    hover(item: SchemaDragItem, monitor) {
+      if (!dropRef.current) {
+        return
+      }
+      const dragIndex = item.index
+      const hoverIndex = schemaIndex
+
+      // Don't replace items with themselves
+      if (dragIndex === hoverIndex || hoverIndex === undefined) {
+        return
+      }
+
+      // Determine rectangle on screen
+      const hoverBoundingRect = dropRef.current?.getBoundingClientRect()
+
+      // Get vertical middle
+      const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2
+
+      // Determine mouse position
+      const clientOffset = monitor.getClientOffset()
+
+      // Get pixels to the top
+      const hoverClientY = (clientOffset as XYCoord).y - hoverBoundingRect.top
+
+      // Only perform the move when the mouse has crossed half of the items height
+      // When dragging downwards, only move when the cursor is below 50%
+      // When dragging upwards, only move when the cursor is above 50%
+
+      // Dragging downwards
+      if (dragIndex < hoverIndex && hoverClientY < hoverMiddleY) {
+        return
+      }
+
+      // Dragging upwards
+      if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
+        return
+      }
+
+      // Time to actually perform the action
+      moveSchema(dragIndex, hoverIndex)
+
+      // Note: we're mutating the monitor item here!
+      // Generally it's better to avoid mutations,
+      // but it's good here for the sake of performance
+      // to avoid expensive index searches.
+      item.index = hoverIndex
+    },
+  })
+
+  const [{ isDragging }, drag] = useDrag({
+    type: 'schema',
+    item: () => {
+      return { id, index: schemaIndex }
+    },
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    collect: (monitor: any) => ({
+      isDragging: monitor.isDragging(),
+    }),
+    canDrag: isFocused,
+  })
 
   // operation
   const PopupShowHandler = () => {
@@ -101,13 +183,18 @@ function FocusElement({ schema }: { schema: IComponentSchema }) {
     clearFocused()
   }, [previewMode])
 
+  drag(drop(dropRef))
+
   return (
     <div
+      ref={dropRef}
       // Because Popup is not inside of the component, so use click to imitate blue event
       onClickCapture={focusEventHandler}
       onMouseEnter={() => setIsButtonShow(true)}
       onMouseLeave={elementMouseLeave}
-      className="relative"
+      className={classNames('relative', { 'cursor-move': isFocused })}
+      style={{ opacity: isDragging ? 0 : 1 }}
+      data-handler-id={handlerId}
     >
       {/* element */}
       <div
