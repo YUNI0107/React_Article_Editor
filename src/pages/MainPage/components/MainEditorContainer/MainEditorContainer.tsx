@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useContext, useState } from 'react'
+import { useCallback, useEffect, useContext, useState, useRef } from 'react'
 import classNames from 'classnames'
-import { useDrag, useDrop, XYCoord } from 'react-dnd'
+import { useDrag, useDrop, XYCoord, useDragDropManager } from 'react-dnd'
 
 // components
 import Ruler from '../../../../components/layout/Ruler'
@@ -10,10 +10,13 @@ import EditorSection from '../../../../components/layout/EditorSection'
 import BackDevice from '../BackDevice'
 
 // types
-import { PopupDragItem } from '../../../../types/layout'
+import { IPopupDragItem } from '../../../../types/layout'
 
 // contexts
 import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
+
+// hooks
+import { useScroll } from '../../../../hooks/useScroll'
 
 function MainEditorContainer() {
   const { previewMode, focusElementSchema, distance } = useContext(EditorInfoContext)
@@ -25,6 +28,9 @@ function MainEditorContainer() {
   } = focusElementSchema || {}
   const [popupDistance, setPopupDistance] = useState(distance)
   const { top, left } = popupDistance
+  const scrollRef = useRef<HTMLDivElement | null>(null)
+  // For Drag & Drop
+  const { updatePosition } = useScroll(scrollRef)
 
   // operations
   const movePopup = useCallback(
@@ -42,7 +48,7 @@ function MainEditorContainer() {
   const [, drop] = useDrop(
     () => ({
       accept: 'popup',
-      drop(item: PopupDragItem, monitor) {
+      drop(item: IPopupDragItem, monitor) {
         const delta = monitor.getDifferenceFromInitialOffset() as XYCoord
         const left = Math.round(item.left + delta.x)
         const top = Math.round(item.top + delta.y)
@@ -63,6 +69,21 @@ function MainEditorContainer() {
     }),
     [left, top]
   )
+
+  const scrollDragDropManager = useDragDropManager()
+  const monitor = scrollDragDropManager.getMonitor()
+
+  useEffect(() => {
+    if (previewMode !== 'lg') {
+      const unsubscribe = monitor.subscribeToOffsetChange(() => {
+        const offset = monitor.getSourceClientOffset()?.y as number
+
+        updatePosition({ position: offset, isScrollAllowed: true })
+      })
+
+      return unsubscribe
+    }
+  }, [monitor, updatePosition, previewMode])
 
   return (
     <>
@@ -92,7 +113,7 @@ function MainEditorContainer() {
         </div>
 
         <div
-          className={classNames('w-full full', {
+          className={classNames('w-full', {
             'absolute top-0 left-1/2 z-10 -translate-x-1/2 py-20': previewMode === 'sm',
             'absolute top-0 left-1/2 z-10 -translate-x-1/2 py-16': previewMode === 'md',
           })}
@@ -105,7 +126,8 @@ function MainEditorContainer() {
           ></div>
 
           <div
-            className={classNames('w-full h-full overflow-y-auto ', {
+            ref={scrollRef}
+            className={classNames('w-full overflow-y-auto', {
               'h-mobile': previewMode === 'sm',
               'h-tablet': previewMode === 'md',
               'h-full': previewMode === 'lg',

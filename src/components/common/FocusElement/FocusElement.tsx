@@ -8,7 +8,7 @@ import SingleEachContainer from './SingleEachContainer'
 
 // types
 import { IComponentSchema } from '../../../types/editor'
-import { SchemaDragItem } from '../../../types/layout'
+import { ISchemaDragItem } from '../../../types/layout'
 
 // context
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
@@ -16,6 +16,9 @@ import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // utils
 import getElementPosition from '../../../utils/getElementPosition'
+
+// hooks
+import { useWindowScroll } from '../../../hooks/useWindowScroll'
 
 /**
  *A Component contain focus & pop up feature
@@ -57,17 +60,18 @@ function FocusElement({
     isPopupShow,
     setIsPopupShow,
     previewMode,
+    setFocusElementHeight,
   } = useContext(EditorInfoContext)
   const { dragMoveSchema: moveSchema } = useContext(SchemaContext)
 
-  const [{ handlerId }, drop] = useDrop<SchemaDragItem, void, { handlerId: Identifier | null }>({
+  const [{ handlerId }, drop] = useDrop<ISchemaDragItem, void, { handlerId: Identifier | null }>({
     accept: 'schema',
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
       }
     },
-    hover(item: SchemaDragItem, monitor) {
+    hover(item: ISchemaDragItem, monitor) {
       if (!dropRef.current) {
         return
       }
@@ -128,6 +132,8 @@ function FocusElement({
     canDrag: isFocused,
   })
 
+  useWindowScroll(isDragging)
+
   // operation
   const PopupShowHandler = () => {
     if (isFirstClickButton) {
@@ -156,6 +162,13 @@ function FocusElement({
         setIsFirstClickButton(true)
       }
     }
+
+    updateFocusElementHeight()
+  }
+
+  const updateFocusElementHeight = () => {
+    const height = dropRef.current?.getBoundingClientRect().height || 0
+    setFocusElementHeight(height)
   }
 
   const elementMouseLeave = () => {
@@ -180,6 +193,7 @@ function FocusElement({
   }, [focusElementSchema])
 
   useEffect(() => {
+    setFocusElementHeight(0)
     clearFocused()
   }, [previewMode])
 

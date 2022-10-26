@@ -18,6 +18,8 @@ const defaultInformation: {
   setElementPosition: (distance: IDistance) => void
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
+  focusElementHeight: number
+  setFocusElementHeight: (height: number) => void
 } = {
   previewMode: 'lg',
   handlePreviewMode: (mode: PreviewModesType) => console.log(mode),
@@ -27,6 +29,10 @@ const defaultInformation: {
   setElementPosition: (position) => console.log(position),
   isPopupShow: false,
   setIsPopupShow: (isShow) => console.log(isShow),
+  focusElementHeight: 0,
+  setFocusElementHeight: (height: number) => {
+    console.log(height)
+  },
 }
 
 export const EditorInfoContext = createContext(defaultInformation)
@@ -36,6 +42,7 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   const [elementPosition, setElementPosition] = useState({ top: -100, left: -100 })
   const [focusElementSchema, setFocusElementSchema] = useState<SingleControlSchemaType | null>(null)
   const [isPopupShow, setIsPopupShow] = useState(false)
+  const [focusElementHeight, setFocusElementHeight] = useState<number>(0)
 
   // operations
   const handlePreviewMode = (mode: PreviewModesType) => {
@@ -51,14 +58,16 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   return (
     <EditorInfoContext.Provider
       value={{
-        previewMode: previewMode,
-        handlePreviewMode: handlePreviewMode,
+        previewMode,
+        handlePreviewMode,
         distance: elementPosition,
         focusElementSchema: focusElementSchema,
         setFocusElementSchema: focusElementSchemaHandler,
-        setElementPosition: setElementPosition,
-        isPopupShow: isPopupShow,
-        setIsPopupShow: setIsPopupShow,
+        setElementPosition,
+        isPopupShow,
+        setIsPopupShow,
+        focusElementHeight,
+        setFocusElementHeight,
       }}
     >
       {children}

@@ -4,14 +4,19 @@ export type PreviewModesType = `${PreviewModes}`
 
 export type DrawerStateType = 'add' | 'info'
 
-export interface PopupDragItem {
+export interface IPopupDragItem {
   type: string
   top: number
   left: number
 }
 
-export interface SchemaDragItem {
+export interface ISchemaDragItem {
   index: number
   id: string
   type: string
+}
+
+export interface IUseScroll {
+  position: number
+  isScrollAllowed: boolean
 }
