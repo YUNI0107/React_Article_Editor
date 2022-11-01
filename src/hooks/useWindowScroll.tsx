@@ -19,7 +19,7 @@ function getScrollDirection(position: number | null): 'top' | 'bottom' | 'stable
   return 'stable'
 }
 
-export const useWindowScroll = (isDragging: boolean) => {
+export const useWindowScroll = (isDragging: boolean, previewMode: 'lg' | 'md' | 'sm') => {
   const [position, setPosition] = useState<number | null>(null)
   const scrollTimer = useRef<number | null>(null)
   const direction = getScrollDirection(position)
@@ -31,8 +31,7 @@ export const useWindowScroll = (isDragging: boolean) => {
   }
 
   useEffect(() => {
-    console.log('direction', direction)
-    if (direction !== 'stable' && isDragging) {
+    if (direction !== 'stable' && isDragging && previewMode === 'lg') {
       scrollTimer.current = window.setInterval(() => {
         window.scrollBy(0, scrollSpeed * (direction === 'top' ? -1 : 1))
       }, 1)
@@ -43,7 +42,7 @@ export const useWindowScroll = (isDragging: boolean) => {
         window.clearInterval(scrollTimer.current)
       }
     }
-  }, [direction, isDragging])
+  }, [direction, isDragging, previewMode])
 
   useEffect(() => {
     window.addEventListener('drag', handleWindowMouseMove)

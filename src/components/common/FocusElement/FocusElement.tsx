@@ -132,7 +132,7 @@ function FocusElement({
     canDrag: isFocused,
   })
 
-  useWindowScroll(isDragging)
+  useWindowScroll(isDragging, previewMode)
 
   // operation
   const PopupShowHandler = () => {
