@@ -19,7 +19,7 @@ import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection
 import { useScroll } from '../../../../hooks/useScroll'
 
 function MainEditorContainer() {
-  const { previewMode, focusElementSchema, distance } = useContext(EditorInfoContext)
+  const { previewMode, focusElementSchema, distance, isPopupShow } = useContext(EditorInfoContext)
   const {
     props: focusProps,
     controls: focusControls,
@@ -140,7 +140,12 @@ function MainEditorContainer() {
         </div>
       </div>
 
-      <PopUp popupDistance={popupDistance} isDragging={isDragging} preview={preview}>
+      <PopUp
+        isPopupShow={isPopupShow}
+        popupDistance={popupDistance}
+        isDragging={isDragging}
+        preview={preview}
+      >
         <ControllerContainer
           props={focusProps}
           controls={focusControls}

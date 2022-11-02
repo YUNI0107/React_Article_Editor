@@ -202,7 +202,7 @@ function FocusElement({
   return (
     <div
       ref={dropRef}
-      // Because Popup is not inside of the component, so use click to imitate blue event
+      // Because Popup is not inside of the component, so use click to imitate blur event
       onClickCapture={focusEventHandler}
       onMouseEnter={() => setIsButtonShow(true)}
       onMouseLeave={elementMouseLeave}

@@ -1,33 +1,20 @@
-import { useState, useEffect, ReactNode, useContext } from 'react'
+import { ReactNode } from 'react'
 import { ConnectDragPreview } from 'react-dnd'
-
-// contexts
-import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 function PopUp({
   children,
+  isPopupShow,
   popupDistance,
   isDragging,
   preview,
 }: {
   children: ReactNode
+  isPopupShow: boolean
   popupDistance: { top: number; left: number }
   isDragging: boolean
   preview: ConnectDragPreview
 }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const { isPopupShow, setIsPopupShow } = useContext(EditorInfoContext)
   const { top, left } = popupDistance
-
-  // operation
-  const transitionEnd = (isVisible: boolean) => {
-    if (!isVisible) setIsPopupShow(false)
-  }
-
-  // effects
-  useEffect(() => {
-    if (isPopupShow) setIsVisible(true)
-  }, [isPopupShow])
 
   if (!isPopupShow) return null
 
@@ -36,12 +23,7 @@ function PopUp({
   }
 
   return (
-    <div
-      ref={preview}
-      className="absolute z-20 transition-all duration-300"
-      onTransitionEnd={() => transitionEnd(isVisible)}
-      style={{ top: `${top}px`, left: `${left}px` }}
-    >
+    <div ref={preview} className="absolute z-20" style={{ top: `${top}px`, left: `${left}px` }}>
       {/* popup */}
       {children}
     </div>

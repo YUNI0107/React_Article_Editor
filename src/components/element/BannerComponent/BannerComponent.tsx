@@ -22,17 +22,19 @@ function BannerComponent({
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
 
   return (
-    <div>
-      <img
-        className={classNames(filterStyleClass)}
-        src={props?.imgPath || DefaultImage}
-        alt="images"
-      />
-      <div onClick={PopupShowHandler} className={classNames(buttonStyle)} data-type="popupEdit">
-        編輯
+    <>
+      <div>
+        <img
+          className={classNames(filterStyleClass)}
+          src={props?.imgPath || DefaultImage}
+          alt="images"
+        />
+        <div onClick={PopupShowHandler} className={classNames(buttonStyle)} data-type="popupEdit">
+          編輯
+        </div>
+        <h1>Banner</h1>
       </div>
-      <h1>Banner</h1>
-    </div>
+    </>
   )
 }
 
