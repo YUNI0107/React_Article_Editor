@@ -10,6 +10,7 @@ interface IDistance {
 }
 
 const defaultInformation: {
+  isEditorMode: boolean
   previewMode: PreviewModesType
   handlePreviewMode: (mode: PreviewModesType) => void
   distance: { top: number; left: number }
@@ -21,6 +22,7 @@ const defaultInformation: {
   focusElementHeight: number
   setFocusElementHeight: (height: number) => void
 } = {
+  isEditorMode: true,
   previewMode: 'lg',
   handlePreviewMode: (mode: PreviewModesType) => console.log(mode),
   distance: { left: 0, top: 0 },
@@ -43,6 +45,7 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   const [focusElementSchema, setFocusElementSchema] = useState<SingleControlSchemaType | null>(null)
   const [isPopupShow, setIsPopupShow] = useState(false)
   const [focusElementHeight, setFocusElementHeight] = useState<number>(0)
+  const isEditorMode = true
 
   // operations
   const handlePreviewMode = (mode: PreviewModesType) => {
@@ -51,13 +54,13 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
 
   const focusElementSchemaHandler = (schema: IComponentSchema | null) => {
     if (schema?.groupType === 'images') return null
-
     setFocusElementSchema(schema)
   }
 
   return (
     <EditorInfoContext.Provider
       value={{
+        isEditorMode,
         previewMode,
         handlePreviewMode,
         distance: elementPosition,

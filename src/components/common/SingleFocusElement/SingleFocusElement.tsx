@@ -4,6 +4,9 @@ import { useState } from 'react'
 import FocusElement from '../FocusElement'
 import ModalBackground from '../ModalBackground'
 
+// components - modals
+import BasicImageModal from '../BasicImageModal'
+
 // types
 import { ISingleSchema } from '../../../types/editor'
 
@@ -16,17 +19,19 @@ function SingleFocusElement({
 }) {
   const [isModalShow, setIsModalShow] = useState(false)
 
+  // operations
+  const handleModalClose = () => {
+    setIsModalShow(false)
+  }
+
   return (
     <>
       <FocusElement schema={schema} schemaIndex={schemaIndex} id={schema.uuid} key={schema.uuid} />
       <h1 onClick={() => setIsModalShow(true)}>click</h1>
 
-      <ModalBackground isModalShow={isModalShow}>
+      <ModalBackground isModalShow={isModalShow} setIsModalShow={setIsModalShow}>
         {schema.groupType === 'banner' && (
-          <div className="bg-white p-10">
-            <div onClick={() => setIsModalShow(false)}>Close</div>
-            中間
-          </div>
+          <BasicImageModal imgPath={schema?.props?.imgPath} handleModalClose={handleModalClose} />
         )}
       </ModalBackground>
     </>
