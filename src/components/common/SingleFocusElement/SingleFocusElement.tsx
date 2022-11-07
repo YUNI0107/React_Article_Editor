@@ -26,8 +26,13 @@ function SingleFocusElement({
 
   return (
     <>
-      <FocusElement schema={schema} schemaIndex={schemaIndex} id={schema.uuid} key={schema.uuid} />
-      <h1 onClick={() => setIsModalShow(true)}>click</h1>
+      <FocusElement
+        schema={schema}
+        schemaIndex={schemaIndex}
+        id={schema.uuid}
+        key={schema.uuid}
+        setIsModalShow={setIsModalShow}
+      />
 
       <ModalBackground isModalShow={isModalShow} setIsModalShow={setIsModalShow}>
         {schema.groupType === 'banner' && (

@@ -42,10 +42,12 @@ function FocusElement({
   schema,
   schemaIndex,
   id,
+  ...props
 }: {
   schema: IComponentSchema
   schemaIndex: number
   id: string
+  setIsModalShow: (isShow: boolean) => void
 }) {
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
@@ -223,6 +225,7 @@ function FocusElement({
             PopupShowHandler={PopupShowHandler}
             isButtonShow={isButtonShow}
             distance={distance}
+            {...props}
           />
         )}
       </div>

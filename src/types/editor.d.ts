@@ -1,5 +1,6 @@
 import { CSSProperties } from 'react'
 import { groupTypeEnum } from '../constants/enums/editorEnums'
+import { ClickEventType } from './control'
 
 type groupTypes =
   | groupTypeEnum.banner
@@ -33,6 +34,8 @@ export interface IControlProps extends CSSProperties {
   // TODO: [key: string]
   [key: string]: string | number
   imgPath?: string
+  linkUrl?: string
+  clickEvent?: ClickEventType
 }
 
 export type IControlPropsKey = keyof IControlProps

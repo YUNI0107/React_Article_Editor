@@ -1,5 +1,5 @@
 import classNames from 'classnames'
-import { useContext, useState } from 'react'
+import { useContext } from 'react'
 
 // utils
 import ControlHandler from '../../../utils/controlHandler'
@@ -53,13 +53,12 @@ const FilterBox = ({
 function ImgFilterControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
   const { schemas, handleSchema } = useContext(SchemaContext)
   const controlHandler = new ControlHandler('filter', schemas, handleSchema)
-  const [filter, serFilter] = useState('')
+  const filter = controlHandler.getValue(uuid, childUuid) || ''
 
   const changeFilterValue = (filterStyle: string) => {
     // 這邊直接使用Tailwind作為className參數
     const filterClassName = filterStyle || ''
     controlHandler.changeValue(filterClassName, uuid, childUuid)
-    serFilter(filterClassName)
   }
 
   return (

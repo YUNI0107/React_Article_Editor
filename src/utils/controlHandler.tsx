@@ -16,7 +16,7 @@ class ControlHandler {
   }
 
   changeValue(value: string, uuid: string, childUuid?: string) {
-    const newSchemas = this.schemas
+    const newSchemas = [...this.schemas]
     const targetIndex = newSchemas.findIndex((item) => item.uuid === uuid)
 
     if (!childUuid) {
@@ -42,8 +42,27 @@ class ControlHandler {
     }
   }
 
-  getValue() {
-    console.log('getValue')
+  getValue(uuid: string, childUuid?: string) {
+    const targetIndex = this.schemas.findIndex((item) => item.uuid === uuid)
+
+    if (!childUuid) {
+      const schemas = this.schemas[targetIndex] as ISingleSchema
+      const targetProp = schemas.props
+
+      if (targetProp) {
+        return targetProp[this.controlName]
+      }
+    } else if ('children' in this.schemas[targetIndex]) {
+      {
+        const schema = this.schemas[targetIndex] as IMultipleSchema
+        const childrenTargetIndex = schema.children.findIndex((item) => item.uuid === childUuid)
+        const targetProp = schema.children[childrenTargetIndex].props
+
+        if (targetProp) {
+          return targetProp[this.controlName]
+        }
+      }
+    }
   }
 }
 

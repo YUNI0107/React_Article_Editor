@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // components
 import ControllerTitle from '../components/ControllerTitle'
@@ -11,12 +11,24 @@ import { ClickEventType } from '../../../types/control'
 // validate
 import { urlValidate } from '../../../validator/commonValidate'
 
+// utils
+import ControlHandler from '../../../utils/controlHandler'
+
+// contexts
+import { SchemaContext } from '../../../contexts/SchemaContextSection'
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
-  // console.log(uuid, childUuid)
-  const [eventKey, setEventKey] = useState<ClickEventType>('image-popup')
-  const [link, setLink] = useState('')
+  const { schemas, handleSchema } = useContext(SchemaContext)
+  const controlLinkHandler = new ControlHandler('linkUrl', schemas, handleSchema)
+  const controlEventHandler = new ControlHandler('clickEvent', schemas, handleSchema)
+  const link = (controlLinkHandler.getValue(uuid, childUuid) as string) || ''
+  const eventKey =
+    (controlEventHandler.getValue(uuid, childUuid) as ClickEventType) || 'image-popup'
   const [inputFocused, setInputFocused] = useState(false)
+
+  console.log(controlLinkHandler.schemas, controlEventHandler.schemas)
+  console.log(eventKey, link)
 
   // operation
   const checkLinkValid = () => {
@@ -28,11 +40,19 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
     }
   }
 
+  const changeLinkValue = (value: string) => {
+    controlLinkHandler.changeValue(value, uuid, childUuid)
+  }
+
+  const changeClickEventValue = (clickEvent: ClickEventType) => {
+    controlEventHandler.changeValue(clickEvent, uuid, childUuid)
+  }
+
   // effects
   useEffect(() => {
     // If change to image options but the link is invalid, clean it!
     if (!urlValidate(link) && eventKey === 'image-popup') {
-      setLink('')
+      controlLinkHandler.changeValue('', uuid, childUuid)
     }
   }, [link, eventKey])
 
@@ -41,6 +61,14 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
       setInputFocused(true)
     }
   }, [eventKey])
+
+  useEffect(() => {
+    return () => {
+      if (!urlValidate(link)) {
+        controlEventHandler.changeValue('image-popup', uuid, childUuid)
+      }
+    }
+  }, [])
 
   return (
     <div>
@@ -52,7 +80,7 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
             value="image-popup"
             name="radio"
             id="image-popup"
-            onValueChange={setEventKey}
+            onValueChange={changeClickEventValue}
             checked={eventKey === 'image-popup'}
           />
           <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="image-popup">
@@ -65,7 +93,7 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
             value="link"
             name="radio"
             id="link"
-            onValueChange={setEventKey}
+            onValueChange={changeClickEventValue}
             checked={eventKey === 'link'}
           />
           <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="link">
@@ -75,7 +103,7 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
         {eventKey === 'link' && (
           <BasicInput
             value={link}
-            setValue={setLink}
+            setValue={changeLinkValue}
             isFocused={inputFocused}
             setIsFocused={setInputFocused}
             customDivClassNames="mt-2"
