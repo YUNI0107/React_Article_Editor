@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // components
 import ControllerTitle from '../components/ControllerTitle'
@@ -6,29 +6,26 @@ import RadioButton from '../../common/RadioButton'
 import BasicInput from '../../common/BasicInput'
 
 // types
-import { ClickEventType } from '../../../types/control'
+import { ChangeValueFuncType, ClickEventType, GetValueFuncType } from '../../../types/control'
 
 // validate
 import { urlValidate } from '../../../validator/commonValidate'
 
-// utils
-import ControlHandler from '../../../utils/controlHandler'
-
-// contexts
-import { SchemaContext } from '../../../contexts/SchemaContextSection'
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
-  const { schemas, handleSchema } = useContext(SchemaContext)
-  const controlLinkHandler = new ControlHandler('linkUrl', schemas, handleSchema)
-  const controlEventHandler = new ControlHandler('clickEvent', schemas, handleSchema)
-  const link = (controlLinkHandler.getValue(uuid, childUuid) as string) || ''
-  const eventKey =
-    (controlEventHandler.getValue(uuid, childUuid) as ClickEventType) || 'image-popup'
+function ClickEventControl({
+  uuid,
+  childUuid,
+  getValue,
+  changeValue,
+}: {
+  uuid: string
+  childUuid?: string
+  getValue: GetValueFuncType
+  changeValue: ChangeValueFuncType
+}) {
+  const link = (getValue('linkUrl', uuid, childUuid) as string) || ''
+  const eventKey = (getValue('clickEvent', uuid, childUuid) as ClickEventType) || 'image-popup'
   const [inputFocused, setInputFocused] = useState(false)
-
-  console.log(controlLinkHandler.schemas, controlEventHandler.schemas)
-  console.log(eventKey, link)
 
   // operation
   const checkLinkValid = () => {
@@ -41,18 +38,18 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
   }
 
   const changeLinkValue = (value: string) => {
-    controlLinkHandler.changeValue(value, uuid, childUuid)
+    changeValue('linkUrl', value, uuid, childUuid)
   }
 
   const changeClickEventValue = (clickEvent: ClickEventType) => {
-    controlEventHandler.changeValue(clickEvent, uuid, childUuid)
+    changeValue('clickEvent', clickEvent, uuid, childUuid)
   }
 
   // effects
   useEffect(() => {
     // If change to image options but the link is invalid, clean it!
     if (!urlValidate(link) && eventKey === 'image-popup') {
-      controlLinkHandler.changeValue('', uuid, childUuid)
+      changeValue('linkUrl', '', uuid, childUuid)
     }
   }, [link, eventKey])
 
@@ -65,7 +62,7 @@ function ClickEventControl({ uuid, childUuid }: { uuid: string; childUuid?: stri
   useEffect(() => {
     return () => {
       if (!urlValidate(link)) {
-        controlEventHandler.changeValue('image-popup', uuid, childUuid)
+        changeValue('clickEvent', 'image-popup', uuid, childUuid)
       }
     }
   }, [])

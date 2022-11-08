@@ -1,21 +1,18 @@
 import { IComponentSchema, IMultipleSchema, ISingleSchema } from '../types/editor'
 
 class ControlHandler {
-  controlName: string
   schemas: Array<IComponentSchema>
   handleSchema: (newSchemas: Array<IComponentSchema>) => void
 
   constructor(
-    controlName: string,
     schemas: Array<IComponentSchema>,
     handleSchema: (newSchemas: Array<IComponentSchema>) => void
   ) {
-    this.controlName = controlName
     this.schemas = schemas
     this.handleSchema = handleSchema
   }
 
-  changeValue(value: string, uuid: string, childUuid?: string) {
+  changeValue(controlName: string, value: string, uuid: string, childUuid?: string) {
     const newSchemas = [...this.schemas]
     const targetIndex = newSchemas.findIndex((item) => item.uuid === uuid)
 
@@ -24,7 +21,7 @@ class ControlHandler {
       const targetProp = schemas.props
 
       if (targetProp) {
-        targetProp[this.controlName] = value
+        targetProp[controlName] = value
 
         this.handleSchema(newSchemas)
       }
@@ -35,14 +32,14 @@ class ControlHandler {
         const targetProp = schema.children[childrenTargetIndex].props
 
         if (targetProp) {
-          targetProp[this.controlName] = value
+          targetProp[controlName] = value
           this.handleSchema(newSchemas)
         }
       }
     }
   }
 
-  getValue(uuid: string, childUuid?: string) {
+  getValue(controlName: string, uuid: string, childUuid?: string) {
     const targetIndex = this.schemas.findIndex((item) => item.uuid === uuid)
 
     if (!childUuid) {
@@ -50,7 +47,7 @@ class ControlHandler {
       const targetProp = schemas.props
 
       if (targetProp) {
-        return targetProp[this.controlName]
+        return targetProp[controlName]
       }
     } else if ('children' in this.schemas[targetIndex]) {
       {
@@ -59,7 +56,7 @@ class ControlHandler {
         const targetProp = schema.children[childrenTargetIndex].props
 
         if (targetProp) {
-          return targetProp[this.controlName]
+          return targetProp[controlName]
         }
       }
     }

@@ -1,11 +1,4 @@
 import classNames from 'classnames'
-import { useContext } from 'react'
-
-// utils
-import ControlHandler from '../../../utils/controlHandler'
-
-// contexts
-import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // components
 import ControllerTitle from '../components/ControllerTitle'
@@ -15,6 +8,9 @@ import DefaultImage from '../../../assets/default.png'
 
 //constants
 import { filterControlList } from '../../../constants/controller'
+
+// types
+import { ChangeValueFuncType, GetValueFuncType } from '../../../types/control'
 
 const FilterBox = ({
   label,
@@ -50,15 +46,23 @@ const FilterBox = ({
   )
 }
 
-function ImgFilterControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
-  const { schemas, handleSchema } = useContext(SchemaContext)
-  const controlHandler = new ControlHandler('filter', schemas, handleSchema)
-  const filter = controlHandler.getValue(uuid, childUuid) || ''
+function ImgFilterControl({
+  uuid,
+  childUuid,
+  getValue,
+  changeValue,
+}: {
+  uuid: string
+  childUuid?: string
+  getValue: GetValueFuncType
+  changeValue: ChangeValueFuncType
+}) {
+  const filter = getValue('filter', uuid, childUuid) || ''
 
   const changeFilterValue = (filterStyle: string) => {
     // 這邊直接使用Tailwind作為className參數
     const filterClassName = filterStyle || ''
-    controlHandler.changeValue(filterClassName, uuid, childUuid)
+    changeValue('filter', filterClassName, uuid, childUuid)
   }
 
   return (
