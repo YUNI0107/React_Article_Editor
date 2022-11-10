@@ -1,26 +1,19 @@
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useContext } from 'react'
+
+// contexts
+import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // utils
-
+import ControlHandler from '../../../utils/controlHandler'
 import getBase64 from '../../../utils/getBase64'
 
 // validator
 import imageTypeValidate from '../../../validator/imageTypeValidate'
 
-// types
-import { ChangeValueFuncType } from '../../../types/control'
+function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
+  const { schemas, handleSchema } = useContext(SchemaContext)
+  const controlHandler = new ControlHandler(schemas, handleSchema)
 
-function ImgPathControl({
-  uuid,
-  childUuid,
-
-  changeValue,
-}: {
-  uuid: string
-  childUuid?: string
-
-  changeValue: ChangeValueFuncType
-}) {
   const changeInputValue = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.[0] || !imageTypeValidate(event.target.files?.[0])) {
       console.log('Not Correct Type')
@@ -29,19 +22,17 @@ function ImgPathControl({
 
     const imageBase64 = await getBase64(event.target.files[0])
     if (typeof imageBase64 === 'string') {
-      changeValue('imgPath', imageBase64, uuid, childUuid)
+      controlHandler.changeValue('imgPath', imageBase64, uuid, childUuid)
     }
   }
 
   return (
-    <div>
-      <h1>ControlControlControl</h1>
-      <input
-        type="file"
-        onChange={changeInputValue}
-        accept="image/png, image/jpeg, image/jpg, image/gif, image/svg "
-      />
-    </div>
+    <input
+      className="w-full h-full opacity-0 cursor-pointer"
+      type="file"
+      onChange={changeInputValue}
+      accept="image/png, image/jpeg, image/jpg, image/gif, image/svg "
+    />
   )
 }
 

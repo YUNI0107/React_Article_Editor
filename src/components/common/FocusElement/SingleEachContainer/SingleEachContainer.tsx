@@ -9,9 +9,10 @@ interface IEachContainer {
   PopupShowHandler: () => void
   isButtonShow: boolean
   distance: { top: number; left: number }
+  isEditorMode: boolean
 }
 
-function EachContainer(props: IEachContainer) {
+function SingleEachContainer(props: IEachContainer) {
   const { schema } = props
 
   switch (schema.groupType) {
@@ -22,4 +23,4 @@ function EachContainer(props: IEachContainer) {
   }
 }
 
-export default EachContainer
+export default SingleEachContainer

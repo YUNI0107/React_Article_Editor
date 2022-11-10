@@ -14,6 +14,7 @@ function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
     type: 'banner',
     props: {
       imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
+      eventKey: 'image-popup',
     },
     controls: ['imgFilterControl', 'clickEventControl'],
   }

@@ -63,6 +63,7 @@ function FocusElement({
     setIsPopupShow,
     previewMode,
     setFocusElementHeight,
+    isEditorMode,
   } = useContext(EditorInfoContext)
   const { dragMoveSchema: moveSchema } = useContext(SchemaContext)
 
@@ -225,6 +226,7 @@ function FocusElement({
             PopupShowHandler={PopupShowHandler}
             isButtonShow={isButtonShow}
             distance={distance}
+            isEditorMode={isEditorMode}
             {...props}
           />
         )}
