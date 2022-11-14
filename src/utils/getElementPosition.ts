@@ -1,4 +1,4 @@
-import { controlContainerWidth } from '../constants/enums/otherEnums'
+import { containerWidth } from '../constants/enums/otherEnums'
 
 function getElementPosition(element: HTMLElement | null) {
   const bindRect = element?.getBoundingClientRect()
@@ -16,8 +16,8 @@ function getElementPosition(element: HTMLElement | null) {
   const padding = 20
 
   const left =
-    originalLeft > window.innerWidth - controlContainerWidth
-      ? window.innerWidth - controlContainerWidth - padding
+    originalLeft > window.innerWidth - containerWidth
+      ? window.innerWidth - containerWidth - padding
       : originalLeft + padding
   const top = originalTop > headerHeight + padding ? originalTop : headerHeight + padding
 

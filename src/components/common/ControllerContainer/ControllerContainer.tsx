@@ -9,7 +9,7 @@ import SwitchControl from '../SwitchControl'
 
 // constants
 import { groupTypeEnum } from '../../../constants/enums/editorEnums'
-import { controlContainerWidth } from '../../../constants/enums/otherEnums'
+import { containerWidth } from '../../../constants/enums/otherEnums'
 
 // contexts
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
@@ -46,7 +46,7 @@ function ControllerContainer({
   return (
     <div
       className="bg-white rounded-lg overflow-hidden basic-shadow"
-      style={{ width: `${controlContainerWidth}px` }}
+      style={{ width: `${containerWidth}px` }}
     >
       {/* header */}
       <div

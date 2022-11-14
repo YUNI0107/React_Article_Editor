@@ -6,7 +6,7 @@ import { ISingleSchema } from '../../../../types/editor'
 
 interface IEachContainer {
   schema: ISingleSchema
-  PopupShowHandler: () => void
+  popupShowHandler: () => void
   isButtonShow: boolean
   distance: { top: number; left: number }
   isEditorMode: boolean

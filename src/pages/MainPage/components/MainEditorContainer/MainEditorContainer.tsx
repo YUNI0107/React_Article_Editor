@@ -8,6 +8,7 @@ import ControllerContainer from '../../../../components/common/ControllerContain
 import PopUp from '../../../../components/common/Popup'
 import EditorSection from '../../../../components/layout/EditorSection'
 import BackDevice from '../BackDevice'
+import SimpleTextEditor from '../../../../components/layout/SimpleTextEditor'
 
 // types
 import { IPopupDragItem } from '../../../../types/layout'
@@ -17,6 +18,7 @@ import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection
 
 // hooks
 import { useScroll } from '../../../../hooks/useScroll'
+import TextEditorContainer from '../../../../components/common/TextEditorContainer'
 
 function MainEditorContainer() {
   const { previewMode, focusElementSchema, distance, isPopupShow } = useContext(EditorInfoContext)
@@ -140,6 +142,7 @@ function MainEditorContainer() {
         </div>
       </div>
 
+      {/* controller-editor */}
       <PopUp
         isPopupShow={isPopupShow}
         popupDistance={popupDistance}
@@ -153,7 +156,16 @@ function MainEditorContainer() {
           groupName={focusGroupType}
           drag={drag}
         />
+
+        <TextEditorContainer
+        // props={focusProps}
+        // uuid={focusUUid}
+        // drag={drag}
+        />
       </PopUp>
+
+      {/* simple-text-editor */}
+      <SimpleTextEditor />
     </>
   )
 }

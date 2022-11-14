@@ -9,11 +9,11 @@ import DefaultImage from '../../../assets/default.png'
 
 function ImagesComponent({
   schema,
-  PopupShowHandler,
+  popupShowHandler,
   isButtonShow,
 }: {
   schema: IImages
-  PopupShowHandler: () => void
+  popupShowHandler: () => void
   isButtonShow: boolean
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
@@ -46,7 +46,7 @@ function ImagesComponent({
 
   return (
     <div>
-      <div onClick={PopupShowHandler} className={classNames(buttonStyle)}>
+      <div onClick={popupShowHandler} className={classNames(buttonStyle)}>
         編輯
       </div>
       {imagesCountArray.map((_, index) => {

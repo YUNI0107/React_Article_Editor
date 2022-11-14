@@ -18,13 +18,13 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 function BannerComponent({
   schema,
-  PopupShowHandler,
+  popupShowHandler,
   isButtonShow,
   setIsModalShow,
   isEditorMode,
 }: {
   schema: IBanner
-  PopupShowHandler: () => void
+  popupShowHandler: () => void
   isButtonShow: boolean
   setIsModalShow?: (isShow: boolean) => void
   isEditorMode: boolean
@@ -77,7 +77,7 @@ function BannerComponent({
           )}
         >
           <AddImageButton
-            onClick={PopupShowHandler}
+            onClick={popupShowHandler}
             text="變更圖片"
             customClassNames="mr-2"
             isPreviewSmMode={previewMode === 'sm'}
@@ -85,9 +85,10 @@ function BannerComponent({
             <ImgPathControl uuid={uuid} />
           </AddImageButton>
           <CircleButton
-            onClick={PopupShowHandler}
+            onClick={popupShowHandler}
             iconTag="ri-settings-3-fill"
             isPreviewSmMode={previewMode === 'sm'}
+            dataType="popupEdit"
           />
         </div>
         <div
@@ -95,7 +96,6 @@ function BannerComponent({
             buttonStyle,
             'absolute top-0 left-0 z-10 w-full h-full bg-white opacity-20 pointer-events-none'
           )}
-          data-type="popupEdit"
         ></div>
       </div>
     </>

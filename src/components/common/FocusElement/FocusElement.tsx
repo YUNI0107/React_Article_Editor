@@ -138,7 +138,8 @@ function FocusElement({
   useWindowScroll(isDragging, previewMode)
 
   // operation
-  const PopupShowHandler = () => {
+  const popupShowHandler = () => {
+    console.log('isFirstClickButton', isFirstClickButton)
     if (isFirstClickButton) {
       setIsPopupShow(isFocused)
       setIsFirstClickButton(false)
@@ -161,7 +162,8 @@ function FocusElement({
       setElementPosition(elementPosition)
 
       const target = event.target as HTMLDivElement
-      if (target.dataset?.type === 'popupEdit') {
+      const parentTarget = target.parentNode as HTMLDivElement
+      if (target.dataset?.type === 'popupEdit' || parentTarget.dataset?.type === 'popupEdit') {
         setIsFirstClickButton(true)
       }
     }
@@ -223,7 +225,7 @@ function FocusElement({
           schema.groupType === 'gallery') && (
           <SingleEachContainer
             schema={schema}
-            PopupShowHandler={PopupShowHandler}
+            popupShowHandler={popupShowHandler}
             isButtonShow={isButtonShow}
             distance={distance}
             isEditorMode={isEditorMode}

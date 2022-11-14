@@ -7,12 +7,14 @@ function AddImageButton({
   customClassNames,
   onClick,
   isPreviewSmMode,
+  dataType,
 }: {
   children?: ReactNode
   text: string
   customClassNames?: string
   onClick?: () => void
   isPreviewSmMode?: boolean
+  dataType?: string
 }) {
   const handleOnClick = () => {
     if (children || !onClick) return
@@ -27,6 +29,7 @@ function AddImageButton({
         { '!px-5 min-w-[150px]': isPreviewSmMode },
         customClassNames
       )}
+      data-type={dataType}
     >
       {children && <div className="absolute top-0 left-0 w-full h-full">{children}</div>}
       <i
