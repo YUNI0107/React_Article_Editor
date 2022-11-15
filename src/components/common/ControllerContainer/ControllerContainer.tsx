@@ -2,14 +2,14 @@ import { useContext, useMemo } from 'react'
 import { ConnectDragSource } from 'react-dnd'
 
 // types
-import { groupTypes, IControlProps, IControls } from '../../../types/editor'
+import { groupTypes, IControlProps } from '../../../types/editor'
 
 // components
 import SwitchControl from '../SwitchControl'
 
 // constants
 import { groupTypeEnum } from '../../../constants/enums/editorEnums'
-import { containerWidth } from '../../../constants/enums/otherEnums'
+import { containerWidth, CONTROLLER_MAP } from '../../../constants/enums/otherEnums'
 
 // contexts
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
@@ -17,19 +17,17 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 function ControllerContainer({
   uuid,
   childUuid,
-  controls,
   props,
   groupName,
   drag,
 }: {
   uuid?: string
   childUuid?: string
-  controls?: Array<IControls>
   props?: IControlProps
   groupName?: groupTypes
   drag: ConnectDragSource
 }) {
-  if (!props || !controls || !uuid) return null
+  if (!props || !groupName || !uuid) return null
 
   const { setIsPopupShow } = useContext(EditorInfoContext)
 
@@ -60,7 +58,7 @@ function ControllerContainer({
       </div>
       {/* bottom */}
       <div className="px-3 py-2">
-        {controls.map((control, index) => {
+        {CONTROLLER_MAP[groupName].map((control, index) => {
           return (
             <div className="py-2" key={index}>
               <SwitchControl control={control} props={props} childUuid={childUuid} uuid={uuid} />

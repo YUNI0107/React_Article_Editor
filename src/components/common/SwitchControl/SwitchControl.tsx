@@ -6,13 +6,14 @@ import { IControlProps, IControls } from '../../../types/editor'
 // components
 import ImgPathControl from '../../controls/ImgPathControl'
 import ImgFilterControl from '../../controls/ImgFilterControl'
+import ClickEventControl from '../../controls/ClickEventControl'
+import TextShowControl from '../../controls/TextShowControl'
 
 // utils
 import ControlHandler from '../../../utils/controlHandler'
 
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
-import ClickEventControl from '../../controls/ClickEventControl'
 
 function SwitchControl({
   control,
@@ -42,6 +43,8 @@ function SwitchControl({
       return <ImgFilterControl {...controlProps} />
     case 'clickEventControl':
       return <ClickEventControl {...controlProps} />
+    case 'textShowControl':
+      return <TextShowControl {...controlProps} />
     default:
       return <></>
   }

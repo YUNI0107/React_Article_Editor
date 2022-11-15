@@ -1,3 +1,5 @@
+import { groupTypes, IControls } from '../../types/editor'
+
 export enum PreviewModes {
   Desktop = 'lg',
   Tablet = 'md',
@@ -11,3 +13,11 @@ export enum ModeSizes {
 }
 
 export const containerWidth = 240
+
+export const CONTROLLER_MAP: { [key in groupTypes]: Array<IControls> } = {
+  banner: ['imgFilterControl', 'clickEventControl', 'textShowControl'],
+  paragraph: [],
+  images: [],
+  gallery: [],
+  button: [],
+}

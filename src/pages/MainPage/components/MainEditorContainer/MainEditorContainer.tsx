@@ -22,12 +22,7 @@ import TextEditorContainer from '../../../../components/common/TextEditorContain
 
 function MainEditorContainer() {
   const { previewMode, focusElementSchema, distance, isPopupShow } = useContext(EditorInfoContext)
-  const {
-    props: focusProps,
-    controls: focusControls,
-    uuid: focusUUid,
-    groupType: focusGroupType,
-  } = focusElementSchema || {}
+  const { props: focusProps, uuid: focusUUid, groupType: focusGroupType } = focusElementSchema || {}
   const [popupDistance, setPopupDistance] = useState(distance)
   const { top, left } = popupDistance
   const scrollRef = useRef<HTMLDivElement | null>(null)
@@ -151,7 +146,6 @@ function MainEditorContainer() {
       >
         <ControllerContainer
           props={focusProps}
-          controls={focusControls}
           uuid={focusUUid}
           groupName={focusGroupType}
           drag={drag}

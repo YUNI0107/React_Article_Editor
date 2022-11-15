@@ -32,16 +32,22 @@ type buttonType = 'button'
 // controlProps
 export interface IControlProps extends CSSProperties {
   // TODO: [key: string]
-  [key: string]: string | number
+  [key: string]: IControlProps[keyof IControlProps]
   imgPath?: string
   linkUrl?: string
+  eventKey?: string
   clickEvent?: ClickEventType
+  textShowChecks?: { [key: 'title' | 'description']: boolean }
 }
 
 export type IControlPropsKey = keyof IControlProps
 
 // controls
-export type IControls = 'imgPathControl' | 'imgFilterControl' | 'clickEventControl'
+export type IControls =
+  | 'imgPathControl'
+  | 'imgFilterControl'
+  | 'clickEventControl'
+  | 'textShowControl'
 
 /**
  *
@@ -60,14 +66,12 @@ interface IBanner {
   groupType: groupTypeEnum.banner
   type: bannerType
   props?: IControlProps
-  controls?: Array<IControls>
 }
 interface IParagraph {
   uuid: string
   groupType: groupTypeEnum.paragraph
   type: paragraphType
   props?: IControlProps
-  controls?: Array<IControls>
 }
 interface IImages {
   uuid: string
@@ -80,7 +84,6 @@ interface IImage {
   uuid: string
   props?: IControlProps
   groupType: groupTypeEnum.images | groupTypeEnum.gallery | groupTypeEnum.banner
-  controls?: Array<IControls>
   childrenParagraph?: {
     title: IParagraph
     description: IParagraph
@@ -92,7 +95,6 @@ interface IGallery {
   groupType: groupTypeEnum.gallery
   type: galleryType
   props?: IControlProps
-  controls?: Array<IControls>
   childrenParagraph?: Array<{
     title: IParagraph
     description: IParagraph
@@ -104,6 +106,5 @@ interface IButton {
   groupType: groupTypeEnum.button
   type: buttonType
   props?: IControlProps
-  controls?: Array<IControls>
   innerParagraph?: IParagraph
 }

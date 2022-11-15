@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 // components
 import ControllerTitle from '../components/ControllerTitle'
 import RadioButton from '../../common/RadioButton'
-import BasicInput from '../../common/BasicInput'
+import LinkInput from '../../common/LinkInput'
 
 // types
 import { ChangeValueFuncType, ClickEventType, GetValueFuncType } from '../../../types/control'
@@ -26,16 +26,6 @@ function ClickEventControl({
   const link = (getValue('linkUrl', uuid, childUuid) as string) || ''
   const eventKey = (getValue('clickEvent', uuid, childUuid) as ClickEventType) || 'image-popup'
   const [inputFocused, setInputFocused] = useState(false)
-
-  // operation
-  const checkLinkValid = () => {
-    if (link === '') {
-      return '連結不可為空'
-    }
-    if (!urlValidate(link)) {
-      return '連結格式錯誤'
-    }
-  }
 
   const changeLinkValue = (value: string) => {
     changeValue('linkUrl', value, uuid, childUuid)
@@ -68,14 +58,14 @@ function ClickEventControl({
   }, [])
 
   return (
-    <div>
+    <>
       <ControllerTitle title="點擊事件" />
 
       <div>
         <div className="flex items-start mb-2">
           <RadioButton
             value="image-popup"
-            name="radio"
+            name="click-event"
             id="image-popup"
             onValueChange={changeClickEventValue}
             checked={eventKey === 'image-popup'}
@@ -88,7 +78,7 @@ function ClickEventControl({
         <div className="flex items-start">
           <RadioButton
             value="link"
-            name="radio"
+            name="click-event"
             id="link"
             onValueChange={changeClickEventValue}
             checked={eventKey === 'link'}
@@ -98,17 +88,16 @@ function ClickEventControl({
           </label>
         </div>
         {eventKey === 'link' && (
-          <BasicInput
-            value={link}
-            setValue={changeLinkValue}
-            isFocused={inputFocused}
-            setIsFocused={setInputFocused}
+          <LinkInput
+            link={link}
+            changeLinkValue={changeLinkValue}
+            inputFocused={inputFocused}
+            setInputFocused={setInputFocused}
             customDivClassNames="mt-2"
-            customInfo={checkLinkValid()}
           />
         )}
       </div>
-    </div>
+    </>
   )
 }
 
