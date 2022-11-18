@@ -60,43 +60,40 @@ function ClickEventControl({
   return (
     <>
       <ControllerTitle title="點擊事件" />
-
-      <div>
-        <div className="flex items-start mb-2">
-          <RadioButton
-            value="image-popup"
-            name="click-event"
-            id="image-popup"
-            onValueChange={changeClickEventValue}
-            checked={eventKey === 'image-popup'}
-          />
-          <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="image-popup">
-            圖片彈窗
-          </label>
-        </div>
-
-        <div className="flex items-start">
-          <RadioButton
-            value="link"
-            name="click-event"
-            id="link"
-            onValueChange={changeClickEventValue}
-            checked={eventKey === 'link'}
-          />
-          <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="link">
-            超連結
-          </label>
-        </div>
-        {eventKey === 'link' && (
-          <LinkInput
-            link={link}
-            changeLinkValue={changeLinkValue}
-            inputFocused={inputFocused}
-            setInputFocused={setInputFocused}
-            customDivClassNames="mt-2"
-          />
-        )}
+      <div className="flex items-start mb-2">
+        <RadioButton
+          value="image-popup"
+          name="click-event"
+          id="image-popup"
+          onValueChange={changeClickEventValue}
+          checked={eventKey === 'image-popup'}
+        />
+        <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="image-popup">
+          圖片彈窗
+        </label>
       </div>
+
+      <div className="flex items-start">
+        <RadioButton
+          value="link"
+          name="click-event"
+          id="link"
+          onValueChange={changeClickEventValue}
+          checked={eventKey === 'link'}
+        />
+        <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="link">
+          超連結
+        </label>
+      </div>
+      {eventKey === 'link' && (
+        <LinkInput
+          link={link}
+          changeLinkValue={changeLinkValue}
+          inputFocused={inputFocused}
+          setInputFocused={setInputFocused}
+          customDivClassNames="mt-2"
+        />
+      )}
     </>
   )
 }

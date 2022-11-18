@@ -20,3 +20,8 @@ export interface IUseScroll {
   position: number
   isScrollAllowed: boolean
 }
+
+export interface IDropDownListItem {
+  value: string | number
+  info: text | ReactNode
+}

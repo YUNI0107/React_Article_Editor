@@ -78,3 +78,16 @@ p {
 .basic-text-button {
   @apply text-xl text-main-gray-500 hover:text-main-blue p-1;
 }
+
+/* slider */
+.track {
+  height: 8px;
+}
+
+.track-0 {
+  @apply bg-main-blue rounded-full;
+}
+
+.track-1 {
+  @apply bg-main-gray-200 rounded-full;
+}

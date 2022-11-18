@@ -23,7 +23,11 @@ function PopUp({
   }
 
   return (
-    <div ref={preview} className="absolute z-20" style={{ top: `${top}px`, left: `${left}px` }}>
+    <div
+      ref={preview}
+      className="absolute z-20 transition-all duration-300"
+      style={{ top: `${top}px`, left: `${left}px` }}
+    >
       {/* popup */}
       {children}
     </div>
