@@ -23,5 +23,6 @@ export interface IUseScroll {
 
 export interface IDropDownListItem {
   value: string | number
-  info: text | ReactNode
+  text: text
+  displayText?: ReactNode
 }

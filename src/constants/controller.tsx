@@ -10,8 +10,16 @@ export const filterControlList: Array<{ label: string; filterStyle: string }> = 
 ]
 
 export const fontSizeList: Array<IDropDownListItem> = [
-  { value: 0, info: <p className="text-[24px] font-bold">大標題 - 24px</p> },
-  { value: 1, info: <p className="text-[16px] font-bold">小標題 - 16px</p> },
-  { value: 2, info: <p className="text-[12px]">內文 - 12px</p> },
-  { value: 3, info: <p className="text-[10px]">附註 - 10px</p> },
+  {
+    value: 0,
+    text: '大標題 - 24px',
+    displayText: <p className="text-[24px] font-bold">大標題 - 24px</p>,
+  },
+  {
+    value: 1,
+    text: '小標題 - 16px',
+    displayText: <p className="text-[16px] font-bold">小標題 - 16px</p>,
+  },
+  { value: 2, text: '內文 - 12px', displayText: <p className="text-[12px]">內文 - 12px</p> },
+  { value: 3, text: '附註 - 10px', displayText: <p className="text-[10px]">附註 - 10px</p> },
 ]

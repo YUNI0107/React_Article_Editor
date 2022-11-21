@@ -9,12 +9,20 @@ import DropDown from '../../../common/DropDown'
 import Slider from '../../../common/Slider'
 
 function FontSizeControl() {
+  const [fontSize, setFontSize] = useState(0)
   const [isOpen, setIsOpen] = useState(false)
+
   return (
     <>
       <div className="py-2">
         <ControllerTitle title="主題字級" />
-        <DropDown list={fontSizeList} isOpen={isOpen} setIsOpen={setIsOpen} />
+        <DropDown
+          list={fontSizeList}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          currentValue={fontSize}
+          setCurrentValue={(value) => setFontSize(value as number)}
+        />
       </div>
       <div className="py-2">
         <ControllerTitle title="字級大小" />
