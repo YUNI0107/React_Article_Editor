@@ -13,9 +13,11 @@ function TextShowControl({
 }: {
   uuid: string
   childUuid?: string
-  getValue: GetValueFuncType
-  changeValue: ChangeValueFuncType
+  getValue?: GetValueFuncType
+  changeValue?: ChangeValueFuncType
 }) {
+  if (!getValue || !changeValue) return null
+
   const textShowChecks =
     (getValue('textShowChecks', uuid, childUuid) as {
       [key in 'title' | 'description']: boolean
@@ -25,8 +27,6 @@ function TextShowControl({
     const checksObject = { ...textShowChecks, [checkbox]: value }
     changeValue('textShowChecks', checksObject, uuid, childUuid)
   }
-
-  console.log('textShowChecks', textShowChecks)
 
   return (
     <>

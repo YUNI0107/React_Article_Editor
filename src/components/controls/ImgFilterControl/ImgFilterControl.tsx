@@ -54,9 +54,11 @@ function ImgFilterControl({
 }: {
   uuid: string
   childUuid?: string
-  getValue: GetValueFuncType
-  changeValue: ChangeValueFuncType
+  getValue?: GetValueFuncType
+  changeValue?: ChangeValueFuncType
 }) {
+  if (!getValue || !changeValue) return null
+
   const filter = getValue('filter', uuid, childUuid) || ''
 
   const changeFilterValue = (filterStyle: string) => {

@@ -28,6 +28,7 @@ type imagesType =
 type galleryType = 'nine-square' | 'fence' | 'carousel' | 'irregular'
 
 type buttonType = 'button'
+type textShowChecksType = 'title' | 'description'
 
 // controlProps
 export interface IControlProps extends CSSProperties {
@@ -37,7 +38,9 @@ export interface IControlProps extends CSSProperties {
   linkUrl?: string
   eventKey?: string
   clickEvent?: ClickEventType
-  textShowChecks?: { [key: 'title' | 'description']: boolean }
+  textShowChecks?: { [key in textShowChecksType]: boolean }
+  title?: string
+  description?: string
 }
 
 export type IControlPropsKey = keyof IControlProps

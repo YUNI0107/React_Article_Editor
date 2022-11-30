@@ -9,9 +9,6 @@ import ImgFilterControl from '../../controls/ImgFilterControl'
 import ClickEventControl from '../../controls/ClickEventControl'
 import TextShowControl from '../../controls/TextShowControl'
 
-// utils
-import ControlHandler from '../../../utils/controlHandler'
-
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
@@ -26,13 +23,12 @@ function SwitchControl({
   uuid: string
   childUuid?: string
 }) {
-  const { schemas, handleSchema } = useContext(SchemaContext)
-  const controlHandler = new ControlHandler(schemas, handleSchema)
+  const { controlHandler } = useContext(SchemaContext)
   const controlProps = {
     childUuid,
     uuid,
-    getValue: controlHandler.getValue.bind(controlHandler),
-    changeValue: controlHandler.changeValue.bind(controlHandler),
+    getValue: controlHandler?.getValue.bind(controlHandler),
+    changeValue: controlHandler?.changeValue.bind(controlHandler),
     ...props,
   }
 

@@ -4,7 +4,7 @@ import { useDrag, useDrop, XYCoord, useDragDropManager } from 'react-dnd'
 
 // components
 import Ruler from '../../../../components/layout/Ruler'
-// import ControllerContainer from '../../../../components/common/ControllerContainer'
+import ControllerContainer from '../../../../components/common/ControllerContainer'
 import PopUp from '../../../../components/common/Popup'
 import EditorSection from '../../../../components/layout/EditorSection'
 import BackDevice from '../BackDevice'
@@ -18,7 +18,7 @@ import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection
 
 // hooks
 import { useScroll } from '../../../../hooks/useScroll'
-import TextEditorContainer from '../../../../components/common/TextEditorContainer'
+// import TextEditorContainer from '../../../../components/common/TextEditorContainer'
 
 function MainEditorContainer() {
   const { previewMode, focusElementSchema, distance, isPopupShow } = useContext(EditorInfoContext)
@@ -145,18 +145,18 @@ function MainEditorContainer() {
         isDragging={isDragging}
         preview={preview}
       >
-        {/* <ControllerContainer
+        <ControllerContainer
           props={focusProps}
           uuid={focusUUid}
           groupName={focusGroupType}
           drag={drag}
-        /> */}
+        />
 
-        <TextEditorContainer
+        {/* <TextEditorContainer
           // props={focusProps}
           // uuid={focusUUid}
           drag={drag}
-        />
+        /> */}
       </PopUp>
 
       {/* simple-text-editor */}

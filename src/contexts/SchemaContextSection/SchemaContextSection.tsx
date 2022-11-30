@@ -8,52 +8,12 @@ import { groupTypeEnum } from '../../constants/enums/editorEnums'
 // types
 import { IComponentSchema, IBanner } from '../../types/editor'
 
+// utils
+import ControlHandler from '../../utils/controlHandler'
+
 const uuid1 = uuidv4()
 const uuid2 = uuidv4()
 const uuid3 = uuidv4()
-
-const a: IBanner = {
-  uuid: uuid1,
-  groupType: groupTypeEnum.banner,
-  type: 'banner',
-  props: {
-    imgPath:
-      'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-    eventKey: 'image-popup',
-    textShowChecks: {
-      title: true,
-      description: true,
-    },
-  },
-}
-const b: IBanner = {
-  uuid: uuid2,
-  groupType: groupTypeEnum.banner,
-  type: 'banner',
-  props: {
-    imgPath:
-      'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-    eventKey: 'image-popup',
-    textShowChecks: {
-      title: true,
-      description: true,
-    },
-  },
-}
-const c: IBanner = {
-  uuid: uuid3,
-  groupType: groupTypeEnum.banner,
-  type: 'banner',
-  props: {
-    imgPath:
-      'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-    eventKey: 'image-popup',
-    textShowChecks: {
-      title: true,
-      description: true,
-    },
-  },
-}
 
 const defaultSchemas: {
   schemas: Array<IComponentSchema>
@@ -62,6 +22,7 @@ const defaultSchemas: {
   moveSchema: (schemaUuid: string, direction: 'up' | 'down') => void
   deleteSchema: (schemaUuid: string) => void
   dragMoveSchema: (dragIndex: number, hoverIndex: number) => void
+  controlHandler?: ControlHandler
 } = {
   schemas: [],
   handleSchema: (newSchemas: Array<IComponentSchema>) => {
@@ -84,6 +45,56 @@ const defaultSchemas: {
 export const SchemaContext = createContext(defaultSchemas)
 
 function SchemaContextSection({ children }: { children: ReactNode }) {
+  const a: IBanner = {
+    uuid: uuid1,
+    groupType: groupTypeEnum.banner,
+    type: 'banner',
+    props: {
+      imgPath:
+        'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+      eventKey: 'image-popup',
+      textShowChecks: {
+        title: true,
+        description: true,
+      },
+      title:
+        '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hello Wordddddddld!"}]}]}',
+      description: '',
+    },
+  }
+  const b: IBanner = {
+    uuid: uuid2,
+    groupType: groupTypeEnum.banner,
+    type: 'banner',
+    props: {
+      imgPath:
+        'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+      eventKey: 'image-popup',
+      textShowChecks: {
+        title: true,
+        description: true,
+      },
+      title: '',
+      description: '',
+    },
+  }
+  const c: IBanner = {
+    uuid: uuid3,
+    groupType: groupTypeEnum.banner,
+    type: 'banner',
+    props: {
+      imgPath:
+        'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
+      eventKey: 'image-popup',
+      textShowChecks: {
+        title: true,
+        description: true,
+      },
+      title: '',
+      description: '',
+    },
+  }
+
   const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a, b, c])
 
   const addSchema = (newSchema: IComponentSchema) => {
@@ -127,15 +138,20 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
     })
   }
 
+  const handleSchema = (newSchemas: Array<IComponentSchema>) => setSchemas([...newSchemas])
+
+  const controlHandler = new ControlHandler(schemas, handleSchema)
+
   return (
     <SchemaContext.Provider
       value={{
         schemas,
-        handleSchema: (newSchemas: Array<IComponentSchema>) => setSchemas([...newSchemas]),
+        handleSchema,
         addSchema,
         moveSchema,
         deleteSchema,
         dragMoveSchema,
+        controlHandler,
       }}
     >
       {children}

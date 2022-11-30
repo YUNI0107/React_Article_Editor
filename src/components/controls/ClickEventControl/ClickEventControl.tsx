@@ -20,9 +20,11 @@ function ClickEventControl({
 }: {
   uuid: string
   childUuid?: string
-  getValue: GetValueFuncType
-  changeValue: ChangeValueFuncType
+  getValue?: GetValueFuncType
+  changeValue?: ChangeValueFuncType
 }) {
+  if (!getValue || !changeValue) return null
+
   const link = (getValue('linkUrl', uuid, childUuid) as string) || ''
   const eventKey = (getValue('clickEvent', uuid, childUuid) as ClickEventType) || 'image-popup'
   const [inputFocused, setInputFocused] = useState(false)
