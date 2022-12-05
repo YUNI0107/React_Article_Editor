@@ -55,10 +55,10 @@ function FocusElement({
   const dropRef = useRef<HTMLDivElement>(null)
   const focusElement = useRef<HTMLDivElement | null>(null)
   const {
-    distance,
+    popupPosition,
     focusElementSchema,
     setFocusElementSchema,
-    setElementPosition,
+    setPopupPosition,
     isPopupShow,
     setIsPopupShow,
     previewMode,
@@ -159,7 +159,7 @@ function FocusElement({
       const elementPosition = getElementPosition(focusElement.current || null)
 
       setFocusElementSchema(schema)
-      setElementPosition(elementPosition)
+      setPopupPosition(elementPosition)
 
       const target = event.target as HTMLDivElement
       const parentTarget = target.parentNode as HTMLDivElement
@@ -227,7 +227,7 @@ function FocusElement({
             schema={schema}
             popupShowHandler={popupShowHandler}
             isButtonShow={isButtonShow}
-            distance={distance}
+            distance={popupPosition}
             isEditorMode={isEditorMode}
             {...props}
           />

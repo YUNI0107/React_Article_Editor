@@ -4,7 +4,7 @@ import { createContext, ReactNode, useState } from 'react'
 import { PreviewModesType } from '../../types/layout'
 import { IComponentSchema, SingleControlSchemaType } from '../../types/editor'
 
-interface IDistance {
+export interface IDistance {
   top: number
   left: number
 }
@@ -13,24 +13,32 @@ const defaultInformation: {
   isEditorMode: boolean
   previewMode: PreviewModesType
   handlePreviewMode: (mode: PreviewModesType) => void
-  distance: { top: number; left: number }
+  popupPosition: IDistance
+  setPopupPosition: (distance: IDistance) => void
+  textMenuPosition: IDistance
+  setTextMenuPosition: (distance: IDistance) => void
   focusElementSchema: SingleControlSchemaType | null
   setFocusElementSchema: (schema: IComponentSchema | null) => void
-  setElementPosition: (distance: IDistance) => void
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
+  isTextMenuShow: boolean
+  setIsTextMenuShow: (isShow: boolean) => void
   focusElementHeight: number
   setFocusElementHeight: (height: number) => void
 } = {
   isEditorMode: true,
   previewMode: 'lg',
   handlePreviewMode: (mode: PreviewModesType) => console.log(mode),
-  distance: { left: 0, top: 0 },
+  popupPosition: { left: 0, top: 0 },
+  setPopupPosition: (position) => console.log(position),
+  textMenuPosition: { left: 0, top: 0 },
+  setTextMenuPosition: (position) => console.log(position),
   focusElementSchema: null,
   setFocusElementSchema: (schema) => console.log(schema),
-  setElementPosition: (position) => console.log(position),
   isPopupShow: false,
   setIsPopupShow: (isShow) => console.log(isShow),
+  isTextMenuShow: false,
+  setIsTextMenuShow: (isShow) => console.log(isShow),
   focusElementHeight: 0,
   setFocusElementHeight: (height: number) => {
     console.log(height)
@@ -41,10 +49,15 @@ export const EditorInfoContext = createContext(defaultInformation)
 
 function EditorInfoContextSection({ children }: { children: ReactNode }) {
   const [previewMode, setPreviewMode] = useState<PreviewModesType>('lg')
-  const [elementPosition, setElementPosition] = useState({ top: -100, left: -100 })
   const [focusElementSchema, setFocusElementSchema] = useState<SingleControlSchemaType | null>(null)
-  const [isPopupShow, setIsPopupShow] = useState(false)
   const [focusElementHeight, setFocusElementHeight] = useState<number>(0)
+
+  // Layout show
+  const [isPopupShow, setIsPopupShow] = useState(false)
+  const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 })
+  const [isTextMenuShow, setIsTextMenuShow] = useState(false)
+  const [textMenuPosition, setTextMenuPosition] = useState({ top: 0, left: 0 })
+
   const isEditorMode = true
 
   // operations
@@ -63,12 +76,16 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
         isEditorMode,
         previewMode,
         handlePreviewMode,
-        distance: elementPosition,
+        popupPosition,
+        setPopupPosition,
+        setTextMenuPosition,
+        textMenuPosition,
         focusElementSchema: focusElementSchema,
         setFocusElementSchema: focusElementSchemaHandler,
-        setElementPosition,
         isPopupShow,
         setIsPopupShow,
+        isTextMenuShow,
+        setIsTextMenuShow,
         focusElementHeight,
         setFocusElementHeight,
       }}

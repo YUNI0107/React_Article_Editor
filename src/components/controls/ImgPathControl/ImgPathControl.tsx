@@ -4,15 +4,13 @@ import { ChangeEvent, useContext } from 'react'
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // utils
-import ControlHandler from '../../../utils/controlHandler'
 import getBase64 from '../../../utils/getBase64'
 
 // validator
 import imageTypeValidate from '../../../validator/imageTypeValidate'
 
 function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
-  const { schemas, handleSchema } = useContext(SchemaContext)
-  const controlHandler = new ControlHandler(schemas, handleSchema)
+  const { controlHandler } = useContext(SchemaContext)
 
   const changeInputValue = async (event: ChangeEvent<HTMLInputElement>) => {
     if (!event.target.files?.[0] || !imageTypeValidate(event.target.files?.[0])) {
@@ -22,7 +20,7 @@ function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string 
 
     const imageBase64 = await getBase64(event.target.files[0])
     if (typeof imageBase64 === 'string') {
-      controlHandler.changeValue('imgPath', imageBase64, uuid, childUuid)
+      controlHandler?.changeValue('imgPath', imageBase64, uuid, childUuid)
     }
   }
 

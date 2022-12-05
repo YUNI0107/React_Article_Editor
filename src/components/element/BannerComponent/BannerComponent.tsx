@@ -76,7 +76,7 @@ function BannerComponent({
             )}
         </div>
 
-        <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch">
+        <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch max-w-full">
           {/* title */}
           {textShowChecks?.title && (
             <div className="mb-2">
@@ -89,7 +89,7 @@ function BannerComponent({
             <BasicEditorContent schema={schema} controlName="description" />
           )}
 
-          <div className={classNames(buttonStyle, 'flex mt-7')}>
+          <div className={classNames(buttonStyle, 'flex mt-7 w-full justify-center')}>
             <AddImageButton
               onClick={popupShowHandler}
               text="變更圖片"

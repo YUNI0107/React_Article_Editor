@@ -4,17 +4,17 @@ import { ConnectDragPreview } from 'react-dnd'
 function PopUp({
   children,
   isPopupShow,
-  popupDistance,
+  distance,
   isDragging,
   preview,
 }: {
   children: ReactNode
   isPopupShow: boolean
-  popupDistance: { top: number; left: number }
+  distance: { top: number; left: number }
   isDragging: boolean
   preview: ConnectDragPreview
 }) {
-  const { top, left } = popupDistance
+  const { top, left } = distance
 
   if (!isPopupShow) return null
 

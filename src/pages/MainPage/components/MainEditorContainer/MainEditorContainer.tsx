@@ -21,11 +21,18 @@ import { useScroll } from '../../../../hooks/useScroll'
 // import TextEditorContainer from '../../../../components/common/TextEditorContainer'
 
 function MainEditorContainer() {
-  const { previewMode, focusElementSchema, distance, isPopupShow } = useContext(EditorInfoContext)
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const {
+    previewMode,
+    focusElementSchema,
+    popupPosition,
+    isPopupShow,
+    isTextMenuShow,
+    textMenuPosition,
+  } = useContext(EditorInfoContext)
+
   const { props: focusProps, uuid: focusUUid, groupType: focusGroupType } = focusElementSchema || {}
-  const [popupDistance, setPopupDistance] = useState(distance)
-  const { top, left } = popupDistance
+  const [popupDragDistance, setPopupDragDistance] = useState(popupPosition)
+  const { top, left } = popupDragDistance
   const scrollRef = useRef<HTMLDivElement | null>(null)
   // For Drag & Drop
   const { updatePosition } = useScroll(scrollRef)
@@ -33,15 +40,15 @@ function MainEditorContainer() {
   // operations
   const movePopup = useCallback(
     (top: number, left: number) => {
-      setPopupDistance({ top, left })
+      setPopupDragDistance({ top, left })
     },
-    [setPopupDistance]
+    [setPopupDragDistance]
   )
 
   // effects
   useEffect(() => {
-    setPopupDistance(distance)
-  }, [distance])
+    setPopupDragDistance(popupPosition)
+  }, [popupPosition])
 
   const [, drop] = useDrop(
     () => ({
@@ -141,7 +148,7 @@ function MainEditorContainer() {
       {/* controller-editor */}
       <PopUp
         isPopupShow={isPopupShow}
-        popupDistance={popupDistance}
+        distance={popupDragDistance}
         isDragging={isDragging}
         preview={preview}
       >
@@ -160,7 +167,7 @@ function MainEditorContainer() {
       </PopUp>
 
       {/* simple-text-editor */}
-      <SimpleTextEditor />
+      {isTextMenuShow && <SimpleTextEditor distance={textMenuPosition} />}
     </>
   )
 }

@@ -7,6 +7,10 @@ import { IComponentSchema } from '../../../types/editor'
 
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+
+// utils
+import getSelectionPosition from '../../../utils/getSelectionPosition'
 
 function BasicEditorContent({
   schema,
@@ -16,6 +20,7 @@ function BasicEditorContent({
   controlName: string
 }) {
   const { uuid } = schema
+  const { setIsTextMenuShow, setTextMenuPosition } = useContext(EditorInfoContext)
   const { controlHandler } = useContext(SchemaContext)
   const extensions = [StarterKit]
   const defaultHTMLContent = '<p>Hello World!</p>'
@@ -26,11 +31,23 @@ function BasicEditorContent({
     onBlur({ editor }) {
       controlHandler?.changeValue(controlName, JSON.stringify(editor.getJSON()), uuid)
     },
+    onSelectionUpdate({ transaction }) {
+      if (transaction.selection.empty) {
+        setIsTextMenuShow(false)
+      } else {
+        const position = getSelectionPosition()
+
+        if (position) {
+          setTextMenuPosition(position)
+          setIsTextMenuShow(true)
+        }
+      }
+    },
   })
 
   useEffect(() => {
     const previousJsonString = controlHandler?.getValue(controlName, uuid) as string
-    console.log('check', previousJsonString, editor)
+
     if (!previousJsonString || !editor) return
 
     try {

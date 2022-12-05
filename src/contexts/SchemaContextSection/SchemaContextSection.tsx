@@ -128,7 +128,7 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
   }
 
   const dragMoveSchema = (dragIndex: number, hoverIndex: number) => {
-    exchangeSchema(hoverIndex, dragIndex)
+    exchangeSchema(dragIndex, hoverIndex)
   }
 
   const deleteSchema = (schemaUuid: string) => {

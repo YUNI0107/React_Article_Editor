@@ -1,4 +1,5 @@
 import './styles/global.css'
+import './styles/text.css'
 import 'remixicon/fonts/remixicon.css'
 
 // pages

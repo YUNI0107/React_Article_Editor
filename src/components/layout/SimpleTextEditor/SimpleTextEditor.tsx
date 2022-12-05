@@ -1,8 +1,13 @@
-function SimpleTextEditor() {
+// types
+import { IDistance } from '../../../contexts/EditorInfoContextSection/EditorInfoContextSection'
+
+function SimpleTextEditor({ distance }: { distance: IDistance }) {
+  const { top, left } = distance
+
   return (
     <div
-      className="absolute z-20 bg-white rounded-[30px] overflow-hidden basic-shadow px-6 py-2 flex items-center"
-      style={{ top: `${100}px`, left: `${100}px` }}
+      className="absolute z-20 bg-white rounded-[30px] overflow-hidden basic-shadow px-6 py-2 flex items-center -translate-y-full"
+      style={{ top: `${top - 10}px`, left: `${left}px` }}
     >
       <button className="basic-text-button mr-2">
         <i className="ri-bold"></i>

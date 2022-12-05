@@ -1,0 +1,13 @@
+.ProseMirror {
+  cursor: auto;
+}
+
+.ProseMirror-focused {
+  outline: none;
+  border: none;
+}
+
+/* .ProseMirror:focus-visible {
+  outline: none;
+  border: none;
+} */

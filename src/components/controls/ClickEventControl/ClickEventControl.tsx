@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useContext, useEffect, useState } from 'react'
 
 // components
 import ControllerTitle from '../components/ControllerTitle'
@@ -11,7 +11,9 @@ import { ChangeValueFuncType, ClickEventType, GetValueFuncType } from '../../../
 // validate
 import { urlValidate } from '../../../validator/commonValidate'
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+// contexts
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+
 function ClickEventControl({
   uuid,
   childUuid,
@@ -28,6 +30,7 @@ function ClickEventControl({
   const link = (getValue('linkUrl', uuid, childUuid) as string) || ''
   const eventKey = (getValue('clickEvent', uuid, childUuid) as ClickEventType) || 'image-popup'
   const [inputFocused, setInputFocused] = useState(false)
+  const { isPopupShow } = useContext(EditorInfoContext)
 
   const changeLinkValue = (value: string) => {
     changeValue('linkUrl', value, uuid, childUuid)
@@ -40,7 +43,7 @@ function ClickEventControl({
   // effects
   useEffect(() => {
     // If change to image options but the link is invalid, clean it!
-    if (!urlValidate(link) && eventKey === 'image-popup') {
+    if (!urlValidate(link) && eventKey === 'image-popup' && isPopupShow) {
       changeValue('linkUrl', '', uuid, childUuid)
     }
   }, [link, eventKey])
@@ -53,7 +56,7 @@ function ClickEventControl({
 
   useEffect(() => {
     return () => {
-      if (!urlValidate(link)) {
+      if (!urlValidate(link) && isPopupShow) {
         changeValue('clickEvent', 'image-popup', uuid, childUuid)
       }
     }
