@@ -1,16 +1,19 @@
-import { useContext, useEffect } from 'react'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
+import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
 
 // types
 import { IComponentSchema } from '../../../types/editor'
+import { IDistance } from '../../../contexts/EditorInfoContextSection/EditorInfoContextSection'
 
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
-import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+import { TextPopupContext } from '../../../contexts/TextPopupContextSection/TextPopupContextSection'
 
 // utils
 import getSelectionPosition from '../../../utils/getSelectionPosition'
+import SimpleTextEditor from '../../layout/SimpleTextEditor'
 
 function BasicEditorContent({
   schema,
@@ -20,22 +23,39 @@ function BasicEditorContent({
   controlName: string
 }) {
   const { uuid } = schema
-  const { setIsTextMenuShow, setTextMenuPosition } = useContext(EditorInfoContext)
   const { controlHandler } = useContext(SchemaContext)
+  const { styleSelected, setStyleSelected, needUpdate, setNeedUpdate } =
+    useContext(TextPopupContext)
+  const [isTextMenuShow, setIsTextMenuShow] = useState(false)
+  const [textMenuPosition, setTextMenuPosition] = useState<IDistance>({ top: 0, left: 0 })
+  const editorElement = useRef<HTMLDivElement | null>(null)
+
+  // Text editor data
   const extensions = [StarterKit]
   const defaultHTMLContent = '<p>Hello World!</p>'
 
   const editor = useEditor({
     extensions,
     content: defaultHTMLContent,
-    onBlur({ editor }) {
+    onBlur({ editor, event }) {
       controlHandler?.changeValue(controlName, JSON.stringify(editor.getJSON()), uuid)
+      const targetElement = event.relatedTarget
+
+      if (!(targetElement && editorElement.current?.contains(targetElement as Node))) {
+        setIsTextMenuShow(false)
+      }
     },
-    onSelectionUpdate({ transaction }) {
+    onUpdate({ editor }) {
+      updatePopup(editor)
+    },
+    onSelectionUpdate({ editor, transaction }) {
+      updatePopup(editor)
+
       if (transaction.selection.empty) {
         setIsTextMenuShow(false)
       } else {
-        const position = getSelectionPosition()
+        const element = editorElement.current
+        const position = getSelectionPosition(element?.getBoundingClientRect())
 
         if (position) {
           setTextMenuPosition(position)
@@ -44,6 +64,11 @@ function BasicEditorContent({
       }
     },
   })
+
+  // operations
+  const updatePopup = (editor: Editor) => {
+    setStyleSelected({ ...styleSelected, bold: editor.isActive('bold') })
+  }
 
   useEffect(() => {
     const previousJsonString = controlHandler?.getValue(controlName, uuid) as string
@@ -56,9 +81,35 @@ function BasicEditorContent({
     } catch (error) {
       console.error(error)
     }
-  }, [controlHandler, editor])
+  }, [editor])
 
-  return <EditorContent editor={editor} />
+  useEffect(() => {
+    if (needUpdate && editor) {
+      if (!editor?.state.selection.empty) {
+        for (const key in needUpdate) {
+          switch (key) {
+            case 'bold':
+              editor.chain().focus().toggleBold().run()
+              break
+            case 'fontSize':
+              editor.chain().focus().toggleHeading({ level: 1 }).run()
+              break
+            default:
+              break
+          }
+        }
+      }
+
+      setNeedUpdate(null)
+    }
+  }, [needUpdate, editor])
+
+  return (
+    <div className="relative" ref={editorElement}>
+      <EditorContent editor={editor} />
+      {isTextMenuShow && <SimpleTextEditor editor={editor} distance={textMenuPosition} />}
+    </div>
+  )
 }
 
 export default BasicEditorContent

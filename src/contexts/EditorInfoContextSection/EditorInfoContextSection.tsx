@@ -15,14 +15,10 @@ const defaultInformation: {
   handlePreviewMode: (mode: PreviewModesType) => void
   popupPosition: IDistance
   setPopupPosition: (distance: IDistance) => void
-  textMenuPosition: IDistance
-  setTextMenuPosition: (distance: IDistance) => void
   focusElementSchema: SingleControlSchemaType | null
   setFocusElementSchema: (schema: IComponentSchema | null) => void
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
-  isTextMenuShow: boolean
-  setIsTextMenuShow: (isShow: boolean) => void
   focusElementHeight: number
   setFocusElementHeight: (height: number) => void
 } = {
@@ -31,14 +27,10 @@ const defaultInformation: {
   handlePreviewMode: (mode: PreviewModesType) => console.log(mode),
   popupPosition: { left: 0, top: 0 },
   setPopupPosition: (position) => console.log(position),
-  textMenuPosition: { left: 0, top: 0 },
-  setTextMenuPosition: (position) => console.log(position),
   focusElementSchema: null,
   setFocusElementSchema: (schema) => console.log(schema),
   isPopupShow: false,
   setIsPopupShow: (isShow) => console.log(isShow),
-  isTextMenuShow: false,
-  setIsTextMenuShow: (isShow) => console.log(isShow),
   focusElementHeight: 0,
   setFocusElementHeight: (height: number) => {
     console.log(height)
@@ -55,8 +47,6 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   // Layout show
   const [isPopupShow, setIsPopupShow] = useState(false)
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 })
-  const [isTextMenuShow, setIsTextMenuShow] = useState(false)
-  const [textMenuPosition, setTextMenuPosition] = useState({ top: 0, left: 0 })
 
   const isEditorMode = true
 
@@ -78,14 +68,10 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
         handlePreviewMode,
         popupPosition,
         setPopupPosition,
-        setTextMenuPosition,
-        textMenuPosition,
         focusElementSchema: focusElementSchema,
         setFocusElementSchema: focusElementSchemaHandler,
         isPopupShow,
         setIsPopupShow,
-        isTextMenuShow,
-        setIsTextMenuShow,
         focusElementHeight,
         setFocusElementHeight,
       }}

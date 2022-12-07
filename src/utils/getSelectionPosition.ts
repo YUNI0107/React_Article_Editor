@@ -1,11 +1,15 @@
-const getSelectionPosition = () => {
+const getSelectionPosition = (elementRect?: DOMRect) => {
   const selection = window.getSelection()
   const range = selection?.getRangeAt(0)
 
   if (range) {
     const rect = range.getBoundingClientRect()
-    console.log('rect', rect)
-    return { top: window.scrollY + rect.top, left: window.scrollX + rect.left }
+
+    if (elementRect) {
+      return { top: rect.top - elementRect.top, left: rect.left - elementRect.left }
+    } else {
+      return { top: rect.top, left: rect.left }
+    }
   }
 }
 

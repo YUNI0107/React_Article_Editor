@@ -16,8 +16,6 @@ class ControlHandler {
     const newSchemas = [...this.schemas]
     const targetIndex = newSchemas.findIndex((item) => item.uuid === uuid)
 
-    console.log('changeValue', controlName)
-
     if (!childUuid) {
       const schemas = newSchemas[targetIndex] as ISingleSchema
       const targetProp = schemas.props

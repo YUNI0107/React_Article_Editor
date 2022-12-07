@@ -76,7 +76,7 @@ function BannerComponent({
             )}
         </div>
 
-        <div className="absolute top-1/2 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 flex flex-col items-stretch max-w-full">
+        <div className="absolute top-0 left-0 z-20 w-full h-full flex flex-col items-center justify-center">
           {/* title */}
           {textShowChecks?.title && (
             <div className="mb-2">

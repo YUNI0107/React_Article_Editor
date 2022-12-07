@@ -8,12 +8,14 @@ function DropDown({
   setIsOpen,
   currentValue,
   setCurrentValue,
+  unSelectedText,
 }: {
   list: Array<IDropDownListItem>
   isOpen: boolean
   setIsOpen: (value: boolean) => void
   currentValue: string | number
   setCurrentValue: (value: string | number) => void
+  unSelectedText?: string
 }) {
   const displayText = list.find((item) => item.value === currentValue)?.text
 
@@ -26,18 +28,22 @@ function DropDown({
 
   return (
     <div className="relative">
-      <div
+      <button
         className="flex items-center justify-between w-full rounded-full border-main-gray-300 border-[1px] px-4 py-1 cursor-pointer hover:bg-main-gray-100"
         onClick={() => setIsOpen(!isOpen)}
       >
-        {displayText ? <p>{displayText}</p> : <p className="text-main-gray-400">無選項</p>}
+        {displayText ? (
+          <p>{displayText}</p>
+        ) : (
+          <p className="text-main-gray-400">{unSelectedText || '無選項'}</p>
+        )}
         <i
           className={classNames(
             'ri-arrow-down-circle-fill text-main-blue text-2xl leading-6 transition',
             { 'rotate-180': isOpen }
           )}
         ></i>
-      </div>
+      </button>
 
       {isOpen && (
         <div className="z-10 absolute translate-y-2 w-full border-[1px] border-main-gray-200 bg-white shadow-sm rounded-lg overflow-hidden">

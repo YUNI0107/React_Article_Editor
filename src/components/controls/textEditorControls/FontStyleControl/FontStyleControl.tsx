@@ -1,9 +1,16 @@
+import { useContext } from 'react'
 import classNames from 'classnames'
+
+// contexts
+import { TextPopupContext } from '../../../../contexts/TextPopupContextSection/TextPopupContextSection'
 
 // components
 import ControllerTitle from '../../components/ControllerTitle'
 
 function FontStyleControl() {
+  const { styleSelected, setNeedUpdate } = useContext(TextPopupContext)
+  const { bold } = styleSelected
+
   const selected = true
   return (
     <div className="py-2">
@@ -12,8 +19,9 @@ function FontStyleControl() {
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            bold ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ bold: !bold })}
         >
           <i className="ri-bold"></i>
         </button>

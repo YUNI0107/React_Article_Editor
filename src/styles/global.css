@@ -76,7 +76,7 @@ p {
 }
 
 .basic-text-button {
-  @apply text-xl text-main-gray-500 hover:text-main-blue p-1;
+  @apply text-xl hover:text-main-blue p-1;
 }
 
 /* slider */
