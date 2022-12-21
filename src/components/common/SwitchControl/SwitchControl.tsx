@@ -14,12 +14,12 @@ import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 function SwitchControl({
   control,
-  props,
+  focusProps,
   uuid,
   childUuid,
 }: {
   control: IControls
-  props: IControlProps
+  focusProps: IControlProps
   uuid: string
   childUuid?: string
 }) {
@@ -29,7 +29,7 @@ function SwitchControl({
     uuid,
     getValue: controlHandler?.getValue.bind(controlHandler),
     changeValue: controlHandler?.changeValue.bind(controlHandler),
-    ...props,
+    ...focusProps,
   }
 
   switch (control) {

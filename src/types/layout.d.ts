@@ -4,6 +4,8 @@ export type PreviewModesType = `${PreviewModes}`
 
 export type DrawerStateType = 'add' | 'info'
 
+export type PopupStateType = 'text' | 'schema' | null
+
 export interface IPopupDragItem {
   type: string
   top: number

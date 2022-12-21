@@ -1,7 +1,7 @@
-import { createContext, ReactNode, useState } from 'react'
+import { createContext, ReactNode, useEffect, useState } from 'react'
 
 // types
-import { PreviewModesType } from '../../types/layout'
+import { PopupStateType, PreviewModesType } from '../../types/layout'
 import { IComponentSchema, SingleControlSchemaType } from '../../types/editor'
 
 export interface IDistance {
@@ -21,10 +21,12 @@ const defaultInformation: {
   setIsPopupShow: (isShow: boolean) => void
   focusElementHeight: number
   setFocusElementHeight: (height: number) => void
+  popupState: PopupStateType
+  setPopupState: (type: PopupStateType) => void
 } = {
   isEditorMode: true,
   previewMode: 'lg',
-  handlePreviewMode: (mode: PreviewModesType) => console.log(mode),
+  handlePreviewMode: (mode) => console.log(mode),
   popupPosition: { left: 0, top: 0 },
   setPopupPosition: (position) => console.log(position),
   focusElementSchema: null,
@@ -32,8 +34,12 @@ const defaultInformation: {
   isPopupShow: false,
   setIsPopupShow: (isShow) => console.log(isShow),
   focusElementHeight: 0,
-  setFocusElementHeight: (height: number) => {
+  setFocusElementHeight: (height) => {
     console.log(height)
+  },
+  popupState: 'schema',
+  setPopupState: (type) => {
+    console.log(type)
   },
 }
 
@@ -47,6 +53,7 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   // Layout show
   const [isPopupShow, setIsPopupShow] = useState(false)
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 })
+  const [popupState, setPopupState] = useState<PopupStateType>('schema')
 
   const isEditorMode = true
 
@@ -59,6 +66,13 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
     if (schema?.groupType === 'images') return null
     setFocusElementSchema(schema)
   }
+
+  // effects
+  useEffect(() => {
+    if (!isPopupShow) {
+      setPopupState(null)
+    }
+  }, [isPopupShow])
 
   return (
     <EditorInfoContext.Provider
@@ -74,6 +88,8 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
         setIsPopupShow,
         focusElementHeight,
         setFocusElementHeight,
+        popupState,
+        setPopupState,
       }}
     >
       {children}

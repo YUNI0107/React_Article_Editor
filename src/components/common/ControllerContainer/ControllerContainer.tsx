@@ -17,17 +17,17 @@ import PopupContainer from '../PopupContainer'
 function ControllerContainer({
   uuid,
   childUuid,
-  props,
+  focusProps,
   groupName,
   drag,
 }: {
   uuid?: string
   childUuid?: string
-  props?: IControlProps
+  focusProps?: IControlProps
   groupName?: groupTypes
   drag: ConnectDragSource
 }) {
-  if (!props || !groupName || !uuid) return null
+  if (!focusProps || !groupName || !uuid) return null
 
   // memos
   const controllerName = useMemo(() => {
@@ -44,7 +44,12 @@ function ControllerContainer({
       {CONTROLLER_MAP[groupName].map((control, index) => {
         return (
           <div className="py-2" key={index}>
-            <SwitchControl control={control} props={props} childUuid={childUuid} uuid={uuid} />
+            <SwitchControl
+              control={control}
+              focusProps={focusProps}
+              childUuid={childUuid}
+              uuid={uuid}
+            />
           </div>
         )
       })}

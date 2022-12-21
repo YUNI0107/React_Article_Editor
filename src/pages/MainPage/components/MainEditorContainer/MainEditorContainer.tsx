@@ -4,7 +4,7 @@ import { useDrag, useDrop, XYCoord, useDragDropManager } from 'react-dnd'
 
 // components
 import Ruler from '../../../../components/layout/Ruler'
-// import ControllerContainer from '../../../../components/common/ControllerContainer'
+import ControllerContainer from '../../../../components/common/ControllerContainer'
 import PopUp from '../../../../components/common/Popup'
 import EditorSection from '../../../../components/layout/EditorSection'
 import BackDevice from '../BackDevice'
@@ -21,11 +21,10 @@ import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection
 import { useScroll } from '../../../../hooks/useScroll'
 
 function MainEditorContainer() {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { previewMode, focusElementSchema, popupPosition, isPopupShow } =
+  const { previewMode, focusElementSchema, popupPosition, isPopupShow, popupState } =
     useContext(EditorInfoContext)
 
-  // const { props: focusProps, uuid: focusUUid, groupType: focusGroupType } = focusElementSchema || {}
+  const { props: focusProps, uuid: focusUUid, groupType: focusGroupType } = focusElementSchema || {}
   const [popupDragDistance, setPopupDragDistance] = useState(popupPosition)
   const { top, left } = popupDragDistance
   const scrollRef = useRef<HTMLDivElement | null>(null)
@@ -147,18 +146,16 @@ function MainEditorContainer() {
         isDragging={isDragging}
         preview={preview}
       >
-        {/* <ControllerContainer
-          props={focusProps}
-          uuid={focusUUid}
-          groupName={focusGroupType}
-          drag={drag}
-        />  */}
+        {popupState === 'schema' && (
+          <ControllerContainer
+            focusProps={focusProps}
+            uuid={focusUUid}
+            groupName={focusGroupType}
+            drag={drag}
+          />
+        )}
 
-        <TextEditorContainer
-          // props={focusProps}
-          // uuid={focusUUid}
-          drag={drag}
-        />
+        {popupState === 'text' && <TextEditorContainer drag={drag} />}
       </PopUp>
     </TextPopupContextSection>
   )

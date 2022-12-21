@@ -2,6 +2,8 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
+import Underline from '@tiptap/extension-underline'
+import TextAlign from '@tiptap/extension-text-align'
 
 // types
 import { IComponentSchema } from '../../../types/editor'
@@ -31,7 +33,13 @@ function BasicEditorContent({
   const editorElement = useRef<HTMLDivElement | null>(null)
 
   // Text editor data
-  const extensions = [StarterKit]
+  const extensions = [
+    StarterKit,
+    Underline,
+    TextAlign.configure({
+      types: ['heading', 'paragraph'],
+    }),
+  ]
   const defaultHTMLContent = '<p>Hello World!</p>'
 
   const editor = useEditor({

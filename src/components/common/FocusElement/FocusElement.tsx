@@ -64,6 +64,8 @@ function FocusElement({
     previewMode,
     setFocusElementHeight,
     isEditorMode,
+    popupState,
+    setPopupState,
   } = useContext(EditorInfoContext)
   const { dragMoveSchema: moveSchema } = useContext(SchemaContext)
 
@@ -139,13 +141,16 @@ function FocusElement({
 
   // operation
   const popupShowHandler = () => {
-    console.log('isFirstClickButton', isFirstClickButton)
-    if (isFirstClickButton) {
-      setIsPopupShow(isFocused)
-      setIsFirstClickButton(false)
-    } else {
-      setIsPopupShow(!isPopupShow && isFocused)
+    if (popupState === 'schema' || popupState === null) {
+      if (isFirstClickButton) {
+        setIsPopupShow(isFocused)
+        setIsFirstClickButton(false)
+      } else {
+        setIsPopupShow(!isPopupShow && isFocused)
+      }
     }
+
+    setPopupState('schema')
   }
 
   const elementBlur = () => {
