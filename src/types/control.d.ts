@@ -25,13 +25,12 @@ export interface IStyleSelected {
   listUnOrdered: boolean
 }
 
-export type NeedUpdateKeyType =
-  | keyof IStyleSelected
-  | 'fontSize'
-  | 'linHeight'
-  | 'linHeight'
-  | 'link'
+type NeedUpdateSelectedType = {
+  [key in keyof IStyleSelected]: number | string | boolean
+}
 
-export type NeedUpdateType = Partial<{
-  [key in NeedUpdateKeyType]: number | string | boolean
-}> | null
+type NeedUpdateOtherType = {
+  fontSize: number
+}
+
+type NeedUpdateType = Partial<NeedUpdateSelectedType & NeedUpdateOtherType> | null

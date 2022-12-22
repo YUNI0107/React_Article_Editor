@@ -7,6 +7,7 @@
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
     "@tiptap/extension-text-align": "^2.0.0-beta.207",
+    "@tiptap/extension-text-style": "^2.0.0-beta.209",
     "@tiptap/extension-underline": "^2.0.0-beta.207",
     "@tiptap/react": "^2.0.0-beta.202",
     "@tiptap/starter-kit": "^2.0.0-beta.202",

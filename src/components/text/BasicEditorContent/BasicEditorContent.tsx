@@ -4,6 +4,8 @@ import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
+import TextStyle from '@tiptap/extension-text-style'
+import FontSize from '../../../tiptap/extension-font-size'
 
 // types
 import { IComponentSchema } from '../../../types/editor'
@@ -26,7 +28,7 @@ function BasicEditorContent({
 }) {
   const { uuid } = schema
   const { controlHandler } = useContext(SchemaContext)
-  const { styleSelected, setStyleSelected, needUpdate, setNeedUpdate } =
+  const { styleSelected, setStyleSelected, needUpdate, setNeedUpdate, setFontSize } =
     useContext(TextPopupContext)
   const [isTextMenuShow, setIsTextMenuShow] = useState(false)
   const [textMenuPosition, setTextMenuPosition] = useState<IDistance>({ top: 0, left: 0 })
@@ -36,6 +38,8 @@ function BasicEditorContent({
   const extensions = [
     StarterKit,
     Underline,
+    FontSize,
+    TextStyle,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
     }),
@@ -76,6 +80,7 @@ function BasicEditorContent({
   // operations
   const updatePopup = (editor: Editor) => {
     setStyleSelected({ ...styleSelected, bold: editor.isActive('bold') })
+    setFontSize(editor.getAttributes('textStyle').fontSize)
   }
 
   useEffect(() => {
@@ -100,7 +105,11 @@ function BasicEditorContent({
               editor.chain().focus().toggleBold().run()
               break
             case 'fontSize':
-              editor.chain().focus().toggleHeading({ level: 1 }).run()
+              editor
+                .chain()
+                .focus()
+                .setFontSize(needUpdate[key] as number)
+                .run()
               break
             default:
               break

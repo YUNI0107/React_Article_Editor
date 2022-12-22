@@ -1766,6 +1766,11 @@
   resolved "https://registry.yarnpkg.com/@tiptap/extension-text-align/-/extension-text-align-2.0.0-beta.207.tgz#324516d7246ad2a4a04887d7207865d3feeab3d3"
   integrity sha512-MwvTCkoxBKBJqimV/iwofSuw06NPYqUzm58uel/MH/IDgwg3nV4b2By5SZ6HsiA5e3kV+eBxPIggYbRWHkmTCw==
 
+"@tiptap/extension-text-style@^2.0.0-beta.209":
+  version "2.0.0-beta.209"
+  resolved "https://registry.yarnpkg.com/@tiptap/extension-text-style/-/extension-text-style-2.0.0-beta.209.tgz#b2342ef96adab3932f706dd48f80034183d8c603"
+  integrity sha512-KNIkY0/Cbun1UOCa+gVM6+0Fa6Nsugd7jy8+GfWnrshElxBZyrHgxvtjMMLTwT8P/lReN/8kwJUPFAlX8BqhFw==
+
 "@tiptap/extension-text@^2.0.0-beta.202":
   version "2.0.0-beta.202"
   resolved "https://registry.yarnpkg.com/@tiptap/extension-text/-/extension-text-2.0.0-beta.202.tgz#d0152f547572a14c4e0e88287acb2b0c311fef04"

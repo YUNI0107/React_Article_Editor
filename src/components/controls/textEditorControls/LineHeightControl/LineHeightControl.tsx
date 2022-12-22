@@ -5,7 +5,7 @@ import { LineHeightType } from '../../../../types/control'
 
 // components
 import RadioButton from '../../../common/RadioButton'
-import Slider from '../../../common/Slider'
+// import Slider from '../../../common/Slider'
 import ControllerTitle from '../../components/ControllerTitle'
 
 function LineHeightControl() {
@@ -44,7 +44,7 @@ function LineHeightControl() {
 
       {temp === 'custom' && (
         <div className="mt-2">
-          <Slider unit="rem" defaultValue={1} min={1} max={5} step={0.1} />
+          {/* <Slider unit="rem" defaultValue={1} min={1} max={5} step={0.1} /> */}
         </div>
       )}
     </div>

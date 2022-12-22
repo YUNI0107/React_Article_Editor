@@ -21,11 +21,15 @@ const FontSizeMap: { [key: number]: number } = {
 function FontSizeControl() {
   const { fontSize, setNeedUpdate } = useContext(TextPopupContext)
   const [isOpen, setIsOpen] = useState(false)
-  const fontSizeValue = FontSizeMap[fontSize] || 0
+  const fontSizeThemeValue = FontSizeMap[fontSize] || 0
 
-  const setCurrentValue = (sizeKey: number) => {
-    const size = Object.entries(FontSizeMap).find(([key]) => +key === sizeKey)?.[0]
-    setNeedUpdate({ fontSize: size || 0 })
+  const setThemeCurrentValue = (sizeKey: number) => {
+    const size = Object.entries(FontSizeMap).find(([, key]) => +key === sizeKey)?.[0]
+    setNeedUpdate({ fontSize: size ? parseInt(size) : 0 })
+  }
+
+  const setCurrentValue = (size: number) => {
+    setNeedUpdate({ fontSize: size })
   }
 
   return (
@@ -36,14 +40,21 @@ function FontSizeControl() {
           list={fontSizeList}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
-          currentValue={fontSizeValue}
-          setCurrentValue={(value) => setCurrentValue(value as number)}
+          currentValue={fontSizeThemeValue}
+          setCurrentValue={(value) => setThemeCurrentValue(value as number)}
           unSelectedText="自定義字級大小"
         />
       </div>
       <div className="py-2">
         <ControllerTitle title="字級大小" />
-        <Slider unit="px" defaultValue={1} min={1} max={24} />
+        <Slider
+          unit="px"
+          defaultValue={1}
+          min={1}
+          max={24}
+          updateValueFromSlider={setCurrentValue}
+          watchChangedValue={fontSize}
+        />
       </div>
     </>
   )
