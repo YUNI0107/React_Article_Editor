@@ -11,3 +11,11 @@
   outline: none;
   border: none;
 } */
+
+.ProseMirror ol {
+  list-style: auto;
+}
+
+.ProseMirror ul {
+  list-style: initial;
+}

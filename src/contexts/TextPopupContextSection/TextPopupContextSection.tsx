@@ -14,6 +14,8 @@ const defaultSchemas: {
   setLinHeight: (value: number | null) => void
   link: string | null
   setLink: (value: string | null) => void
+  focusTextEditorId: string | null
+  setFocusTextEditorId: (value: string | null) => void
 } = {
   needUpdate: null,
   setNeedUpdate: (value) => console.log(value),
@@ -34,6 +36,8 @@ const defaultSchemas: {
   setLinHeight: (value) => console.log(value),
   link: null,
   setLink: (value) => console.log(value),
+  focusTextEditorId: null,
+  setFocusTextEditorId: (value) => console.log(value),
 }
 
 export const TextPopupContext = createContext(defaultSchemas)
@@ -44,6 +48,7 @@ function TextPopupContextSection({ children }: { children: ReactNode }) {
   const [styleSelected, setStyleSelected] = useState<IStyleSelected>(defaultSchemas.styleSelected)
   const [linHeight, setLinHeight] = useState<number | null>(null)
   const [link, setLink] = useState<string | null>(null)
+  const [focusTextEditorId, setFocusTextEditorId] = useState<string | null>(null)
 
   return (
     <TextPopupContext.Provider
@@ -58,6 +63,8 @@ function TextPopupContextSection({ children }: { children: ReactNode }) {
         setLinHeight,
         link,
         setLink,
+        focusTextEditorId,
+        setFocusTextEditorId,
       }}
     >
       {children}

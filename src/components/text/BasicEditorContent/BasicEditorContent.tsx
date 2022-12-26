@@ -1,4 +1,5 @@
-import { useContext, useEffect, useRef, useState } from 'react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 import { useEditor, EditorContent } from '@tiptap/react'
 import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
@@ -28,11 +29,18 @@ function BasicEditorContent({
 }) {
   const { uuid } = schema
   const { controlHandler } = useContext(SchemaContext)
-  const { styleSelected, setStyleSelected, needUpdate, setNeedUpdate, setFontSize } =
-    useContext(TextPopupContext)
+  const {
+    setStyleSelected,
+    needUpdate,
+    setNeedUpdate,
+    setFontSize,
+    focusTextEditorId,
+    setFocusTextEditorId,
+  } = useContext(TextPopupContext)
   const [isTextMenuShow, setIsTextMenuShow] = useState(false)
   const [textMenuPosition, setTextMenuPosition] = useState<IDistance>({ top: 0, left: 0 })
   const editorElement = useRef<HTMLDivElement | null>(null)
+  const editorId = useMemo(() => uuidv4(), [])
 
   // Text editor data
   const extensions = [
@@ -75,11 +83,23 @@ function BasicEditorContent({
         }
       }
     },
+    onFocus() {
+      setFocusTextEditorId(editorId)
+    },
   })
 
   // operations
   const updatePopup = (editor: Editor) => {
-    setStyleSelected({ ...styleSelected, bold: editor.isActive('bold') })
+    setStyleSelected({
+      bold: editor.isActive('bold'),
+      italic: editor.isActive('italic'),
+      underline: editor.isActive('underline'),
+      alignLeft: editor.isActive({ textAlign: 'left' }),
+      alignCenter: editor.isActive({ textAlign: 'center' }),
+      alignRight: editor.isActive({ textAlign: 'right' }),
+      listOrdered: editor.isActive('orderList'),
+      listUnOrdered: editor.isActive('bulletList'),
+    })
     setFontSize(editor.getAttributes('textStyle').fontSize)
   }
 
@@ -98,11 +118,34 @@ function BasicEditorContent({
 
   useEffect(() => {
     if (needUpdate && editor) {
-      if (!editor?.state.selection.empty) {
+      if (editorId === focusTextEditorId) {
         for (const key in needUpdate) {
           switch (key) {
             case 'bold':
               editor.chain().focus().toggleBold().run()
+              break
+            case 'italic':
+              editor.chain().focus().toggleItalic().run()
+              break
+            case 'underline':
+              editor.chain().focus().toggleUnderline().run()
+              break
+            case 'alignLeft':
+              editor.chain().focus().setTextAlign('left').run()
+              break
+            case 'alignCenter':
+              editor.chain().focus().setTextAlign('center').run()
+              break
+            case 'alignRight':
+              editor.chain().focus().setTextAlign('right').run()
+              break
+            case 'listOrdered':
+              console.log('toggleOrderedList')
+              editor.chain().focus().toggleOrderedList().run()
+              break
+            case 'listUnOrdered':
+              console.log('toggleBulletList')
+              editor.chain().focus().toggleBulletList().run()
               break
             case 'fontSize':
               editor
@@ -119,7 +162,7 @@ function BasicEditorContent({
 
       setNeedUpdate(null)
     }
-  }, [needUpdate, editor])
+  }, [needUpdate, editor, editorId])
 
   return (
     <div className="relative" ref={editorElement}>

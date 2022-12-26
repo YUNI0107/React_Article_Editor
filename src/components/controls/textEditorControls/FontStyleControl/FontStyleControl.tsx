@@ -9,9 +9,17 @@ import ControllerTitle from '../../components/ControllerTitle'
 
 function FontStyleControl() {
   const { styleSelected, setNeedUpdate } = useContext(TextPopupContext)
-  const { bold } = styleSelected
+  const {
+    bold,
+    italic,
+    underline,
+    alignLeft,
+    alignCenter,
+    alignRight,
+    listOrdered,
+    listUnOrdered,
+  } = styleSelected
 
-  const selected = true
   return (
     <div className="py-2">
       <ControllerTitle />
@@ -28,56 +36,63 @@ function FontStyleControl() {
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            italic ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ italic: !italic })}
         >
           <i className="ri-italic"></i>
         </button>
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            underline ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ underline: !underline })}
         >
           <i className="ri-underline"></i>
         </button>
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            alignLeft ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ alignLeft: !alignLeft })}
         >
           <i className="ri-align-left"></i>
         </button>
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            alignCenter ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ alignCenter: !alignCenter })}
         >
           <i className="ri-align-center"></i>
         </button>
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            alignRight ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ alignRight: !alignRight })}
         >
           <i className="ri-align-right"></i>
         </button>
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            listOrdered ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ listOrdered: !listOrdered })}
         >
           <i className="ri-list-ordered"></i>
         </button>
         <button
           className={classNames(
             'text-xl  hover:text-main-blue p-1',
-            selected ? 'text-main-blue' : 'text-main-gray-400'
+            listUnOrdered ? 'text-main-blue' : 'text-main-gray-400'
           )}
+          onClick={() => setNeedUpdate({ listUnOrdered: !listUnOrdered })}
         >
           <i className="ri-list-unordered"></i>
         </button>
