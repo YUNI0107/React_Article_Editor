@@ -49,7 +49,7 @@ function FontSizeControl() {
         <ControllerTitle title="字級大小" />
         <Slider
           unit="px"
-          defaultValue={1}
+          defaultValue={fontSize}
           min={1}
           max={24}
           updateValueFromSlider={setCurrentValue}

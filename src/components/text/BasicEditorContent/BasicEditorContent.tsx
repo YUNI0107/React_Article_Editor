@@ -1,5 +1,4 @@
-import { useContext, useEffect, useMemo, useRef, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+import { useContext, useEffect, useRef, useState } from 'react'
 import { useEditor, EditorContent } from '@tiptap/react'
 import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
@@ -34,13 +33,12 @@ function BasicEditorContent({
     needUpdate,
     setNeedUpdate,
     setFontSize,
-    focusTextEditorId,
-    setFocusTextEditorId,
+    focusTextEditor,
+    setFocusTextEditor,
   } = useContext(TextPopupContext)
   const [isTextMenuShow, setIsTextMenuShow] = useState(false)
   const [textMenuPosition, setTextMenuPosition] = useState<IDistance>({ top: 0, left: 0 })
   const editorElement = useRef<HTMLDivElement | null>(null)
-  const editorId = useMemo(() => uuidv4(), [])
 
   // Text editor data
   const extensions = [
@@ -66,10 +64,14 @@ function BasicEditorContent({
       }
     },
     onUpdate({ editor }) {
-      updatePopup(editor)
+      if (editor.isFocused) {
+        updatePopup(editor)
+      }
     },
     onSelectionUpdate({ editor, transaction }) {
-      updatePopup(editor)
+      if (editor.isFocused) {
+        updatePopup(editor)
+      }
 
       if (transaction.selection.empty) {
         setIsTextMenuShow(false)
@@ -83,8 +85,8 @@ function BasicEditorContent({
         }
       }
     },
-    onFocus() {
-      setFocusTextEditorId(editorId)
+    onFocus({ editor }) {
+      setFocusTextEditor(editor.options.element)
     },
   })
 
@@ -100,7 +102,12 @@ function BasicEditorContent({
       listOrdered: editor.isActive('orderList'),
       listUnOrdered: editor.isActive('bulletList'),
     })
-    setFontSize(editor.getAttributes('textStyle').fontSize)
+
+    const defaultFontSize = window
+      .getComputedStyle(editor.options.element)
+      .fontSize.split('px')?.[0]
+
+    setFontSize(editor.getAttributes('textStyle').fontSize || parseFloat(defaultFontSize) || 0)
   }
 
   useEffect(() => {
@@ -118,7 +125,7 @@ function BasicEditorContent({
 
   useEffect(() => {
     if (needUpdate && editor) {
-      if (editorId === focusTextEditorId) {
+      if (editor.options.element === focusTextEditor) {
         for (const key in needUpdate) {
           switch (key) {
             case 'bold':
@@ -162,7 +169,7 @@ function BasicEditorContent({
 
       setNeedUpdate(null)
     }
-  }, [needUpdate, editor, editorId])
+  }, [needUpdate, editor, focusTextEditor])
 
   return (
     <div className="relative" ref={editorElement}>
