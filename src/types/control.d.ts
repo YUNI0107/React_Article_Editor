@@ -1,6 +1,5 @@
 export type ClickEventType = 'image-popup' | 'link'
 export type LineHeightType = 'auto' | 'custom'
-
 export type ChangeValueFuncType = (
   controlName: string,
   value: IControlProps[keyof IControlProps],
@@ -31,6 +30,7 @@ type NeedUpdateSelectedType = {
 
 type NeedUpdateOtherType = {
   fontSize: number
+  lineHeight: number | null
 }
 
 type NeedUpdateType = Partial<NeedUpdateSelectedType & NeedUpdateOtherType> | null

@@ -1,8 +1,7 @@
-import { useState } from 'react'
-// import debounce from 'lodash.debounce'
+import { useContext } from 'react'
 
-// types
-import { LineHeightType } from '../../../../types/control'
+// contexts
+import { TextPopupContext } from '../../../../contexts/TextPopupContextSection/TextPopupContextSection'
 
 // components
 import RadioButton from '../../../common/RadioButton'
@@ -10,7 +9,19 @@ import Slider from '../../../common/Slider'
 import ControllerTitle from '../../components/ControllerTitle'
 
 function LineHeightControl() {
-  const [temp, setTemp] = useState<LineHeightType>('auto')
+  const { lineHeight, setNeedUpdate, lineHeightType } = useContext(TextPopupContext)
+
+  const handleLineHeightToAuto = () => {
+    setNeedUpdate({ lineHeight: null })
+  }
+
+  const handleLineHeightToCustom = () => {
+    setNeedUpdate({ lineHeight })
+  }
+
+  const updateValueFromSlider = (value: number) => {
+    setNeedUpdate({ lineHeight: value })
+  }
 
   return (
     <div className="py-2">
@@ -21,8 +32,8 @@ function LineHeightControl() {
             value="auto"
             name="line-height"
             id="auto-height"
-            onValueChange={setTemp}
-            checked={temp === 'auto'}
+            onValueChange={handleLineHeightToAuto}
+            checked={lineHeightType === 'auto'}
           />
           <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="auto-height">
             自動
@@ -34,8 +45,8 @@ function LineHeightControl() {
             value="custom"
             name="line-height"
             id="custom-height"
-            onValueChange={setTemp}
-            checked={temp === 'custom'}
+            onValueChange={handleLineHeightToCustom}
+            checked={lineHeightType === 'custom'}
           />
           <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="custom-height">
             自訂行高
@@ -43,9 +54,16 @@ function LineHeightControl() {
         </div>
       </div>
 
-      {temp === 'custom' && (
+      {lineHeightType === 'custom' && lineHeight && (
         <div className="mt-2">
-          <Slider unit="rem" defaultValue={1} min={1} max={5} step={0.1} />
+          <Slider
+            unit="px"
+            defaultValue={lineHeight}
+            min={0}
+            max={36}
+            updateValueFromSlider={updateValueFromSlider}
+            watchChangedValue={lineHeight}
+          />
         </div>
       )}
     </div>

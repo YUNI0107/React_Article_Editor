@@ -6,6 +6,7 @@ import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
 import TextStyle from '@tiptap/extension-text-style'
 import FontSize from '../../../tiptap/extension-font-size'
+import LineHeight from '../../../tiptap/extension-line-height'
 
 // types
 import { IComponentSchema } from '../../../types/editor'
@@ -33,6 +34,8 @@ function BasicEditorContent({
     needUpdate,
     setNeedUpdate,
     setFontSize,
+    setLineHeight,
+    setLineHeightType,
     focusTextEditor,
     setFocusTextEditor,
   } = useContext(TextPopupContext)
@@ -45,6 +48,7 @@ function BasicEditorContent({
     StarterKit,
     Underline,
     FontSize,
+    LineHeight,
     TextStyle,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
@@ -103,11 +107,17 @@ function BasicEditorContent({
       listUnOrdered: editor.isActive('bulletList'),
     })
 
-    const defaultFontSize = window
-      .getComputedStyle(editor.options.element)
-      .fontSize.split('px')?.[0]
+    const element = window.getComputedStyle(editor.options.element)
+    const defaultFontSize = element.fontSize.split('px')?.[0]
 
+    const defaultLinHeight = element.lineHeight.split('px')?.[0]
+
+    console.log(
+      "editor.getAttributes('textStyle').lineHeight",
+      editor.getAttributes('textStyle').lineHeight
+    )
     setFontSize(editor.getAttributes('textStyle').fontSize || parseFloat(defaultFontSize) || 0)
+    setLineHeight(editor.getAttributes('textStyle').lineHeight || parseFloat(defaultLinHeight) || 0)
   }
 
   useEffect(() => {
@@ -124,6 +134,7 @@ function BasicEditorContent({
   }, [editor])
 
   useEffect(() => {
+    console.log('needUpdate', needUpdate)
     if (needUpdate && editor) {
       if (editor.options.element === focusTextEditor) {
         for (const key in needUpdate) {
@@ -160,6 +171,21 @@ function BasicEditorContent({
                 .focus()
                 .setFontSize(needUpdate[key] as number)
                 .run()
+              break
+            case 'lineHeight':
+              if (needUpdate[key] === null) {
+                editor.chain().focus().unsetLineHeight().run()
+
+                setLineHeightType('auto')
+              } else {
+                editor
+                  .chain()
+                  .focus()
+                  .setLineHeight(needUpdate[key] as number)
+                  .run()
+
+                setLineHeightType('custom')
+              }
               break
             default:
               break

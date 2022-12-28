@@ -1,7 +1,7 @@
 import { createContext, ReactNode, useState } from 'react'
 
 // types
-import { IStyleSelected, NeedUpdateType } from '../../types/control'
+import { IStyleSelected, NeedUpdateType, LineHeightType } from '../../types/control'
 
 const defaultSchemas: {
   needUpdate: NeedUpdateType
@@ -10,8 +10,10 @@ const defaultSchemas: {
   setFontSize: (value: number) => void
   styleSelected: IStyleSelected
   setStyleSelected: (value: IStyleSelected) => void
-  linHeight: number | null
-  setLinHeight: (value: number | null) => void
+  lineHeightType: LineHeightType
+  setLineHeightType: (value: LineHeightType) => void
+  lineHeight: number
+  setLineHeight: (value: number) => void
   link: string | null
   setLink: (value: string | null) => void
   focusTextEditor: Element | null
@@ -32,8 +34,10 @@ const defaultSchemas: {
     listUnOrdered: false,
   },
   setStyleSelected: (value) => console.log(value),
-  linHeight: null,
-  setLinHeight: (value) => console.log(value),
+  lineHeightType: 'auto',
+  setLineHeightType: (value) => console.log(value),
+  lineHeight: 0,
+  setLineHeight: (value) => console.log(value),
   link: null,
   setLink: (value) => console.log(value),
   focusTextEditor: null,
@@ -46,7 +50,8 @@ function TextPopupContextSection({ children }: { children: ReactNode }) {
   const [needUpdate, setNeedUpdate] = useState<NeedUpdateType>(null)
   const [fontSize, setFontSize] = useState(0)
   const [styleSelected, setStyleSelected] = useState<IStyleSelected>(defaultSchemas.styleSelected)
-  const [linHeight, setLinHeight] = useState<number | null>(null)
+  const [lineHeightType, setLineHeightType] = useState<LineHeightType>('auto')
+  const [lineHeight, setLineHeight] = useState<number>(0)
   const [link, setLink] = useState<string | null>(null)
   const [focusTextEditor, setFocusTextEditor] = useState<Element | null>(null)
 
@@ -59,8 +64,10 @@ function TextPopupContextSection({ children }: { children: ReactNode }) {
         setFontSize,
         styleSelected,
         setStyleSelected,
-        linHeight,
-        setLinHeight,
+        lineHeightType,
+        setLineHeightType,
+        lineHeight,
+        setLineHeight,
         link,
         setLink,
         focusTextEditor,
