@@ -5,6 +5,7 @@ import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
 import TextStyle from '@tiptap/extension-text-style'
+import Link from '@tiptap/extension-link'
 import FontSize from '../../../tiptap/extension-font-size'
 import LineHeight from '../../../tiptap/extension-line-height'
 
@@ -38,6 +39,7 @@ function BasicEditorContent({
     setLineHeightType,
     focusTextEditor,
     setFocusTextEditor,
+    setLink,
   } = useContext(TextPopupContext)
   const [isTextMenuShow, setIsTextMenuShow] = useState(false)
   const [textMenuPosition, setTextMenuPosition] = useState<IDistance>({ top: 0, left: 0 })
@@ -52,6 +54,15 @@ function BasicEditorContent({
     TextStyle,
     TextAlign.configure({
       types: ['heading', 'paragraph'],
+    }),
+    Link.configure({
+      protocols: ['ftp', 'mailto'],
+      autolink: false,
+      linkOnPaste: false,
+      openOnClick: false,
+      HTMLAttributes: {
+        class: 'editor-link',
+      },
     }),
   ]
   const defaultHTMLContent = '<p>Hello World!</p>'
@@ -69,11 +80,13 @@ function BasicEditorContent({
     },
     onUpdate({ editor }) {
       if (editor.isFocused) {
+        // Only update the editor which is focused to popup
         updatePopup(editor)
       }
     },
     onSelectionUpdate({ editor, transaction }) {
       if (editor.isFocused) {
+        // Only update the editor which is focused to popup
         updatePopup(editor)
       }
 
@@ -108,16 +121,14 @@ function BasicEditorContent({
     })
 
     const element = window.getComputedStyle(editor.options.element)
+
     const defaultFontSize = element.fontSize.split('px')?.[0]
+    setFontSize(editor.getAttributes('textStyle').fontSize || parseFloat(defaultFontSize) || 0)
 
     const defaultLinHeight = element.lineHeight.split('px')?.[0]
-
-    console.log(
-      "editor.getAttributes('textStyle').lineHeight",
-      editor.getAttributes('textStyle').lineHeight
-    )
-    setFontSize(editor.getAttributes('textStyle').fontSize || parseFloat(defaultFontSize) || 0)
     setLineHeight(editor.getAttributes('textStyle').lineHeight || parseFloat(defaultLinHeight) || 0)
+
+    setLink(editor.getAttributes('link').href || null)
   }
 
   useEffect(() => {
@@ -134,7 +145,6 @@ function BasicEditorContent({
   }, [editor])
 
   useEffect(() => {
-    console.log('needUpdate', needUpdate)
     if (needUpdate && editor) {
       if (editor.options.element === focusTextEditor) {
         for (const key in needUpdate) {
@@ -185,6 +195,16 @@ function BasicEditorContent({
                   .run()
 
                 setLineHeightType('custom')
+              }
+              break
+            case 'link':
+              // Because when you are setting link, it will have chance that the editor did not focused
+              if (needUpdate[key] === null) {
+                editor.commands.unsetLink()
+                setLink(null)
+              } else {
+                editor.commands.setLink({ href: needUpdate[key] as string, target: '_blank' })
+                setLink(needUpdate[key] as string)
               }
               break
             default:

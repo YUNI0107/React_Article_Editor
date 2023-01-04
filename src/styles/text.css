@@ -19,3 +19,8 @@
 .ProseMirror ul {
   list-style: initial;
 }
+
+.editor-link {
+  text-decoration: underline;
+  @apply text-main-blue;
+}

@@ -59,7 +59,7 @@ function LineHeightControl() {
           <Slider
             unit="px"
             defaultValue={lineHeight}
-            min={0}
+            min={8}
             max={36}
             updateValueFromSlider={updateValueFromSlider}
             watchChangedValue={lineHeight}
