@@ -32,6 +32,7 @@ type NeedUpdateOtherType = {
   fontSize: number
   lineHeight: number | null
   link: string | null
+  fontColor: string
 }
 
 type NeedUpdateType = Partial<NeedUpdateSelectedType & NeedUpdateOtherType> | null

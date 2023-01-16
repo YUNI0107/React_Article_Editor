@@ -16,6 +16,8 @@ const defaultSchemas: {
   setLineHeight: (value: number) => void
   link: string | null
   setLink: (value: string | null) => void
+  color: string
+  setColor: (value: string) => void
   focusTextEditor: Element | null
   setFocusTextEditor: (value: Element | null) => void
 } = {
@@ -40,6 +42,8 @@ const defaultSchemas: {
   setLineHeight: (value) => console.log(value),
   link: null,
   setLink: (value) => console.log(value),
+  color: '#000000',
+  setColor: (value) => console.log(value),
   focusTextEditor: null,
   setFocusTextEditor: (value) => console.log(value),
 }
@@ -53,6 +57,7 @@ function TextPopupContextSection({ children }: { children: ReactNode }) {
   const [lineHeightType, setLineHeightType] = useState<LineHeightType>('auto')
   const [lineHeight, setLineHeight] = useState<number>(0)
   const [link, setLink] = useState<string | null>(null)
+  const [color, setColor] = useState<string>('#000000')
   const [focusTextEditor, setFocusTextEditor] = useState<Element | null>(null)
 
   return (
@@ -70,6 +75,8 @@ function TextPopupContextSection({ children }: { children: ReactNode }) {
         setLineHeight,
         link,
         setLink,
+        color,
+        setColor,
         focusTextEditor,
         setFocusTextEditor,
       }}

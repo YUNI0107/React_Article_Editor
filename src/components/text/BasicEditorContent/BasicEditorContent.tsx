@@ -6,6 +6,7 @@ import Underline from '@tiptap/extension-underline'
 import TextAlign from '@tiptap/extension-text-align'
 import TextStyle from '@tiptap/extension-text-style'
 import Link from '@tiptap/extension-link'
+import Color from '@tiptap/extension-color'
 import FontSize from '../../../tiptap/extension-font-size'
 import LineHeight from '../../../tiptap/extension-line-height'
 
@@ -40,6 +41,7 @@ function BasicEditorContent({
     focusTextEditor,
     setFocusTextEditor,
     setLink,
+    setColor,
   } = useContext(TextPopupContext)
   const [isTextMenuShow, setIsTextMenuShow] = useState(false)
   const [textMenuPosition, setTextMenuPosition] = useState<IDistance>({ top: 0, left: 0 })
@@ -63,6 +65,9 @@ function BasicEditorContent({
       HTMLAttributes: {
         class: 'editor-link',
       },
+    }),
+    Color.configure({
+      types: ['textStyle'],
     }),
   ]
   const defaultHTMLContent = '<p>Hello World!</p>'
@@ -129,6 +134,8 @@ function BasicEditorContent({
     setLineHeight(editor.getAttributes('textStyle').lineHeight || parseFloat(defaultLinHeight) || 0)
 
     setLink(editor.getAttributes('link').href || null)
+
+    setColor(editor.getAttributes('textStyle').color || '#000000')
   }
 
   useEffect(() => {
@@ -168,11 +175,9 @@ function BasicEditorContent({
               editor.chain().focus().setTextAlign('right').run()
               break
             case 'listOrdered':
-              console.log('toggleOrderedList')
               editor.chain().focus().toggleOrderedList().run()
               break
             case 'listUnOrdered':
-              console.log('toggleBulletList')
               editor.chain().focus().toggleBulletList().run()
               break
             case 'fontSize':
@@ -206,6 +211,10 @@ function BasicEditorContent({
                 editor.commands.setLink({ href: needUpdate[key] as string, target: '_blank' })
                 setLink(needUpdate[key] as string)
               }
+              break
+            case 'fontColor':
+              editor.commands.setColor(needUpdate[key] as string)
+              setColor(needUpdate[key] as string)
               break
             default:
               break
