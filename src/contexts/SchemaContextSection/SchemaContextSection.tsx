@@ -11,6 +11,9 @@ import { IComponentSchema, IBanner } from '../../types/editor'
 // utils
 import ControlHandler from '../../utils/controlHandler'
 
+// (temp) content
+import { paragraphJsonContent, titleJsonContent } from '../../constants/defaultContent'
+
 const uuid1 = uuidv4()
 const uuid2 = uuidv4()
 const uuid3 = uuidv4()
@@ -57,9 +60,8 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         title: true,
         description: true,
       },
-      title:
-        '{"type":"doc","content":[{"type":"paragraph","content":[{"type":"text","text":"Hello Wordddddddld!"}]}]}',
-      description: '',
+      title: titleJsonContent,
+      description: paragraphJsonContent,
     },
   }
   const b: IBanner = {
@@ -74,8 +76,8 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         title: true,
         description: true,
       },
-      title: '',
-      description: '',
+      title: titleJsonContent,
+      description: paragraphJsonContent,
     },
   }
   const c: IBanner = {
@@ -90,8 +92,8 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         title: true,
         description: true,
       },
-      title: '',
-      description: '',
+      title: titleJsonContent,
+      description: paragraphJsonContent,
     },
   }
 

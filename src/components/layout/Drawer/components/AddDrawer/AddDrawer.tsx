@@ -8,6 +8,9 @@ import AddBannerImage from '../../../../../assets/add/banner.png'
 import { groupTypeEnum } from '../../../../../constants/enums/editorEnums'
 import { IBanner } from '../../../../../types/editor'
 
+// contents
+import { paragraphJsonContent, titleJsonContent } from '../../../../../constants/defaultContent'
+
 function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
   const defaultBannerSchema: Omit<IBanner, 'uuid'> = {
     groupType: groupTypeEnum.banner,
@@ -15,6 +18,12 @@ function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
     props: {
       imgPath: 'https://miro.medium.com/max/1400/1*nUwBNo9xbZ1Yn7hAqd9oXg.png',
       eventKey: 'image-popup',
+      textShowChecks: {
+        title: true,
+        description: true,
+      },
+      title: titleJsonContent,
+      description: paragraphJsonContent,
     },
   }
 

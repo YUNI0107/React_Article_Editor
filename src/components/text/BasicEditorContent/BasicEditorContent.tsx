@@ -1,5 +1,5 @@
-import { useContext, useEffect, useRef, useState } from 'react'
-import { useEditor, EditorContent } from '@tiptap/react'
+import { useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { useEditor, EditorContent, Content } from '@tiptap/react'
 import { Editor } from '@tiptap/core'
 import StarterKit from '@tiptap/starter-kit'
 import Underline from '@tiptap/extension-underline'
@@ -21,6 +21,9 @@ import { TextPopupContext } from '../../../contexts/TextPopupContextSection/Text
 // utils
 import getSelectionPosition from '../../../utils/getSelectionPosition'
 import SimpleTextEditor from '../../layout/SimpleTextEditor'
+
+// content
+import { defaultHTMLContent } from '../../../constants/defaultContent'
 
 function BasicEditorContent({
   schema,
@@ -70,7 +73,6 @@ function BasicEditorContent({
       types: ['textStyle'],
     }),
   ]
-  const defaultHTMLContent = '<p>Hello World!</p>'
 
   const editor = useEditor({
     extensions,
@@ -134,22 +136,37 @@ function BasicEditorContent({
     setLineHeight(editor.getAttributes('textStyle').lineHeight || parseFloat(defaultLinHeight) || 0)
 
     setLink(editor.getAttributes('link').href || null)
-
     setColor(editor.getAttributes('textStyle').color || '#000000')
   }
 
-  useEffect(() => {
+  const covertJsonStringContent = (jsonString: string): Promise<Content> => {
+    return new Promise((resolve, reject) => {
+      try {
+        const previousJSON = JSON.parse(jsonString) as Content
+        resolve(previousJSON)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+
+  const defaultContent = useMemo(() => {
     const previousJsonString = controlHandler?.getValue(controlName, uuid) as string
-
     if (!previousJsonString || !editor) return
-
-    try {
-      const previousJSON = JSON.parse(previousJsonString)
-      editor.commands.setContent(previousJSON)
-    } catch (error) {
-      console.error(error)
-    }
+    return covertJsonStringContent(previousJsonString)
   }, [editor])
+
+  useEffect(() => {
+    if (!editor || !defaultContent) return
+
+    defaultContent
+      .then((res) => {
+        editor.commands.setContent(res)
+      })
+      .catch((error) => {
+        console.error(error)
+      })
+  }, [editor, defaultContent])
 
   useEffect(() => {
     if (needUpdate && editor) {
@@ -215,6 +232,18 @@ function BasicEditorContent({
             case 'fontColor':
               editor.commands.setColor(needUpdate[key] as string)
               setColor(needUpdate[key] as string)
+              break
+            case 'reset':
+              if (defaultContent) {
+                defaultContent
+                  .then((res) => {
+                    editor.commands.setContent(res)
+                  })
+                  .catch((error) => {
+                    editor.commands.setContent(defaultHTMLContent)
+                    console.error(error)
+                  })
+              }
               break
             default:
               break
