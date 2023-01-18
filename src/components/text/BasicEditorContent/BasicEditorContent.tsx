@@ -86,10 +86,8 @@ function BasicEditorContent({
       }
     },
     onUpdate({ editor }) {
-      if (editor.isFocused) {
-        // Only update the editor which is focused to popup
-        updatePopup(editor)
-      }
+      // Only update when the editor content change
+      updatePopup(editor)
     },
     onSelectionUpdate({ editor, transaction }) {
       if (editor.isFocused) {
@@ -152,9 +150,8 @@ function BasicEditorContent({
 
   const defaultContent = useMemo(() => {
     const previousJsonString = controlHandler?.getValue(controlName, uuid) as string
-    if (!previousJsonString || !editor) return
     return covertJsonStringContent(previousJsonString)
-  }, [editor])
+  }, [])
 
   useEffect(() => {
     if (!editor || !defaultContent) return

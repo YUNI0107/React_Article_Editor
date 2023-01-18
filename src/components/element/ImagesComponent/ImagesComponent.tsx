@@ -16,7 +16,6 @@ function ImagesComponent({
   popupShowHandler: () => void
   isButtonShow: boolean
   isPopupShow: boolean
-  setIsPopupShow: (isShow: boolean) => void
 }) {
   if (!schema) return null
 

@@ -37,7 +37,7 @@ const defaultInformation: {
   setFocusElementHeight: (height) => {
     console.log(height)
   },
-  popupState: 'schema',
+  popupState: null,
   setPopupState: (type) => {
     console.log(type)
   },

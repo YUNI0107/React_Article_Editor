@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 // components
 import ControllerTitle from '../components/ControllerTitle'
@@ -10,9 +10,6 @@ import { ChangeValueFuncType, ClickEventType, GetValueFuncType } from '../../../
 
 // validate
 import { urlValidate } from '../../../validator/commonValidate'
-
-// contexts
-import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 function ClickEventControl({
   uuid,
@@ -27,40 +24,51 @@ function ClickEventControl({
 }) {
   if (!getValue || !changeValue) return null
 
-  const link = (getValue('linkUrl', uuid, childUuid) as string) || ''
-  const eventKey = (getValue('clickEvent', uuid, childUuid) as ClickEventType) || 'image-popup'
+  const defaultLink = (getValue('linkUrl', uuid, childUuid) as string) || ''
+  const defaultEventKey =
+    (getValue('clickEvent', uuid, childUuid) as ClickEventType) || 'image-popup'
+  const [link, setLink] = useState(defaultLink)
+  const [eventKey, setEventKey] = useState(defaultEventKey)
   const [inputFocused, setInputFocused] = useState(false)
-  const { isPopupShow } = useContext(EditorInfoContext)
 
   const changeLinkValue = (value: string) => {
-    changeValue('linkUrl', value, uuid, childUuid)
+    setLink(value)
+
+    if (urlValidate(value)) {
+      changeValue('clickEvent', 'link', uuid, childUuid)
+      changeValue('linkUrl', value, uuid, childUuid)
+    } else {
+      changeValue('clickEvent', 'image-popup', uuid, childUuid)
+    }
   }
 
   const changeClickEventValue = (clickEvent: ClickEventType) => {
-    changeValue('clickEvent', clickEvent, uuid, childUuid)
+    setEventKey(clickEvent)
+
+    // Only image event can change directly
+    if (clickEvent === 'image-popup') {
+      changeValue('clickEvent', 'image-popup', uuid, childUuid)
+      if (!urlValidate(link)) setLink('')
+    } else if (clickEvent === 'link') {
+      // If there are validate value in the input, you can set it directly.
+      // If not, you must check it when you are setting input
+      if (urlValidate(link)) {
+        changeValue('clickEvent', 'link', uuid, childUuid)
+        changeValue('linkUrl', link, uuid, childUuid)
+      }
+
+      setInputFocused(true)
+    }
   }
 
   // effects
   useEffect(() => {
-    // If change to image options but the link is invalid, clean it!
-    if (!urlValidate(link) && eventKey === 'image-popup' && isPopupShow) {
-      changeValue('linkUrl', '', uuid, childUuid)
-    }
-  }, [link, eventKey])
+    setLink(defaultLink)
+  }, [defaultLink, uuid, childUuid])
 
   useEffect(() => {
-    if (eventKey === 'link') {
-      setInputFocused(true)
-    }
-  }, [eventKey])
-
-  useEffect(() => {
-    return () => {
-      if (!urlValidate(link) && isPopupShow) {
-        changeValue('clickEvent', 'image-popup', uuid, childUuid)
-      }
-    }
-  }, [])
+    setEventKey(defaultEventKey)
+  }, [defaultEventKey, uuid, childUuid])
 
   return (
     <>
