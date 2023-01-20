@@ -86,77 +86,79 @@ function MainEditorContainer() {
 
   return (
     <TextPopupContextSection>
-      <div className="relative flex-1 flex flex-col items-center" ref={drop}>
-        {/* top-ruler */}
-        <Ruler />
+      <div className="w-full h-full overflow-y-hidden relative">
+        <div className="relative flex-1 flex flex-col items-center" ref={drop}>
+          {/* top-ruler */}
+          <Ruler />
 
-        {/* bottom-preview */}
-        <div
-          className={classNames(
-            'h-full border-x-[2px] border-dashed border-main-gray-300 transition-all duration-700 flex flex-col justify-center',
-            {
-              'w-mobile py-20': previewMode === 'sm',
-              'w-tablet py-16': previewMode === 'md',
-              'w-desktop': previewMode === 'lg',
-            }
-          )}
-        >
-          <div
-            className={classNames('relative h-full', {
-              'min-h-mobile': previewMode === 'sm',
-              'min-h-tablet': previewMode === 'md',
-            })}
-          >
-            <BackDevice />
-          </div>
-        </div>
-
-        <div
-          className={classNames('w-full', {
-            'absolute top-0 left-1/2 z-10 -translate-x-1/2 py-20': previewMode === 'sm',
-            'absolute top-0 left-1/2 z-10 -translate-x-1/2 py-16': previewMode === 'md',
-          })}
-        >
+          {/* bottom-preview */}
           <div
             className={classNames(
-              'absolute top-0 left-1/2 -translate-x-1/2 bg-white h-full min-h-full w-desktop border-x-[2px] border-dashed border-main-gray-300',
-              { hidden: previewMode !== 'lg' }
+              'h-full border-x-[2px] border-dashed border-main-gray-300 transition-all duration-700 flex flex-col justify-center',
+              {
+                'w-mobile py-20': previewMode === 'sm',
+                'w-tablet py-16': previewMode === 'md',
+                'w-desktop': previewMode === 'lg',
+              }
             )}
-          ></div>
+          >
+            <div
+              className={classNames('relative h-full', {
+                'min-h-mobile': previewMode === 'sm',
+                'min-h-tablet': previewMode === 'md',
+              })}
+            >
+              <BackDevice />
+            </div>
+          </div>
 
           <div
-            ref={scrollRef}
-            className={classNames('w-full overflow-y-auto', {
-              'h-mobile': previewMode === 'sm',
-              'h-tablet': previewMode === 'md',
-              'h-full': previewMode === 'lg',
+            className={classNames('w-full', {
+              'absolute top-0 left-1/2 z-10 -translate-x-1/2 py-20': previewMode === 'sm',
+              'absolute top-0 left-1/2 z-10 -translate-x-1/2 py-16': previewMode === 'md',
             })}
           >
-            <div className="h-full w-full flex flex-col justify-start items-center py-4">
-              <EditorSection />
+            <div
+              className={classNames(
+                'absolute top-0 left-1/2 -translate-x-1/2 bg-white h-full min-h-full w-desktop border-x-[2px] border-dashed border-main-gray-300',
+                { hidden: previewMode !== 'lg' }
+              )}
+            ></div>
+
+            <div
+              ref={scrollRef}
+              className={classNames('w-full overflow-y-auto', {
+                'h-mobile': previewMode === 'sm',
+                'h-tablet': previewMode === 'md',
+                'h-full': previewMode === 'lg',
+              })}
+            >
+              <div className="h-full w-full flex flex-col justify-start items-center py-4">
+                <EditorSection />
+              </div>
             </div>
           </div>
         </div>
+
+        {/* controller-editor */}
+        <PopUp
+          isPopupShow={isPopupShow}
+          distance={popupDragDistance}
+          isDragging={isDragging}
+          preview={preview}
+        >
+          {popupState === 'schema' && (
+            <ControllerContainer
+              focusProps={focusProps}
+              uuid={focusUUid}
+              groupName={focusGroupType}
+              drag={drag}
+            />
+          )}
+
+          {popupState === 'text' && <TextEditorContainer drag={drag} />}
+        </PopUp>
       </div>
-
-      {/* controller-editor */}
-      <PopUp
-        isPopupShow={isPopupShow}
-        distance={popupDragDistance}
-        isDragging={isDragging}
-        preview={preview}
-      >
-        {popupState === 'schema' && (
-          <ControllerContainer
-            focusProps={focusProps}
-            uuid={focusUUid}
-            groupName={focusGroupType}
-            drag={drag}
-          />
-        )}
-
-        {popupState === 'text' && <TextEditorContainer drag={drag} />}
-      </PopUp>
     </TextPopupContextSection>
   )
 }

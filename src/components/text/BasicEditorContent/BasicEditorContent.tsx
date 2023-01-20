@@ -131,7 +131,15 @@ function BasicEditorContent({
     setFontSize(editor.getAttributes('textStyle').fontSize || parseFloat(defaultFontSize) || 0)
 
     const defaultLinHeight = element.lineHeight.split('px')?.[0]
-    setLineHeight(editor.getAttributes('textStyle').lineHeight || parseFloat(defaultLinHeight) || 0)
+    const editorLinHeight = editor.getAttributes('textStyle').lineHeight
+
+    if (typeof editorLinHeight === 'number') {
+      setLineHeightType('custom')
+      setLineHeight(editorLinHeight)
+    } else {
+      setLineHeightType('auto')
+      setLineHeight(parseFloat(defaultLinHeight) || 0)
+    }
 
     setLink(editor.getAttributes('link').href || null)
     setColor(editor.getAttributes('textStyle').color || '#000000')
@@ -204,7 +212,6 @@ function BasicEditorContent({
             case 'lineHeight':
               if (needUpdate[key] === null) {
                 editor.chain().focus().unsetLineHeight().run()
-
                 setLineHeightType('auto')
               } else {
                 editor
