@@ -34,6 +34,8 @@ function ControllerContainer({
     switch (groupName) {
       case groupTypeEnum.banner:
         return '帶狀圖片'
+      case groupTypeEnum.button:
+        return '按鈕設定'
       default:
         return ''
     }

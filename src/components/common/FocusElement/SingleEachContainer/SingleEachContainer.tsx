@@ -1,5 +1,6 @@
 // components
 import BannerComponent from '../../../element/BannerComponent'
+import ButtonComponent from '../../../element/ButtonComponent'
 
 // types
 import { ISingleSchema } from '../../../../types/editor'
@@ -18,6 +19,8 @@ function SingleEachContainer(props: IEachContainer) {
   switch (schema.groupType) {
     case 'banner':
       return <BannerComponent {...props} schema={schema} />
+    case 'button':
+      return <ButtonComponent {...props} schema={schema} />
     default:
       return <></>
   }

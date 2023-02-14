@@ -48,6 +48,7 @@ function BasicEditorContent({
   } = useContext(TextPopupContext)
   const [isTextMenuShow, setIsTextMenuShow] = useState(false)
   const [textMenuPosition, setTextMenuPosition] = useState<IDistance>({ top: 0, left: 0 })
+  const [updateJson, setUpdateJson] = useState<string | null>(null)
   const editorElement = useRef<HTMLDivElement | null>(null)
 
   // Text editor data
@@ -78,7 +79,8 @@ function BasicEditorContent({
     extensions,
     content: defaultHTMLContent,
     onBlur({ editor, event }) {
-      controlHandler?.changeValue(controlName, JSON.stringify(editor.getJSON()), uuid)
+      setUpdateJson(JSON.stringify(editor.getJSON()))
+
       const targetElement = event.relatedTarget
 
       if (!(targetElement && editorElement.current?.contains(targetElement as Node))) {
@@ -172,6 +174,13 @@ function BasicEditorContent({
         console.error(error)
       })
   }, [editor, defaultContent])
+
+  useEffect(() => {
+    if (updateJson !== null) {
+      controlHandler?.changeValue(controlName, updateJson, uuid)
+      setUpdateJson(null)
+    }
+  }, [controlHandler, updateJson])
 
   useEffect(() => {
     if (needUpdate && editor) {

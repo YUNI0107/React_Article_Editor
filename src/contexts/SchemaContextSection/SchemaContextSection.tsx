@@ -6,17 +6,17 @@ import update from 'immutability-helper'
 import { groupTypeEnum } from '../../constants/enums/editorEnums'
 
 // types
-import { IComponentSchema, IBanner } from '../../types/editor'
+import { IComponentSchema, IButton } from '../../types/editor'
 
 // utils
 import ControlHandler from '../../utils/controlHandler'
 
-// (temp) content
-import { paragraphJsonContent, titleJsonContent } from '../../constants/defaultContent'
+// temp
+import { paragraphJsonContent } from '../../constants/defaultContent'
 
 const uuid1 = uuidv4()
-const uuid2 = uuidv4()
 const uuid3 = uuidv4()
+const uuid5 = uuidv4()
 
 const defaultSchemas: {
   schemas: Array<IComponentSchema>
@@ -48,55 +48,33 @@ const defaultSchemas: {
 export const SchemaContext = createContext(defaultSchemas)
 
 function SchemaContextSection({ children }: { children: ReactNode }) {
-  const a: IBanner = {
+  const a: IButton = {
     uuid: uuid1,
-    groupType: groupTypeEnum.banner,
-    type: 'banner',
+    groupType: groupTypeEnum.button,
+    type: 'button',
     props: {
-      imgPath:
-        'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-      eventKey: 'image-popup',
-      textShowChecks: {
-        title: true,
-        description: true,
-      },
-      title: titleJsonContent,
-      description: paragraphJsonContent,
+      innerParagraph: paragraphJsonContent,
+      backgroundColor: '#E800E8',
     },
   }
-  const b: IBanner = {
-    uuid: uuid2,
-    groupType: groupTypeEnum.banner,
-    type: 'banner',
-    props: {
-      imgPath:
-        'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-      eventKey: 'image-popup',
-      textShowChecks: {
-        title: true,
-        description: true,
-      },
-      title: titleJsonContent,
-      description: paragraphJsonContent,
-    },
-  }
-  const c: IBanner = {
+  const b: IButton = {
     uuid: uuid3,
-    groupType: groupTypeEnum.banner,
-    type: 'banner',
+    groupType: groupTypeEnum.button,
+    type: 'button',
     props: {
-      imgPath:
-        'https://images.unsplash.com/photo-1665989215795-f67f4723087d?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-      eventKey: 'image-popup',
-      textShowChecks: {
-        title: true,
-        description: true,
-      },
-      title: titleJsonContent,
-      description: paragraphJsonContent,
+      innerParagraph: paragraphJsonContent,
+      backgroundColor: '#1AFD9C',
     },
   }
-
+  const c: IButton = {
+    uuid: uuid5,
+    groupType: groupTypeEnum.button,
+    type: 'button',
+    props: {
+      innerParagraph: paragraphJsonContent,
+      backgroundColor: '#2894FF',
+    },
+  }
   const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a, b, c])
 
   const addSchema = (newSchema: IComponentSchema) => {
@@ -140,7 +118,9 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
     })
   }
 
-  const handleSchema = (newSchemas: Array<IComponentSchema>) => setSchemas([...newSchemas])
+  const handleSchema = (newSchemas: Array<IComponentSchema>) => {
+    setSchemas([...newSchemas])
+  }
 
   const controlHandler = new ControlHandler(schemas, handleSchema)
 

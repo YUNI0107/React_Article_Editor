@@ -34,8 +34,6 @@ function BannerComponent({
 }) {
   if (!schema) return null
 
-  // console.log('schema', schema)
-
   const { previewMode } = useContext(EditorInfoContext)
   const { props, uuid } = schema
   const { filter: filterStyleClass, textShowChecks } = props || {}

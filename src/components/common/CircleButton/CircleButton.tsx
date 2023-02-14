@@ -3,12 +3,14 @@ import classNames from 'classnames'
 function CircleButton({
   iconTag,
   customClassNames,
+  customIconClassNames,
   onClick,
   isPreviewSmMode,
   dataType,
 }: {
   iconTag: string
   customClassNames?: string
+  customIconClassNames?: string
   onClick: () => void
   isPreviewSmMode?: boolean
   dataType?: string
@@ -22,7 +24,13 @@ function CircleButton({
       )}
       data-type={dataType}
     >
-      <i className={classNames(iconTag, 'text-3xl', { 'text-2xl': isPreviewSmMode })}></i>
+      <i
+        className={classNames(
+          iconTag,
+          { 'text-3xl': !customClassNames, 'text-2xl': isPreviewSmMode && !customClassNames },
+          customIconClassNames
+        )}
+      ></i>
     </button>
   )
 }

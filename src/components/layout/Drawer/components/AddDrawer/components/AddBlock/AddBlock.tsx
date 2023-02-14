@@ -22,9 +22,10 @@ function AddBlock({
 
   const addNewSchema = (defaultSchema: Omit<IComponentSchema, 'uuid'>) => {
     const uuid = uuidv4()
+    const deepSchemaCopy = structuredClone(defaultSchema)
     const schema = {
       uuid,
-      ...defaultSchema,
+      ...deepSchemaCopy,
     }
 
     addSchema(schema as unknown as IComponentSchema)

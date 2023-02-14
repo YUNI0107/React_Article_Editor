@@ -10,16 +10,19 @@ function getElementPosition(element: HTMLElement | null) {
     }
   }
 
-  const originalLeft = bindRect.left + bindRect.width
-  const originalTop = window.scrollY + bindRect.top
   const headerHeight = 80
   const padding = 20
+  const containerPadding = 24
+  const originalLeft = bindRect.left + bindRect.width
+  const originalTop = window.scrollY + bindRect.top - (headerHeight + padding) + containerPadding
 
   const left =
     originalLeft > window.innerWidth - containerWidth
       ? window.innerWidth - containerWidth - padding
       : originalLeft + padding
-  const top = originalTop > headerHeight + padding ? originalTop : headerHeight + padding
+  const top = originalTop > 0 ? originalTop : 0
+
+  console.log('cc', originalTop)
 
   return {
     top,

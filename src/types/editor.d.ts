@@ -34,6 +34,7 @@ type textShowChecksType = 'title' | 'description'
 export interface IControlProps extends CSSProperties {
   // TODO: [key: string]
   [key: string]: IControlProps[keyof IControlProps]
+  // Banner
   imgPath?: string
   linkUrl?: string
   eventKey?: string
@@ -41,6 +42,11 @@ export interface IControlProps extends CSSProperties {
   textShowChecks?: { [key in textShowChecksType]: boolean }
   title?: string
   description?: string
+  // Buttons
+  innerParagraph?: string
+  backgroundColor?: string
+  borderColor?: string
+  borderWidth?: string
 }
 
 export type IControlPropsKey = keyof IControlProps
@@ -51,6 +57,7 @@ export type IControls =
   | 'imgFilterControl'
   | 'clickEventControl'
   | 'textShowControl'
+  | 'backGroundControl'
 
 /**
  *
@@ -109,5 +116,4 @@ interface IButton {
   groupType: groupTypeEnum.button
   type: buttonType
   props?: IControlProps
-  innerParagraph?: IParagraph
 }

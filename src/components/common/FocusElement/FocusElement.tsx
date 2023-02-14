@@ -216,7 +216,7 @@ function FocusElement({
       onClickCapture={focusEventHandler}
       onMouseEnter={() => setIsButtonShow(true)}
       onMouseLeave={elementMouseLeave}
-      className={classNames('relative', { 'cursor-move': isFocused })}
+      className={classNames('relative mb-2', { 'cursor-move': isFocused })}
       style={{ opacity: isDragging ? 0 : 1 }}
       data-handler-id={handlerId}
     >

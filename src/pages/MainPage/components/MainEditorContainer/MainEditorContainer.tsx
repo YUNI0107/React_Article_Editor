@@ -87,7 +87,10 @@ function MainEditorContainer() {
   return (
     <TextPopupContextSection>
       <div className="w-full h-full overflow-y-hidden relative">
-        <div className="relative flex-1 flex flex-col items-center" ref={drop}>
+        <div
+          className="relative flex-1 flex flex-col items-center min-h-[calc(100vh-80px)]"
+          ref={drop}
+        >
           {/* top-ruler */}
           <Ruler />
 

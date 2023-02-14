@@ -1,5 +1,5 @@
 import { useContext } from 'react'
-import DemoImage from '../../../assets/demo.jpg'
+import DemoImage from '../../../assets/default/default_1.jpg'
 
 // types
 import { PreviewModesType } from '../../../types/layout'
