@@ -28,7 +28,6 @@ function BackGroundControl({
   const handleChangeComplete = (color: ColorResult) => {
     changeValue('backgroundColor', color.hex, uuid, childUuid)
     setPickerBackground(color.hex)
-    console.log('color', color)
   }
 
   useEffect(() => {

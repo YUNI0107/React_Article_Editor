@@ -22,8 +22,6 @@ function getElementPosition(element: HTMLElement | null) {
       : originalLeft + padding
   const top = originalTop > 0 ? originalTop : 0
 
-  console.log('cc', originalTop)
-
   return {
     top,
     left,

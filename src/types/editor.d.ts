@@ -46,7 +46,7 @@ export interface IControlProps extends CSSProperties {
   innerParagraph?: string
   backgroundColor?: string
   borderColor?: string
-  borderWidth?: string
+  borderWidth?: number
 }
 
 export type IControlPropsKey = keyof IControlProps
@@ -58,6 +58,7 @@ export type IControls =
   | 'clickEventControl'
   | 'textShowControl'
   | 'backGroundControl'
+  | 'borderWidthControl'
 
 /**
  *

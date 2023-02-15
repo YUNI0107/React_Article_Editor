@@ -9,6 +9,7 @@ import ImgFilterControl from '../../controls/ImgFilterControl'
 import ClickEventControl from '../../controls/ClickEventControl'
 import TextShowControl from '../../controls/TextShowControl'
 import BackGroundControl from '../../controls/BackGroundControl'
+import BorderControl from '../../controls/BorderControl'
 
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
@@ -44,6 +45,8 @@ function SwitchControl({
       return <TextShowControl {...controlProps} />
     case 'backGroundControl':
       return <BackGroundControl {...controlProps} />
+    case 'borderWidthControl':
+      return <BorderControl {...controlProps} />
     default:
       return <></>
   }

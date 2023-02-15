@@ -55,6 +55,8 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
     props: {
       innerParagraph: paragraphJsonContent,
       backgroundColor: '#E800E8',
+      borderColor: '#000',
+      borderWidth: 2,
     },
   }
   const b: IButton = {
@@ -64,6 +66,8 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
     props: {
       innerParagraph: paragraphJsonContent,
       backgroundColor: '#1AFD9C',
+      borderColor: '#000',
+      borderWidth: 2,
     },
   }
   const c: IButton = {
@@ -73,6 +77,8 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
     props: {
       innerParagraph: paragraphJsonContent,
       backgroundColor: '#2894FF',
+      borderColor: '#000',
+      borderWidth: 2,
     },
   }
   const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a, b, c])

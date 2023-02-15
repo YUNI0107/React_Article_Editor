@@ -23,14 +23,26 @@ function ButtonComponent({
   const buttonStyle = isButtonShow ? 'block' : 'hidden pointer-events-none'
 
   const { props } = schema
-  const { backgroundColor } = props || { backgroundColor: '#3742FA' }
+  const { backgroundColor, borderWidth, borderColor } = props || {
+    backgroundColor: '#3742FA',
+    borderWidth: 0,
+    borderColor: '#0000',
+  }
 
   return (
     <>
       <div className="relative flex justify-center">
         <div className="relative">
           {/* Button */}
-          <div style={{ ...(backgroundColor && { background: backgroundColor }) }}>Button</div>
+          <div
+            style={{
+              ...(backgroundColor && { background: backgroundColor }),
+              borderWidth,
+              borderColor,
+            }}
+          >
+            Button
+          </div>
 
           <div
             className={classNames(
