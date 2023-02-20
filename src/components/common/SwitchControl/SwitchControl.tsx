@@ -10,6 +10,9 @@ import ClickEventControl from '../../controls/ClickEventControl'
 import TextShowControl from '../../controls/TextShowControl'
 import BackGroundControl from '../../controls/BackGroundControl'
 import BorderControl from '../../controls/BorderControl'
+import RoundedControl from '../../controls/RoundedControl'
+import PaddingControl from '../../controls/PaddingControl'
+import AlignmentControl from '../../controls/AlignmentControl'
 
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
@@ -45,8 +48,14 @@ function SwitchControl({
       return <TextShowControl {...controlProps} />
     case 'backGroundControl':
       return <BackGroundControl {...controlProps} />
-    case 'borderWidthControl':
+    case 'borderControl':
       return <BorderControl {...controlProps} />
+    case 'roundedControl':
+      return <RoundedControl {...controlProps} />
+    case 'paddingControl':
+      return <PaddingControl {...controlProps} />
+    case 'alignmentControl':
+      return <AlignmentControl {...controlProps} />
     default:
       return <></>
   }

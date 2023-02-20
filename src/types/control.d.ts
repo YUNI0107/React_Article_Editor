@@ -1,5 +1,18 @@
 export type ClickEventType = 'image-popup' | 'link'
 export type LineHeightType = 'auto' | 'custom'
+export type RoundedType = 'none' | 'circle' | 'custom'
+export type RoundedCustomInputType = {
+  leftTop: number
+  rightTop: number
+  rightBottom: number
+  leftBottom: number
+}
+export type PaddingType = {
+  x: number
+  y: number
+}
+export type AlignmentType = 'left' | 'center' | 'right'
+
 export type ChangeValueFuncType = (
   controlName: string,
   value: IControlProps[keyof IControlProps],

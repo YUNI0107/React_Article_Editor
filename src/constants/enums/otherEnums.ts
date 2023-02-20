@@ -19,5 +19,11 @@ export const CONTROLLER_MAP: { [key in groupTypes]: Array<IControls> } = {
   paragraph: [],
   images: [],
   gallery: [],
-  button: ['backGroundControl', 'borderWidthControl'],
+  button: [
+    'backGroundControl',
+    'borderControl',
+    'roundedControl',
+    'paddingControl',
+    'alignmentControl',
+  ],
 }

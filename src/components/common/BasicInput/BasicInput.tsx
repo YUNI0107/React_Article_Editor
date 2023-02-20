@@ -11,8 +11,9 @@ function BasicInput({
   customDivClassNames,
   customInputClassNames,
   icon,
+  type,
 }: {
-  value: string
+  value: string | number
   setValue: (value: string) => void
   disabled?: boolean
   isFocused?: boolean
@@ -21,6 +22,7 @@ function BasicInput({
   customDivClassNames?: string
   customInputClassNames?: string
   icon?: ReactNode
+  type?: string
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [infoShow, setInfoShow] = useState(false)
@@ -49,7 +51,7 @@ function BasicInput({
     <div className={classNames('w-full flex flex-col', customDivClassNames)}>
       <div className="w-full relative">
         <input
-          type="text"
+          type={type || 'text'}
           className={classNames(
             'w-full outline-none border-[1px] border-main-gray-400 bg-main-gray-100 rounded-2xl px-2 py-1 text-[10px]',
             { 'pl-7': icon },

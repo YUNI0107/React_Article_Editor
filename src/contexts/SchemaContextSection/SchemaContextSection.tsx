@@ -57,6 +57,18 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
       backgroundColor: '#E800E8',
       borderColor: '#000',
       borderWidth: 2,
+      roundedKey: 'circle',
+      customRounded: {
+        leftTop: 0,
+        rightTop: 0,
+        rightBottom: 0,
+        leftBottom: 0,
+      },
+      padding: {
+        x: 10,
+        y: 5,
+      },
+      alignment: 'left',
     },
   }
   const b: IButton = {
@@ -68,6 +80,18 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
       backgroundColor: '#1AFD9C',
       borderColor: '#000',
       borderWidth: 2,
+      roundedKey: 'none',
+      customRounded: {
+        leftTop: 0,
+        rightTop: 0,
+        rightBottom: 0,
+        leftBottom: 0,
+      },
+      padding: {
+        x: 20,
+        y: 20,
+      },
+      alignment: 'center',
     },
   }
   const c: IButton = {
@@ -79,6 +103,18 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
       backgroundColor: '#2894FF',
       borderColor: '#000',
       borderWidth: 2,
+      roundedKey: 'custom',
+      customRounded: {
+        leftTop: 0,
+        rightTop: 0,
+        rightBottom: 0,
+        leftBottom: 0,
+      },
+      padding: {
+        x: 0,
+        y: 0,
+      },
+      alignment: 'right',
     },
   }
   const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a, b, c])

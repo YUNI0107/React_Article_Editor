@@ -1,6 +1,12 @@
 import { CSSProperties } from 'react'
 import { groupTypeEnum } from '../constants/enums/editorEnums'
-import { ClickEventType } from './control'
+import {
+  ClickEventType,
+  RoundedType,
+  RoundedCustomInputType,
+  PaddingType,
+  AlignmentType,
+} from './control'
 
 type groupTypes =
   | groupTypeEnum.banner
@@ -37,7 +43,6 @@ export interface IControlProps extends CSSProperties {
   // Banner
   imgPath?: string
   linkUrl?: string
-  eventKey?: string
   clickEvent?: ClickEventType
   textShowChecks?: { [key in textShowChecksType]: boolean }
   title?: string
@@ -47,6 +52,10 @@ export interface IControlProps extends CSSProperties {
   backgroundColor?: string
   borderColor?: string
   borderWidth?: number
+  roundedKey?: RoundedType
+  customRounded?: RoundedCustomInputType
+  padding?: PaddingType
+  alignment?: AlignmentType
 }
 
 export type IControlPropsKey = keyof IControlProps
@@ -58,7 +67,10 @@ export type IControls =
   | 'clickEventControl'
   | 'textShowControl'
   | 'backGroundControl'
-  | 'borderWidthControl'
+  | 'borderControl'
+  | 'roundedControl'
+  | 'paddingControl'
+  | 'alignmentControl'
 
 /**
  *
