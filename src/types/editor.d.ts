@@ -40,9 +40,10 @@ type textShowChecksType = 'title' | 'description'
 export interface IControlProps extends CSSProperties {
   // TODO: [key: string]
   [key: string]: IControlProps[keyof IControlProps]
+  // Common
+  linkUrl?: string
   // Banner
   imgPath?: string
-  linkUrl?: string
   clickEvent?: ClickEventType
   textShowChecks?: { [key in textShowChecksType]: boolean }
   title?: string
@@ -56,6 +57,7 @@ export interface IControlProps extends CSSProperties {
   customRounded?: RoundedCustomInputType
   padding?: PaddingType
   alignment?: AlignmentType
+  isLinkBlank?: boolean
 }
 
 export type IControlPropsKey = keyof IControlProps
@@ -71,6 +73,7 @@ export type IControls =
   | 'roundedControl'
   | 'paddingControl'
   | 'alignmentControl'
+  | 'linkControl'
 
 /**
  *

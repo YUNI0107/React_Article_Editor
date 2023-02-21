@@ -13,6 +13,7 @@ import BorderControl from '../../controls/BorderControl'
 import RoundedControl from '../../controls/RoundedControl'
 import PaddingControl from '../../controls/PaddingControl'
 import AlignmentControl from '../../controls/AlignmentControl'
+import LinkControl from '../../controls/LinkControl'
 
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
@@ -56,6 +57,8 @@ function SwitchControl({
       return <PaddingControl {...controlProps} />
     case 'alignmentControl':
       return <AlignmentControl {...controlProps} />
+    case 'linkControl':
+      return <LinkControl {...controlProps} />
     default:
       return <></>
   }

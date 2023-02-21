@@ -11,8 +11,8 @@ function ButtonComponent({
   schema,
   popupShowHandler,
   isButtonShow,
-}: //   isEditorMode,
-{
+  isEditorMode,
+}: {
   schema: IButton
   popupShowHandler: () => void
   isButtonShow: boolean
@@ -29,21 +29,28 @@ function ButtonComponent({
     roundedKey,
     customRounded,
     padding: paddingProps,
+    alignment,
+    linkUrl,
+    isLinkBlank,
   } = props || {
     backgroundColor: '#3742FA',
     borderWidth: 0,
     borderColor: '#0000',
+    alignment: 'center',
+    linkUrl: '',
+    isLinkBlank: true,
   }
 
   const borderRadius = useMemo(() => {
-    if (roundedKey === 'none') {
-      return '0px'
-    } else if (roundedKey === 'circle') {
-      return '100%'
-    } else {
-      return `${customRounded?.leftTop || 0}px ${customRounded?.rightTop || 0}px ${
-        customRounded?.rightBottom || 0
-      }px ${customRounded?.leftBottom || 0}px`
+    switch (roundedKey) {
+      case 'none':
+        return '0px'
+      case 'circle':
+        return '100%'
+      case 'custom':
+        return `${customRounded?.leftTop || 0}px ${customRounded?.rightTop || 0}px ${
+          customRounded?.rightBottom || 0
+        }px ${customRounded?.leftBottom || 0}px`
     }
   }, [roundedKey, customRounded])
 
@@ -51,9 +58,22 @@ function ButtonComponent({
     return `${paddingProps?.x || 0}px ${paddingProps?.y || 0}px`
   }, [paddingProps])
 
+  const flexAlignment = useMemo(() => {
+    switch (alignment) {
+      case 'center':
+        return 'center'
+      case 'left':
+        return 'flex-start'
+      case 'right':
+        return 'flex-end'
+      default:
+        return 'center'
+    }
+  }, [alignment])
+
   return (
     <>
-      <div className="relative flex justify-center">
+      <div className="relative flex" style={{ justifyContent: flexAlignment }}>
         <div className="relative">
           {/* Button */}
           <div
@@ -68,6 +88,7 @@ function ButtonComponent({
             Button
           </div>
 
+          {/* Editor Mode */}
           <div
             className={classNames(
               buttonStyle,
@@ -82,6 +103,16 @@ function ButtonComponent({
               customIconClassNames="text-md"
             />
           </div>
+
+          {/* Render Mode */}
+          {linkUrl && !isEditorMode && (
+            <a
+              href={linkUrl}
+              className="w-full h-full absolute top-0 left-0"
+              target={isLinkBlank ? '_blank' : '_self'}
+              rel="noreferrer"
+            ></a>
+          )}
         </div>
       </div>
     </>

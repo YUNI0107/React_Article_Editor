@@ -69,6 +69,7 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         y: 5,
       },
       alignment: 'left',
+      isLinkBlank: true,
     },
   }
   const b: IButton = {
@@ -92,6 +93,7 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         y: 20,
       },
       alignment: 'center',
+      isLinkBlank: true,
     },
   }
   const c: IButton = {
@@ -115,6 +117,7 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         y: 0,
       },
       alignment: 'right',
+      isLinkBlank: true,
     },
   }
   const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a, b, c])
