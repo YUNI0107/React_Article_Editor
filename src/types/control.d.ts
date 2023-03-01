@@ -12,6 +12,11 @@ export type PaddingType = {
   y: number
 }
 export type AlignmentType = 'left' | 'center' | 'right'
+export type DisplayType = 'left' | 'right' | 'top' | 'bottom'
+export type ScaleType = {
+  width: number
+  height: number
+}
 
 export type ChangeValueFuncType = (
   controlName: string,

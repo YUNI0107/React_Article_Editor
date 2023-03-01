@@ -31,7 +31,7 @@ function PopupContainer({
         </button>
       </div>
       {/* bottom */}
-      <div className="px-3 py-2">{children}</div>
+      <div className="px-3 py-2 max-h-[600px] overflow-y-auto">{children}</div>
     </div>
   )
 }

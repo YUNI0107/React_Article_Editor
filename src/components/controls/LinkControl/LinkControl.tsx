@@ -51,13 +51,13 @@ function LinkControl({
 
       <div className="flex items-start">
         <CheckBoxButton
-          value="title"
-          name="text-show"
-          id="text-title"
+          value="blank"
+          name="open-check"
+          id="blank-check"
           onValueChange={handleCheckbox}
           checked={isLinkBlank}
         />
-        <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="text-title">
+        <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="blank-check">
           另開視窗
         </label>
       </div>

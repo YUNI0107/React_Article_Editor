@@ -13,6 +13,7 @@ import ControlHandler from '../../utils/controlHandler'
 
 // temp
 import { paragraphJsonContent } from '../../constants/defaultContent'
+import DefaultIcon from '../../assets/icon/house.png'
 
 const uuid1 = uuidv4()
 const uuid3 = uuidv4()
@@ -26,6 +27,10 @@ const defaultSchemas: {
   deleteSchema: (schemaUuid: string) => void
   dragMoveSchema: (dragIndex: number, hoverIndex: number) => void
   controlHandler?: ControlHandler
+  title: string
+  setTitle: (value: string) => void
+  author: string
+  setAuthor: (value: string) => void
 } = {
   schemas: [],
   handleSchema: (newSchemas: Array<IComponentSchema>) => {
@@ -42,6 +47,14 @@ const defaultSchemas: {
   },
   dragMoveSchema: (dragIndex: number, hoverIndex: number) => {
     console.log(dragIndex, hoverIndex)
+  },
+  title: '',
+  setTitle: (value: string) => {
+    console.log(value)
+  },
+  author: '',
+  setAuthor: (value: string) => {
+    console.log(value)
   },
 }
 
@@ -70,6 +83,14 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
       },
       alignment: 'left',
       isLinkBlank: true,
+      isIconShow: true,
+      imgPath: DefaultIcon,
+      display: 'top',
+      scale: {
+        width: 30,
+        height: 30,
+      },
+      isInScale: true,
     },
   }
   const b: IButton = {
@@ -94,6 +115,14 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
       },
       alignment: 'center',
       isLinkBlank: true,
+      isIconShow: false,
+      imgPath: DefaultIcon,
+      display: 'left',
+      scale: {
+        width: 30,
+        height: 30,
+      },
+      isInScale: true,
     },
   }
   const c: IButton = {
@@ -118,9 +147,19 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
       },
       alignment: 'right',
       isLinkBlank: true,
+      isIconShow: true,
+      imgPath: DefaultIcon,
+      display: 'bottom',
+      scale: {
+        width: 30,
+        height: 30,
+      },
+      isInScale: true,
     },
   }
   const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a, b, c])
+  const [title, setTitle] = useState('')
+  const [author, setAuthor] = useState('')
 
   const addSchema = (newSchema: IComponentSchema) => {
     setSchemas((prevSchema) => [...prevSchema, newSchema])
@@ -179,6 +218,10 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         deleteSchema,
         dragMoveSchema,
         controlHandler,
+        title,
+        setTitle,
+        author,
+        setAuthor,
       }}
     >
       {children}

@@ -54,7 +54,7 @@ function BasicInput({
           type={type || 'text'}
           className={classNames(
             'w-full outline-none border-[1px] border-main-gray-400 bg-main-gray-100 rounded-2xl px-2 py-1 text-[10px]',
-            { 'pl-7': icon },
+            { 'pl-7': icon, 'bg-main-gray-200': disabled },
             customInputClassNames
           )}
           ref={inputRef}

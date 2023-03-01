@@ -9,7 +9,15 @@ import getBase64 from '../../../utils/getBase64'
 // validator
 import imageTypeValidate from '../../../validator/imageTypeValidate'
 
-function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string }) {
+function ImgPathControl({
+  uuid,
+  childUuid,
+  onImgPathChange,
+}: {
+  uuid: string
+  childUuid?: string
+  onImgPathChange?: () => void
+}) {
   const { controlHandler } = useContext(SchemaContext)
 
   const changeInputValue = async (event: ChangeEvent<HTMLInputElement>) => {
@@ -21,6 +29,8 @@ function ImgPathControl({ uuid, childUuid }: { uuid: string; childUuid?: string 
     const imageBase64 = await getBase64(event.target.files[0])
     if (typeof imageBase64 === 'string') {
       controlHandler?.changeValue('imgPath', imageBase64, uuid, childUuid)
+
+      if (onImgPathChange) onImgPathChange()
     }
   }
 

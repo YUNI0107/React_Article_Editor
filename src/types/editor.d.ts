@@ -6,6 +6,8 @@ import {
   RoundedCustomInputType,
   PaddingType,
   AlignmentType,
+  ScaleType,
+  DisplayType,
 } from './control'
 
 type groupTypes =
@@ -58,6 +60,9 @@ export interface IControlProps extends CSSProperties {
   padding?: PaddingType
   alignment?: AlignmentType
   isLinkBlank?: boolean
+  isIconShow?: boolean
+  display?: DisplayType
+  scale?: ScaleType
 }
 
 export type IControlPropsKey = keyof IControlProps
@@ -74,6 +79,7 @@ export type IControls =
   | 'paddingControl'
   | 'alignmentControl'
   | 'linkControl'
+  | 'iconControl'
 
 /**
  *

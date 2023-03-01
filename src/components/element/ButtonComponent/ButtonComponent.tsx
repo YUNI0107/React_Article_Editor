@@ -32,6 +32,10 @@ function ButtonComponent({
     alignment,
     linkUrl,
     isLinkBlank,
+    isIconShow,
+    imgPath,
+    scale: scaleProps,
+    display: iconDisplay,
   } = props || {
     backgroundColor: '#3742FA',
     borderWidth: 0,
@@ -39,6 +43,10 @@ function ButtonComponent({
     alignment: 'center',
     linkUrl: '',
     isLinkBlank: true,
+    scale: {
+      width: 0,
+      height: 0,
+    },
   }
 
   const borderRadius = useMemo(() => {
@@ -57,6 +65,41 @@ function ButtonComponent({
   const padding = useMemo(() => {
     return `${paddingProps?.x || 0}px ${paddingProps?.y || 0}px`
   }, [paddingProps])
+
+  const scale = useMemo(() => {
+    return {
+      with: scaleProps?.width || 0,
+      height: scaleProps?.height || 0,
+    }
+  }, [scaleProps])
+
+  const iconFlexDirection = useMemo(() => {
+    switch (iconDisplay) {
+      case 'left':
+        return 'row'
+      case 'right':
+        return 'row-reverse'
+      case 'top':
+        return 'column'
+      case 'bottom':
+        return 'column-reverse'
+      default:
+        return 'row'
+    }
+  }, [iconDisplay])
+
+  const iconMargin = useMemo(() => {
+    switch (iconDisplay) {
+      case 'left':
+      case 'right':
+        return '0px 5px'
+      case 'top':
+      case 'bottom':
+        return '5px 0px'
+      default:
+        return '0px 0px'
+    }
+  }, [iconDisplay])
 
   const flexAlignment = useMemo(() => {
     switch (alignment) {
@@ -77,14 +120,23 @@ function ButtonComponent({
         <div className="relative">
           {/* Button */}
           <div
+            className="flex justify-center items-center"
             style={{
               ...(backgroundColor && { background: backgroundColor }),
               borderWidth,
               borderColor,
               borderRadius,
               padding,
+              flexDirection: iconFlexDirection,
             }}
           >
+            {isIconShow && (
+              <img
+                style={{ width: scale.with, height: scale.height, margin: iconMargin }}
+                src={imgPath}
+                alt="icon"
+              />
+            )}
             Button
           </div>
 

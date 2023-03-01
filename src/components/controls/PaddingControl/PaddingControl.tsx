@@ -1,5 +1,3 @@
-// import classNames from 'classnames'
-
 // components
 import ControllerTitle from '../components/ControllerTitle'
 import BasicInput from '../../common/BasicInput'
@@ -20,12 +18,7 @@ const PaddingInput = ({
     <div className="flex items-center">
       <p className="text-xs whitespace-nowrap">{text || ''}</p>
       <div className="mx-1">
-        <BasicInput
-          type={'number'}
-          value={value}
-          setValue={setValue}
-          customInputClassNames={'h-6'}
-        />
+        <BasicInput type="number" value={value} setValue={setValue} customInputClassNames={'h-6'} />
       </div>
       <span className="text-xs">px</span>
     </div>
