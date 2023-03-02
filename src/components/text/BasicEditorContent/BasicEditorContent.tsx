@@ -23,7 +23,7 @@ import getSelectionPosition from '../../../utils/getSelectionPosition'
 import SimpleTextEditor from '../../layout/SimpleTextEditor'
 
 // content
-import { defaultHTMLContent } from '../../../constants/defaultContent'
+import { defaultHTMLContent } from '../../../constants/defaultTextEditorContent'
 
 function BasicEditorContent({
   schema,

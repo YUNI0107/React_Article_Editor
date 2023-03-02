@@ -5,30 +5,14 @@ import AddBlock from './components/AddBlock'
 import AddBannerImage from '../../../../../assets/add/banner.png'
 import AddButton from '../../../../../assets/add/button.png'
 
-// default images
-import DefaultImage1 from '../../../../../assets/default/default_1.jpg'
-
 // types
 import { groupTypeEnum } from '../../../../../constants/enums/editorEnums'
-import { IBanner } from '../../../../../types/editor'
 
-// contents
-import { paragraphJsonContent, titleJsonContent } from '../../../../../constants/defaultContent'
-
-const defaultBannerSchema: Omit<IBanner, 'uuid'> = {
-  groupType: groupTypeEnum.banner,
-  type: 'banner',
-  props: {
-    imgPath: DefaultImage1,
-    eventKey: 'image-popup',
-    textShowChecks: {
-      title: true,
-      description: true,
-    },
-    title: titleJsonContent,
-    description: paragraphJsonContent,
-  },
-}
+// default schema
+import {
+  defaultBannerSchema,
+  getRandomDefaultButtonSchema,
+} from '../../../../../constants/defaultComponentSchema'
 
 function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
   return (
@@ -53,13 +37,13 @@ function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
         title="帶狀圖片模組"
         imgPath={AddBannerImage}
         groupType={groupTypeEnum.banner}
-        defaultSchema={defaultBannerSchema}
+        defaultSchema={() => defaultBannerSchema}
       />
       <AddBlock
         title="按鈕模組"
         imgPath={AddButton}
         groupType={groupTypeEnum.button}
-        defaultSchema={defaultBannerSchema}
+        defaultSchema={getRandomDefaultButtonSchema}
       />
     </>
   )

@@ -12,12 +12,12 @@ import { IComponentSchema, IButton } from '../../types/editor'
 import ControlHandler from '../../utils/controlHandler'
 
 // temp
-import { paragraphJsonContent } from '../../constants/defaultContent'
+import { buttonJsonContent } from '../../constants/defaultTextEditorContent'
 import DefaultIcon from '../../assets/icon/house.png'
 
 const uuid1 = uuidv4()
-const uuid3 = uuidv4()
-const uuid5 = uuidv4()
+// const uuid3 = uuidv4()
+// const uuid5 = uuidv4()
 
 const defaultSchemas: {
   schemas: Array<IComponentSchema>
@@ -66,7 +66,7 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
     groupType: groupTypeEnum.button,
     type: 'button',
     props: {
-      innerParagraph: paragraphJsonContent,
+      innerParagraph: buttonJsonContent,
       backgroundColor: '#E800E8',
       borderColor: '#000',
       borderWidth: 2,
@@ -91,73 +91,10 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
         height: 30,
       },
       isInScale: true,
+      buttonTextShowChecks: true,
     },
   }
-  const b: IButton = {
-    uuid: uuid3,
-    groupType: groupTypeEnum.button,
-    type: 'button',
-    props: {
-      innerParagraph: paragraphJsonContent,
-      backgroundColor: '#1AFD9C',
-      borderColor: '#000',
-      borderWidth: 2,
-      roundedKey: 'none',
-      customRounded: {
-        leftTop: 0,
-        rightTop: 0,
-        rightBottom: 0,
-        leftBottom: 0,
-      },
-      padding: {
-        x: 20,
-        y: 20,
-      },
-      alignment: 'center',
-      isLinkBlank: true,
-      isIconShow: false,
-      imgPath: DefaultIcon,
-      display: 'left',
-      scale: {
-        width: 30,
-        height: 30,
-      },
-      isInScale: true,
-    },
-  }
-  const c: IButton = {
-    uuid: uuid5,
-    groupType: groupTypeEnum.button,
-    type: 'button',
-    props: {
-      innerParagraph: paragraphJsonContent,
-      backgroundColor: '#2894FF',
-      borderColor: '#000',
-      borderWidth: 2,
-      roundedKey: 'custom',
-      customRounded: {
-        leftTop: 0,
-        rightTop: 0,
-        rightBottom: 0,
-        leftBottom: 0,
-      },
-      padding: {
-        x: 0,
-        y: 0,
-      },
-      alignment: 'right',
-      isLinkBlank: true,
-      isIconShow: true,
-      imgPath: DefaultIcon,
-      display: 'bottom',
-      scale: {
-        width: 30,
-        height: 30,
-      },
-      isInScale: true,
-    },
-  }
-  const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a, b, c])
+  const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a])
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
 

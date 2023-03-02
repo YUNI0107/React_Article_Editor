@@ -6,6 +6,7 @@ import { IButton } from '../../../types/editor'
 
 // components
 import CircleButton from '../../common/CircleButton'
+import BasicEditorContent from '../../text/BasicEditorContent'
 
 function ButtonComponent({
   schema,
@@ -36,6 +37,7 @@ function ButtonComponent({
     imgPath,
     scale: scaleProps,
     display: iconDisplay,
+    buttonTextShowChecks,
   } = props || {
     backgroundColor: '#3742FA',
     borderWidth: 0,
@@ -63,7 +65,7 @@ function ButtonComponent({
   }, [roundedKey, customRounded])
 
   const padding = useMemo(() => {
-    return `${paddingProps?.x || 0}px ${paddingProps?.y || 0}px`
+    return `${paddingProps?.y || 0}px ${paddingProps?.x || 0}px`
   }, [paddingProps])
 
   const scale = useMemo(() => {
@@ -137,7 +139,9 @@ function ButtonComponent({
                 alt="icon"
               />
             )}
-            Button
+            {buttonTextShowChecks && (
+              <BasicEditorContent schema={schema} controlName="innerParagraph" />
+            )}
           </div>
 
           {/* Editor Mode */}

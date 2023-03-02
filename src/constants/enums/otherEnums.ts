@@ -27,5 +27,6 @@ export const CONTROLLER_MAP: { [key in groupTypes]: Array<IControls> } = {
     'alignmentControl',
     'linkControl',
     'iconControl',
+    'buttonTextShowControl',
   ],
 }

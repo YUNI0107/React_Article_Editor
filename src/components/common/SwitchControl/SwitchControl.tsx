@@ -15,6 +15,7 @@ import PaddingControl from '../../controls/PaddingControl'
 import AlignmentControl from '../../controls/AlignmentControl'
 import LinkControl from '../../controls/LinkControl'
 import IconControl from '../../controls/IconControl'
+import ButtonTextShowControl from '../../controls/ButtonTextShowControl'
 
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
@@ -62,6 +63,8 @@ function SwitchControl({
       return <LinkControl {...controlProps} />
     case 'iconControl':
       return <IconControl {...controlProps} />
+    case 'buttonTextShowControl':
+      return <ButtonTextShowControl {...controlProps} />
     default:
       return <></>
   }

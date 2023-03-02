@@ -16,13 +16,13 @@ function AddBlock({
   title: string
   imgPath: string
   groupType: groupTypes
-  defaultSchema: Omit<IComponentSchema, 'uuid'>
+  defaultSchema: () => Omit<IComponentSchema, 'uuid'>
 }) {
   const { addSchema } = useContext(SchemaContext)
 
-  const addNewSchema = (defaultSchema: Omit<IComponentSchema, 'uuid'>) => {
+  const addNewSchema = (defaultSchema: () => Omit<IComponentSchema, 'uuid'>) => {
     const uuid = uuidv4()
-    const deepSchemaCopy = structuredClone(defaultSchema)
+    const deepSchemaCopy = structuredClone(defaultSchema())
     const schema = {
       uuid,
       ...deepSchemaCopy,

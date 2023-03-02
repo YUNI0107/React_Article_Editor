@@ -63,6 +63,7 @@ export interface IControlProps extends CSSProperties {
   isIconShow?: boolean
   display?: DisplayType
   scale?: ScaleType
+  buttonTextShowChecks?: boolean
 }
 
 export type IControlPropsKey = keyof IControlProps
@@ -80,6 +81,7 @@ export type IControls =
   | 'alignmentControl'
   | 'linkControl'
   | 'iconControl'
+  | 'buttonTextShowControl'
 
 /**
  *
