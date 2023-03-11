@@ -4,7 +4,7 @@ import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier, XYCoord } from 'dnd-core'
 
 // components
-import SingleEachContainer from './SingleEachContainer'
+import EachContainer from './EachContainer'
 
 // types
 import { IComponentSchema } from '../../../types/editor'
@@ -47,7 +47,7 @@ function FocusElement({
   schema: IComponentSchema
   schemaIndex: number
   id: string
-  setIsModalShow: (isShow: boolean) => void
+  setIsModalShow?: (isShow: boolean, index?: number) => void
 }) {
   const [isFocused, setIsFocused] = useState(false)
   const [isButtonShow, setIsButtonShow] = useState(false)
@@ -66,6 +66,8 @@ function FocusElement({
     isEditorMode,
     popupState,
     setPopupState,
+    setPopupChildrenIndex,
+    popupChildrenIndex,
   } = useContext(EditorInfoContext)
   const { dragMoveSchema: moveSchema } = useContext(SchemaContext)
 
@@ -140,15 +142,23 @@ function FocusElement({
   useWindowScroll(isDragging, previewMode)
 
   // operation
-  const popupShowHandler = () => {
+  const popupShowHandler = (index: number | null) => {
     if (popupState === 'schema' || popupState === null) {
       if (isFirstClickButton) {
         setIsPopupShow(isFocused)
         setIsFirstClickButton(false)
       } else {
-        setIsPopupShow(!isPopupShow && isFocused)
+        if (
+          (index === null && !popupChildrenIndex) ||
+          index === popupChildrenIndex ||
+          (index !== popupChildrenIndex && !isPopupShow)
+        ) {
+          setIsPopupShow(!isPopupShow && isFocused)
+        }
       }
     }
+
+    setPopupChildrenIndex(index !== undefined ? index : null)
 
     setPopupState('schema')
   }
@@ -225,18 +235,14 @@ function FocusElement({
         ref={focusElement}
         className={classNames('relative', { 'border-4 border-secondary-blue-300': isFocused })}
       >
-        {(schema.groupType === 'button' ||
-          schema.groupType === 'banner' ||
-          schema.groupType === 'gallery') && (
-          <SingleEachContainer
-            schema={schema}
-            popupShowHandler={popupShowHandler}
-            isButtonShow={isButtonShow}
-            distance={popupPosition}
-            isEditorMode={isEditorMode}
-            {...props}
-          />
-        )}
+        <EachContainer
+          schema={schema}
+          popupShowHandler={popupShowHandler}
+          isButtonShow={isButtonShow}
+          distance={popupPosition}
+          isEditorMode={isEditorMode}
+          {...props}
+        />
       </div>
     </div>
   )

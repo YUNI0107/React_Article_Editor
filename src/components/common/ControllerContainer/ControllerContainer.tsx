@@ -1,4 +1,3 @@
-import { useMemo } from 'react'
 import { ConnectDragSource } from 'react-dnd'
 
 // types
@@ -8,7 +7,6 @@ import { groupTypes, IControlProps } from '../../../types/editor'
 import SwitchControl from '../SwitchControl'
 
 // constants
-import { groupTypeEnum } from '../../../constants/enums/editorEnums'
 import { CONTROLLER_MAP } from '../../../constants/enums/otherEnums'
 
 // contexts
@@ -19,27 +17,17 @@ function ControllerContainer({
   childUuid,
   focusProps,
   groupName,
+  controllerName,
   drag,
 }: {
   uuid?: string
   childUuid?: string
   focusProps?: IControlProps
   groupName?: groupTypes
+  controllerName: string
   drag: ConnectDragSource
 }) {
   if (!focusProps || !groupName || !uuid) return null
-
-  // memos
-  const controllerName = useMemo(() => {
-    switch (groupName) {
-      case groupTypeEnum.banner:
-        return '帶狀圖片'
-      case groupTypeEnum.button:
-        return '按鈕設定'
-      default:
-        return ''
-    }
-  }, [groupName])
 
   return (
     <PopupContainer title={controllerName} drag={drag}>

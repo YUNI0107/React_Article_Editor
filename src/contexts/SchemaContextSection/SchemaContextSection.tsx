@@ -6,18 +6,18 @@ import update from 'immutability-helper'
 import { groupTypeEnum } from '../../constants/enums/editorEnums'
 
 // types
-import { IComponentSchema, IButton } from '../../types/editor'
+import { IComponentSchema, IImages } from '../../types/editor'
 
 // utils
 import ControlHandler from '../../utils/controlHandler'
 
 // temp
-import { buttonJsonContent } from '../../constants/defaultTextEditorContent'
-import DefaultIcon from '../../assets/icon/house.png'
+import { paragraphJsonContent, titleJsonContent } from '../../constants/defaultTextEditorContent'
 
 const uuid1 = uuidv4()
-// const uuid3 = uuidv4()
-// const uuid5 = uuidv4()
+const uuid1_1 = uuidv4()
+const uuid1_2 = uuidv4()
+const uuid1_3 = uuidv4()
 
 const defaultSchemas: {
   schemas: Array<IComponentSchema>
@@ -61,38 +61,61 @@ const defaultSchemas: {
 export const SchemaContext = createContext(defaultSchemas)
 
 function SchemaContextSection({ children }: { children: ReactNode }) {
-  const a: IButton = {
+  const a: IImages = {
     uuid: uuid1,
-    groupType: groupTypeEnum.button,
-    type: 'button',
-    props: {
-      innerParagraph: buttonJsonContent,
-      backgroundColor: '#E800E8',
-      borderColor: '#000',
-      borderWidth: 2,
-      roundedKey: 'circle',
-      customRounded: {
-        leftTop: 0,
-        rightTop: 0,
-        rightBottom: 0,
-        leftBottom: 0,
+    groupType: groupTypeEnum.images,
+    type: 'triplicate-square',
+    props: {},
+    children: [
+      {
+        uuid: uuid1_1,
+        groupType: groupTypeEnum.image,
+        props: {
+          imgPath:
+            'https://images.unsplash.com/photo-1677644334825-0eb411012ac0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2143&q=80',
+          clickEvent: 'image-popup',
+          textShowChecks: {
+            title: true,
+            description: true,
+          },
+          title: titleJsonContent,
+          description: paragraphJsonContent,
+          filter: '',
+        },
       },
-      padding: {
-        x: 10,
-        y: 5,
+      {
+        uuid: uuid1_2,
+        groupType: groupTypeEnum.image,
+        props: {
+          imgPath:
+            'https://images.unsplash.com/photo-1677443030437-93c9f5e08ae6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80',
+          clickEvent: 'image-popup',
+          textShowChecks: {
+            title: true,
+            description: true,
+          },
+          title: titleJsonContent,
+          description: paragraphJsonContent,
+          filter: '',
+        },
       },
-      alignment: 'left',
-      isLinkBlank: true,
-      isIconShow: true,
-      imgPath: DefaultIcon,
-      display: 'top',
-      scale: {
-        width: 30,
-        height: 30,
+      {
+        uuid: uuid1_3,
+        groupType: groupTypeEnum.image,
+        props: {
+          imgPath:
+            'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80',
+          clickEvent: 'image-popup',
+          textShowChecks: {
+            title: true,
+            description: true,
+          },
+          title: titleJsonContent,
+          description: paragraphJsonContent,
+          filter: '',
+        },
       },
-      isInScale: true,
-      buttonTextShowChecks: true,
-    },
+    ],
   }
   const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a])
   const [title, setTitle] = useState('')

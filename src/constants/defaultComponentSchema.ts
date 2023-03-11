@@ -24,13 +24,14 @@ export const defaultBannerSchema: Omit<IBanner, 'uuid'> = {
   type: 'banner',
   props: {
     imgPath: DefaultImage1,
-    eventKey: 'image-popup',
+    clickEvent: 'image-popup',
     textShowChecks: {
       title: true,
       description: true,
     },
     title: titleJsonContent,
     description: paragraphJsonContent,
+    filter: '',
   },
 }
 

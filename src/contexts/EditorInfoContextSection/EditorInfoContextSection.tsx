@@ -2,7 +2,7 @@ import { createContext, ReactNode, useEffect, useState } from 'react'
 
 // types
 import { PopupStateType, PreviewModesType } from '../../types/layout'
-import { IComponentSchema, SingleControlSchemaType } from '../../types/editor'
+import { IComponentSchema } from '../../types/editor'
 
 export interface IDistance {
   top: number
@@ -15,7 +15,7 @@ const defaultInformation: {
   handlePreviewMode: (mode: PreviewModesType) => void
   popupPosition: IDistance
   setPopupPosition: (distance: IDistance) => void
-  focusElementSchema: SingleControlSchemaType | null
+  focusElementSchema: IComponentSchema | null
   setFocusElementSchema: (schema: IComponentSchema | null) => void
   isPopupShow: boolean
   setIsPopupShow: (isShow: boolean) => void
@@ -23,6 +23,8 @@ const defaultInformation: {
   setFocusElementHeight: (height: number) => void
   popupState: PopupStateType
   setPopupState: (type: PopupStateType) => void
+  popupChildrenIndex: number | null
+  setPopupChildrenIndex: (type: number | null) => void
 } = {
   isEditorMode: true,
   previewMode: 'lg',
@@ -34,26 +36,25 @@ const defaultInformation: {
   isPopupShow: false,
   setIsPopupShow: (isShow) => console.log(isShow),
   focusElementHeight: 0,
-  setFocusElementHeight: (height) => {
-    console.log(height)
-  },
+  setFocusElementHeight: (height) => console.log(height),
   popupState: null,
-  setPopupState: (type) => {
-    console.log(type)
-  },
+  setPopupState: (type) => console.log(type),
+  popupChildrenIndex: null,
+  setPopupChildrenIndex: (index) => console.log(index),
 }
 
 export const EditorInfoContext = createContext(defaultInformation)
 
 function EditorInfoContextSection({ children }: { children: ReactNode }) {
   const [previewMode, setPreviewMode] = useState<PreviewModesType>('lg')
-  const [focusElementSchema, setFocusElementSchema] = useState<SingleControlSchemaType | null>(null)
+  const [focusElementSchema, setFocusElementSchema] = useState<IComponentSchema | null>(null)
   const [focusElementHeight, setFocusElementHeight] = useState<number>(0)
 
   // Layout show
   const [isPopupShow, setIsPopupShow] = useState(false)
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 })
   const [popupState, setPopupState] = useState<PopupStateType>('schema')
+  const [popupChildrenIndex, setPopupChildrenIndex] = useState<number | null>(null)
 
   const isEditorMode = true
 
@@ -63,7 +64,6 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   }
 
   const focusElementSchemaHandler = (schema: IComponentSchema | null) => {
-    if (schema?.groupType === 'images') return null
     setFocusElementSchema(schema)
   }
 
@@ -90,6 +90,8 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
         setFocusElementHeight,
         popupState,
         setPopupState,
+        popupChildrenIndex,
+        setPopupChildrenIndex,
       }}
     >
       {children}

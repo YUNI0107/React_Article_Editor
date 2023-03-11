@@ -27,9 +27,11 @@ import { defaultHTMLContent } from '../../../constants/defaultTextEditorContent'
 
 function BasicEditorContent({
   schema,
+  childUuid,
   controlName,
 }: {
   schema: IComponentSchema
+  childUuid?: string
   controlName: string
 }) {
   const { uuid } = schema
@@ -159,7 +161,7 @@ function BasicEditorContent({
   }
 
   const defaultContent = useMemo(() => {
-    const previousJsonString = controlHandler?.getValue(controlName, uuid) as string
+    const previousJsonString = controlHandler?.getValue(controlName, uuid, childUuid) as string
     return covertJsonStringContent(previousJsonString)
   }, [])
 
@@ -177,7 +179,7 @@ function BasicEditorContent({
 
   useEffect(() => {
     if (updateJson !== null) {
-      controlHandler?.changeValue(controlName, updateJson, uuid)
+      controlHandler?.changeValue(controlName, updateJson, uuid, childUuid)
       setUpdateJson(null)
     }
   }, [controlHandler, updateJson])

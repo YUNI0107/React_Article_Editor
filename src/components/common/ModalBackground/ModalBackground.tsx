@@ -15,7 +15,7 @@ function ModalBackground({
 }: {
   children: ReactNode
   isModalShow: boolean
-  setIsModalShow?: (isShow: boolean) => void
+  setIsModalShow?: (isShow: boolean, index?: number) => void
   isPopup?: boolean
 }) {
   const [isVisible, setIsVisible] = useState(false)

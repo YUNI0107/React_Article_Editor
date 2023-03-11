@@ -14,6 +14,7 @@ type groupTypes =
   | groupTypeEnum.banner
   | groupTypeEnum.paragraph
   | groupTypeEnum.images
+  | groupTypeEnum.image
   | groupTypeEnum.gallery
   | groupTypeEnum.button
 
@@ -93,7 +94,6 @@ export type IControls =
 type ISingleSchema = IBanner | IGallery | IButton | IParagraph
 type IMultipleSchema = IImages
 type IComponentSchema = ISingleSchema | IMultipleSchema
-type SingleControlSchemaType = IParagraph | IBanner | IGallery | IButton | IImage
 
 interface IBanner {
   uuid: string
@@ -112,16 +112,17 @@ interface IImages {
   groupType: groupTypeEnum.images
   type: imagesType
   children: Array<IImage>
+  props?: IControlProps
 }
 
 interface IImage {
   uuid: string
+  groupType:
+    | groupTypeEnum.images
+    | groupTypeEnum.image
+    | groupTypeEnum.gallery
+    | groupTypeEnum.banner
   props?: IControlProps
-  groupType: groupTypeEnum.images | groupTypeEnum.gallery | groupTypeEnum.banner
-  childrenParagraph?: {
-    title: IParagraph
-    description: IParagraph
-  }
 }
 
 interface IGallery {

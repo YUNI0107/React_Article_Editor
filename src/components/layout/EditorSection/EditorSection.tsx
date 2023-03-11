@@ -2,7 +2,7 @@ import { Fragment, useContext } from 'react'
 import classNames from 'classnames'
 
 // components
-import SingleFocusElement from '../../common/SingleFocusElement'
+import RenderElement from '../../common/RenderElement'
 import ButtonsControl from '../ButtonsControl'
 
 // contexts
@@ -23,29 +23,14 @@ function EditorSection() {
       {schemas.map((schema, schemaIndex) => {
         if (!schema) return null
 
-        switch (schema.groupType) {
-          case 'banner':
-          case 'button':
-          case 'gallery':
-            return (
-              <Fragment key={schema.uuid}>
-                <div className={schemaStyleSetting}>
-                  <SingleFocusElement schema={schema} schemaIndex={schemaIndex} />
-                  <ButtonsControl uuid={schema.uuid} />
-                </div>
-              </Fragment>
-            )
-          case 'images':
-            return <Fragment key={schema.uuid}></Fragment>
-          case 'paragraph':
-            return <Fragment key={schema.uuid}></Fragment>
-          default:
-            return (
-              <Fragment key={'error-display'}>
-                <p>Error display</p>
-              </Fragment>
-            )
-        }
+        return (
+          <Fragment key={schema.uuid}>
+            <div className={schemaStyleSetting}>
+              <RenderElement schema={schema} schemaIndex={schemaIndex} />
+              <ButtonsControl uuid={schema.uuid} />
+            </div>
+          </Fragment>
+        )
       })}
     </>
   )

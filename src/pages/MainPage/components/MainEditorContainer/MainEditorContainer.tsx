@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useContext, useState, useRef } from 'react'
+import { useCallback, useEffect, useContext, useState, useRef, useMemo } from 'react'
 import classNames from 'classnames'
 import { useDrag, useDrop, XYCoord, useDragDropManager } from 'react-dnd'
 
@@ -20,16 +20,56 @@ import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection
 // hooks
 import { useScroll } from '../../../../hooks/useScroll'
 
+// constants
+import { groupTypeEnum } from '../../../../constants/enums/editorEnums'
+
 function MainEditorContainer() {
-  const { previewMode, focusElementSchema, popupPosition, isPopupShow, popupState } =
-    useContext(EditorInfoContext)
+  const {
+    previewMode,
+    focusElementSchema,
+    popupPosition,
+    isPopupShow,
+    popupState,
+    popupChildrenIndex,
+  } = useContext(EditorInfoContext)
 
   const { props: focusProps, uuid: focusUUid, groupType: focusGroupType } = focusElementSchema || {}
+
+  const focusChildren =
+    focusElementSchema && 'children' in focusElementSchema ? focusElementSchema.children : null
+  const childUuid =
+    popupChildrenIndex !== null && focusChildren
+      ? focusChildren[popupChildrenIndex].uuid
+      : undefined
+  const groupName =
+    popupChildrenIndex !== null && focusChildren
+      ? focusChildren[popupChildrenIndex].groupType
+      : focusGroupType
+
   const [popupDragDistance, setPopupDragDistance] = useState(popupPosition)
   const { top, left } = popupDragDistance
   const scrollRef = useRef<HTMLDivElement | null>(null)
+
   // For Drag & Drop
   const { updatePosition } = useScroll(scrollRef)
+
+  // memos
+  const controllerName = useMemo(() => {
+    const count = popupChildrenIndex !== null ? popupChildrenIndex + 1 : ''
+
+    switch (groupName) {
+      case groupTypeEnum.banner:
+        return '帶狀圖片'
+      case groupTypeEnum.button:
+        return '按鈕設定'
+      case groupTypeEnum.images:
+        return `圖片群組`
+      case groupTypeEnum.image:
+        return `圖片設定 - ${count}`
+      default:
+        return '設定'
+    }
+  }, [groupName, popupChildrenIndex])
 
   // operations
   const movePopup = useCallback(
@@ -154,7 +194,9 @@ function MainEditorContainer() {
             <ControllerContainer
               focusProps={focusProps}
               uuid={focusUUid}
-              groupName={focusGroupType}
+              childUuid={childUuid}
+              controllerName={controllerName}
+              groupName={groupName}
               drag={drag}
             />
           )}

@@ -27,9 +27,9 @@ function BannerComponent({
   isEditorMode,
 }: {
   schema: IBanner
-  popupShowHandler: () => void
+  popupShowHandler: (index: null) => void
   isButtonShow: boolean
-  setIsModalShow?: (isShow: boolean) => void
+  setIsModalShow?: (isShow: boolean, index?: number) => void
   isEditorMode: boolean
 }) {
   if (!schema) return null
@@ -42,6 +42,7 @@ function BannerComponent({
 
   // operation
   const openImageModal = () => {
+    console.log('??', props)
     if (!setIsModalShow || props?.clickEvent !== 'image-popup' || isEditorMode) return
     setIsModalShow(true)
   }
@@ -89,7 +90,7 @@ function BannerComponent({
 
           <div className={classNames(buttonStyle, 'flex mt-7 w-full justify-center')}>
             <AddImageButton
-              onClick={popupShowHandler}
+              onClick={() => popupShowHandler(null)}
               text="變更圖片"
               customClassNames="mr-2"
               isPreviewSmMode={previewMode === 'sm'}
@@ -97,7 +98,7 @@ function BannerComponent({
               <ImgPathControl uuid={uuid} />
             </AddImageButton>
             <CircleButton
-              onClick={popupShowHandler}
+              onClick={() => popupShowHandler(null)}
               iconTag="ri-settings-3-fill"
               isPreviewSmMode={previewMode === 'sm'}
               dataType="popupEdit"

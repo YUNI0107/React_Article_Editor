@@ -33,8 +33,8 @@ function SwitchControl({
 }) {
   const { controlHandler } = useContext(SchemaContext)
   const controlProps = {
-    childUuid,
     uuid,
+    childUuid,
     getValue: controlHandler?.getValue.bind(controlHandler),
     changeValue: controlHandler?.changeValue.bind(controlHandler),
     ...focusProps,
