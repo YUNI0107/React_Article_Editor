@@ -1,5 +1,8 @@
 // default images
 import DefaultImage1 from '../assets/default/default_1.jpg'
+import DefaultImage2 from '../assets/default/default_2.png'
+import DefaultImage3 from '../assets/default/default_3.png'
+import DefaultImage4 from '../assets/default/default_4.png'
 import DefaultIconHouse from '../assets/icon/house.png'
 import DefaultIconChart from '../assets/icon/chart.png'
 
@@ -11,7 +14,7 @@ import {
 } from './defaultTextEditorContent'
 
 // types
-import { IBanner, IButton } from '../types/editor'
+import { IBanner, IButton, IImages, IImage, imagesType } from '../types/editor'
 
 // constant
 import { groupTypeEnum } from './enums/editorEnums'
@@ -68,6 +71,38 @@ export const defaultButtonSchema: Omit<IButton, 'uuid'> = {
   },
 }
 
+const defaultImagesSchema: Omit<IImages, 'uuid' | 'children'> & {
+  children: Array<Omit<IImage, 'uuid' | 'children'>>
+} = {
+  groupType: groupTypeEnum.images,
+  type: 'double-circle',
+  props: {
+    roundedKey: 'none',
+    customRounded: {
+      leftTop: 5,
+      rightTop: 5,
+      rightBottom: 5,
+      leftBottom: 5,
+    },
+  },
+  children: [],
+}
+
+const defaultImage: Omit<IImage, 'uuid'> = {
+  groupType: groupTypeEnum.image,
+  props: {
+    imgPath: DefaultImage2,
+    clickEvent: 'image-popup',
+    textShowChecks: {
+      title: true,
+      description: true,
+    },
+    title: titleJsonContent,
+    description: paragraphJsonContent,
+    filter: '',
+  },
+}
+
 // methods
 export const getRandomDefaultButtonSchema = () => {
   if (defaultButtonSchema.props) {
@@ -77,4 +112,28 @@ export const getRandomDefaultButtonSchema = () => {
   }
 
   return defaultButtonSchema
+}
+
+const defaultImages = [DefaultImage2, DefaultImage3, DefaultImage4]
+export const getRandomImagesSchema = (type: imagesType) => {
+  const [number, shape] = type.split('-')
+
+  defaultImagesSchema.type = type
+
+  if (defaultImagesSchema.props) {
+    defaultImagesSchema.props.roundedKey = shape === 'circle' ? 'circle' : 'none'
+  }
+  const num = number === 'triplicate' ? 3 : 2
+  defaultImagesSchema.children = []
+
+  for (let i = 0; i < num; i++) {
+    const image = structuredClone(defaultImage)
+
+    if (image.props) {
+      image.props.imgPath = defaultImages[i]
+    }
+    defaultImagesSchema.children.push(image)
+  }
+
+  return defaultImagesSchema
 }

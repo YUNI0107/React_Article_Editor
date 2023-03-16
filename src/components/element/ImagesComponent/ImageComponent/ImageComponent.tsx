@@ -9,7 +9,7 @@ import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection
 import BasicEditorContent from '../../../text/BasicEditorContent'
 
 // components
-import AddImageButton from '../../../common/AddImageButton'
+import IconRectangleButton from '../../../common/IconRectangleButton/IconRectangleButton'
 import ImgPathControl from '../../../controls/ImgPathControl'
 import CircleButton from '../../../common/CircleButton'
 
@@ -34,7 +34,8 @@ function ImageComponent({
   const { previewMode } = useContext(EditorInfoContext)
 
   const { props, uuid } = schema || {}
-  const { uuid: parentUuid } = parentSchema || {}
+  const { uuid: parentUuid, props: parentProps } = parentSchema || {}
+  const { customRounded, roundedKey } = parentProps || {}
   const { filter: filterStyleClass, textShowChecks } = props || {}
 
   const pathControlUuidMap = parentUuid
@@ -61,6 +62,19 @@ function ImageComponent({
     }
   }, [])
 
+  const borderRadius = useMemo(() => {
+    switch (roundedKey) {
+      case 'none':
+        return '0px'
+      case 'circle':
+        return '100%'
+      case 'custom':
+        return `${customRounded?.leftTop || 0}px ${customRounded?.rightTop || 0}px ${
+          customRounded?.rightBottom || 0
+        }px ${customRounded?.leftBottom || 0}px`
+    }
+  }, [roundedKey, customRounded])
+
   // operations
   const openImageModal = () => {
     if (!setIsModalShow || props?.clickEvent !== 'image-popup' || isEditorMode) return
@@ -70,10 +84,10 @@ function ImageComponent({
   return (
     <div>
       <div
-        className={classNames('relative group', {
+        className={classNames('relative group overflow-hidden', {
           'cursor-pointer': props?.clickEvent === 'image-popup',
         })}
-        style={{ paddingTop: imageRatio }}
+        style={{ paddingTop: imageRatio, borderRadius }}
         onClick={openImageModal}
       >
         <img
@@ -104,17 +118,18 @@ function ImageComponent({
             }
           )}
         >
-          <AddImageButton
+          <IconRectangleButton
+            icon="ri-image-add-fill"
             onClick={popupShowHandler}
             text="變更圖片"
-            customClassNames="mb-2 py-2 px-4"
+            customClassNames="mb-2 !py-2 !px-4"
             isPreviewSmMode={previewMode === 'sm'}
           >
             <ImgPathControl
               uuid={pathControlUuidMap.uuid}
               childUuid={pathControlUuidMap.childUuid}
             />
-          </AddImageButton>
+          </IconRectangleButton>
 
           <CircleButton
             onClick={popupShowHandler}

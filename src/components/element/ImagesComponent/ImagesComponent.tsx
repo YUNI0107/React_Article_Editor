@@ -1,11 +1,15 @@
-import { useMemo } from 'react'
+import { useMemo, useContext } from 'react'
 import classNames from 'classnames'
 
 // types
 import { IImages } from '../../../types/editor'
 
-// images
+// contexts
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
+
+// components
 import ImageComponent from './ImageComponent'
+import IconRectangleButton from '../../common/IconRectangleButton/IconRectangleButton'
 
 function ImagesComponent({
   schema,
@@ -24,6 +28,7 @@ function ImagesComponent({
 
   const { children, type } = schema
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
+  const { previewMode } = useContext(EditorInfoContext)
 
   const gridColsClassName = useMemo(() => {
     switch (type) {
@@ -57,8 +62,15 @@ function ImagesComponent({
           )
         })}
       </div>
-      <div onClick={() => popupShowHandler(null)} className={classNames(buttonStyle)}>
-        編輯
+
+      <div className="w-full">
+        <IconRectangleButton
+          icon="ri-edit-2-fill"
+          onClick={() => popupShowHandler(null)}
+          text="編輯群組"
+          customClassNames={classNames(buttonStyle, 'my-5 mx-auto')}
+          isPreviewSmMode={previewMode === 'sm'}
+        />
       </div>
     </>
   )

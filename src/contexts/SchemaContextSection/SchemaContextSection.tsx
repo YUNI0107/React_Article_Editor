@@ -1,23 +1,23 @@
 import { ReactNode, createContext, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
 import update from 'immutability-helper'
 
 // constants
-import { groupTypeEnum } from '../../constants/enums/editorEnums'
+// import { groupTypeEnum } from '../../constants/enums/editorEnums'
 
 // types
-import { IComponentSchema, IImages } from '../../types/editor'
+import { IComponentSchema } from '../../types/editor'
 
 // utils
 import ControlHandler from '../../utils/controlHandler'
 
 // temp
-import { paragraphJsonContent, titleJsonContent } from '../../constants/defaultTextEditorContent'
+// import { paragraphJsonContent, titleJsonContent } from '../../constants/defaultTextEditorContent'
 
-const uuid1 = uuidv4()
-const uuid1_1 = uuidv4()
-const uuid1_2 = uuidv4()
-const uuid1_3 = uuidv4()
+// const uuid1 = uuidv4()
+// const uuid1_1 = uuidv4()
+// const uuid1_2 = uuidv4()
+// const uuid1_3 = uuidv4()
 
 const defaultSchemas: {
   schemas: Array<IComponentSchema>
@@ -61,63 +61,7 @@ const defaultSchemas: {
 export const SchemaContext = createContext(defaultSchemas)
 
 function SchemaContextSection({ children }: { children: ReactNode }) {
-  const a: IImages = {
-    uuid: uuid1,
-    groupType: groupTypeEnum.images,
-    type: 'triplicate-square',
-    props: {},
-    children: [
-      {
-        uuid: uuid1_1,
-        groupType: groupTypeEnum.image,
-        props: {
-          imgPath:
-            'https://images.unsplash.com/photo-1677644334825-0eb411012ac0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2143&q=80',
-          clickEvent: 'image-popup',
-          textShowChecks: {
-            title: true,
-            description: true,
-          },
-          title: titleJsonContent,
-          description: paragraphJsonContent,
-          filter: '',
-        },
-      },
-      {
-        uuid: uuid1_2,
-        groupType: groupTypeEnum.image,
-        props: {
-          imgPath:
-            'https://images.unsplash.com/photo-1677443030437-93c9f5e08ae6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80',
-          clickEvent: 'image-popup',
-          textShowChecks: {
-            title: true,
-            description: true,
-          },
-          title: titleJsonContent,
-          description: paragraphJsonContent,
-          filter: '',
-        },
-      },
-      {
-        uuid: uuid1_3,
-        groupType: groupTypeEnum.image,
-        props: {
-          imgPath:
-            'https://images.unsplash.com/photo-1622547748225-3fc4abd2cca0?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2232&q=80',
-          clickEvent: 'image-popup',
-          textShowChecks: {
-            title: true,
-            description: true,
-          },
-          title: titleJsonContent,
-          description: paragraphJsonContent,
-          filter: '',
-        },
-      },
-    ],
-  }
-  const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a])
+  const [schemas, setSchemas] = useState<Array<IComponentSchema>>([])
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
 

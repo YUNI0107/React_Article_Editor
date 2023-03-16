@@ -11,7 +11,7 @@ import { urlValidate } from '../../../validator/commonValidate'
 import DefaultImage from '../../../assets/default.png'
 
 // components
-import AddImageButton from '../../common/AddImageButton'
+import IconRectangleButton from '../../common/IconRectangleButton/IconRectangleButton'
 import CircleButton from '../../common/CircleButton'
 import ImgPathControl from '../../controls/ImgPathControl'
 import BasicEditorContent from '../../text/BasicEditorContent'
@@ -42,7 +42,6 @@ function BannerComponent({
 
   // operation
   const openImageModal = () => {
-    console.log('??', props)
     if (!setIsModalShow || props?.clickEvent !== 'image-popup' || isEditorMode) return
     setIsModalShow(true)
   }
@@ -89,14 +88,15 @@ function BannerComponent({
           )}
 
           <div className={classNames(buttonStyle, 'flex mt-7 w-full justify-center')}>
-            <AddImageButton
+            <IconRectangleButton
+              icon="ri-image-add-fill"
               onClick={() => popupShowHandler(null)}
               text="變更圖片"
               customClassNames="mr-2"
               isPreviewSmMode={previewMode === 'sm'}
             >
               <ImgPathControl uuid={uuid} />
-            </AddImageButton>
+            </IconRectangleButton>
             <CircleButton
               onClick={() => popupShowHandler(null)}
               iconTag="ri-settings-3-fill"

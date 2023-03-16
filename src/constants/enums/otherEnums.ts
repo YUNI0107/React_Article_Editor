@@ -17,7 +17,7 @@ export const containerWidth = 240
 export const CONTROLLER_MAP: { [key in groupTypes]: Array<IControls> } = {
   banner: ['imgFilterControl', 'clickEventControl', 'textShowControl'],
   paragraph: [],
-  images: [],
+  images: ['roundedControl'],
   image: ['imgFilterControl', 'clickEventControl', 'textShowControl'],
   gallery: [],
   button: [
