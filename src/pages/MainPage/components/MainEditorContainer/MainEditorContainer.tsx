@@ -66,6 +66,8 @@ function MainEditorContainer() {
         return `圖片群組`
       case groupTypeEnum.image:
         return `圖片設定 - ${count}`
+      case groupTypeEnum.paragraph:
+        return '文字段落設定'
       default:
         return '設定'
     }
@@ -170,7 +172,7 @@ function MainEditorContainer() {
 
             <div
               ref={scrollRef}
-              className={classNames('w-full overflow-y-auto', {
+              className={classNames('w-full overflow-y-auto hide-scrollbar', {
                 'h-mobile': previewMode === 'sm',
                 'h-tablet': previewMode === 'md',
                 'h-full': previewMode === 'lg',

@@ -12,7 +12,7 @@ import { IComponentSchema } from '../../types/editor'
 import ControlHandler from '../../utils/controlHandler'
 
 // temp
-// import { paragraphJsonContent, titleJsonContent } from '../../constants/defaultTextEditorContent'
+// import { paragraphJsonContent } from '../../constants/defaultTextEditorContent'
 
 // const uuid1 = uuidv4()
 // const uuid1_1 = uuidv4()

@@ -10,12 +10,14 @@ import TriplicateRectImage from '../../../../../assets/add/triplicate-rectangle.
 import DoubleSquareImage from '../../../../../assets/add/double-square.png'
 import DoubleCircleImage from '../../../../../assets/add/double-circle.png'
 import DoubleRectImage from '../../../../../assets/add/double-rectangle.png'
+import ParagraphImage from '../../../../../assets/add/paragraph.png'
 
 // default schema
 import {
   defaultBannerSchema,
   getRandomDefaultButtonSchema,
   getRandomImagesSchema,
+  defaultParagraph,
 } from '../../../../../constants/defaultComponentSchema'
 
 function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
@@ -37,6 +39,16 @@ function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
       </div>
 
       {/* block section */}
+      <AddBlock
+        title="文字段落模組"
+        blocks={[
+          {
+            imgPath: ParagraphImage,
+            defaultSchema: () => defaultParagraph,
+          },
+        ]}
+      />
+
       <AddBlock
         title="帶狀圖片模組"
         blocks={[

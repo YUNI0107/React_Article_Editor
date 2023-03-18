@@ -11,10 +11,11 @@ import {
   titleJsonContent,
   paragraphJsonContent,
   buttonJsonContent,
+  paragraphComponentJsonContent,
 } from './defaultTextEditorContent'
 
 // types
-import { IBanner, IButton, IImages, IImage, imagesType } from '../types/editor'
+import { IBanner, IButton, IImages, IImage, imagesType, IParagraph } from '../types/editor'
 
 // constant
 import { groupTypeEnum } from './enums/editorEnums'
@@ -100,6 +101,14 @@ const defaultImage: Omit<IImage, 'uuid'> = {
     title: titleJsonContent,
     description: paragraphJsonContent,
     filter: '',
+  },
+}
+
+export const defaultParagraph: Omit<IParagraph, 'uuid'> = {
+  groupType: groupTypeEnum.paragraph,
+  type: 'paragraph',
+  props: {
+    content: paragraphComponentJsonContent,
   },
 }
 

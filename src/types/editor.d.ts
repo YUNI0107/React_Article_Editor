@@ -65,6 +65,8 @@ export interface IControlProps extends CSSProperties {
   display?: DisplayType
   scale?: ScaleType
   buttonTextShowChecks?: boolean
+  // Paragraph
+  content?: string
 }
 
 export type IControlPropsKey = keyof IControlProps

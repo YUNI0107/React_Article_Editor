@@ -22,7 +22,7 @@ function Drawer() {
   return (
     <div
       className={classNames(
-        'fixed z-30 flex flex-col bg-white transition-all duration-700 h-[calc(100%-80px)] basic-shadow overflow-y-auto overflow-x-hidden',
+        'fixed z-30 flex flex-col bg-white transition-all duration-700 h-[calc(100%-80px)] basic-shadow hide-scrollbar overflow-y-auto overflow-x-hidden',
         {
           'w-[300px]': isShow,
           'w-[80px]': !isShow,
@@ -31,7 +31,7 @@ function Drawer() {
     >
       <div className="flex-1">
         {isShow ? (
-          <div className="min-w-[300px] px-4 pt-8">
+          <div className="min-w-[300px] px-4 pt-8 hide-scrollbar">
             <OpenedDrawer setIsShow={setIsShow} drawerState={drawerState} />
           </div>
         ) : (
