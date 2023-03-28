@@ -23,6 +23,8 @@ function FontColorControl() {
     if (color && color !== pickerBackground) setPickerBackground(color)
   }, [color])
 
+  // console.log('pickerBackground', pickerBackground)
+
   return (
     <>
       <ControllerTitle />

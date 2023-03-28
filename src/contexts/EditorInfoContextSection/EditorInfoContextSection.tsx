@@ -25,6 +25,8 @@ const defaultInformation: {
   setPopupState: (type: PopupStateType) => void
   popupChildrenIndex: number | null
   setPopupChildrenIndex: (type: number | null) => void
+  isModalShow: boolean
+  setIsModalShow: (isShow: boolean) => void
 } = {
   isEditorMode: true,
   previewMode: 'lg',
@@ -41,6 +43,8 @@ const defaultInformation: {
   setPopupState: (type) => console.log(type),
   popupChildrenIndex: null,
   setPopupChildrenIndex: (index) => console.log(index),
+  isModalShow: false,
+  setIsModalShow: (isShow) => console.log(isShow),
 }
 
 export const EditorInfoContext = createContext(defaultInformation)
@@ -55,6 +59,7 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   const [popupPosition, setPopupPosition] = useState({ top: 0, left: 0 })
   const [popupState, setPopupState] = useState<PopupStateType>('schema')
   const [popupChildrenIndex, setPopupChildrenIndex] = useState<number | null>(null)
+  const [isModalShow, setIsModalShow] = useState(false)
 
   const isEditorMode = true
 
@@ -92,6 +97,8 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
         setPopupState,
         popupChildrenIndex,
         setPopupChildrenIndex,
+        isModalShow,
+        setIsModalShow,
       }}
     >
       {children}

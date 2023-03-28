@@ -3,6 +3,7 @@ import BannerComponent from '../../../element/BannerComponent'
 import ButtonComponent from '../../../element/ButtonComponent'
 import ImagesComponent from '../../../element/ImagesComponent'
 import ParagraphComponent from '../../../element/ParagraphComponent'
+import GalleryComponent from '../../../element/GalleryComponent'
 
 // types
 import { IComponentSchema } from '../../../../types/editor'
@@ -27,6 +28,8 @@ function EachContainer(props: IEachContainer) {
       return <ImagesComponent {...props} schema={schema} />
     case groupTypeEnum.paragraph:
       return <ParagraphComponent {...props} schema={schema} />
+    case groupTypeEnum.gallery:
+      return <GalleryComponent {...props} schema={schema} />
     default:
       return <h1>Please Check is component exist or not.</h1>
   }

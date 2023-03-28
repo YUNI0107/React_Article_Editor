@@ -35,6 +35,10 @@ type imagesType =
 
 // gallery
 type galleryType = 'nine-square' | 'fence' | 'carousel' | 'irregular'
+interface IGalleryImage {
+  imgPath: string
+  description: string
+}
 
 type buttonType = 'button'
 type textShowChecksType = 'title' | 'description'
@@ -67,6 +71,8 @@ export interface IControlProps extends CSSProperties {
   buttonTextShowChecks?: boolean
   // Paragraph
   content?: string
+  // Gallery
+  images?: Array<IGalleryImage>
 }
 
 export type IControlPropsKey = keyof IControlProps
@@ -132,10 +138,6 @@ interface IGallery {
   groupType: groupTypeEnum.gallery
   type: galleryType
   props?: IControlProps
-  childrenParagraph?: Array<{
-    title: IParagraph
-    description: IParagraph
-  }>
 }
 
 interface IButton {

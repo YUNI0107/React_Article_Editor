@@ -36,6 +36,9 @@ module.exports = {
           500: '#4B4B4B',
         },
       },
+      flex: {
+        2: '2 2 0%',
+      },
     },
   },
   plugins: [],

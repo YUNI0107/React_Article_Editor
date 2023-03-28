@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useState, useContext } from 'react'
+import { ReactNode, useEffect, useState, useContext, TransitionEvent } from 'react'
 import classNames from 'classnames'
 
 // contexts
@@ -21,12 +21,20 @@ function ModalBackground({
   const [isVisible, setIsVisible] = useState(false)
   const { setIsPopupShow, isEditorMode, previewMode } = useContext(EditorInfoContext)
 
+  // operation
+  const handleTransitionEnd = (event: TransitionEvent<HTMLDivElement>) => {
+    if (event.target == event.currentTarget) {
+      event.preventDefault()
+      setIsVisible(false)
+    }
+  }
+
   useEffect(() => {
     if (isModalShow) {
       setIsVisible(true)
       setIsPopupShow(false)
     }
-  }, [isModalShow, isVisible])
+  }, [isModalShow])
 
   if (!isVisible) return null
 
@@ -41,7 +49,7 @@ function ModalBackground({
           ? 'h-[calc(100vh-80px)]'
           : 'h-screen'
       )}
-      onTransitionEnd={() => setIsVisible(false)}
+      onTransitionEndCapture={handleTransitionEnd}
     >
       {/* background */}
       <div

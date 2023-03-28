@@ -22,6 +22,8 @@ import { useScroll } from '../../../../hooks/useScroll'
 
 // constants
 import { groupTypeEnum } from '../../../../constants/enums/editorEnums'
+import ModalBackground from '../../../../components/common/ModalBackground'
+import GalleryControlModal from '../../../../components/controls/GalleryControlModal'
 
 function MainEditorContainer() {
   const {
@@ -31,6 +33,8 @@ function MainEditorContainer() {
     isPopupShow,
     popupState,
     popupChildrenIndex,
+    isModalShow,
+    setIsModalShow,
   } = useContext(EditorInfoContext)
 
   const { props: focusProps, uuid: focusUUid, groupType: focusGroupType } = focusElementSchema || {}
@@ -80,6 +84,10 @@ function MainEditorContainer() {
     },
     [setPopupDragDistance]
   )
+
+  const handleModalClose = () => {
+    setIsModalShow(false)
+  }
 
   // effects
   useEffect(() => {
@@ -205,6 +213,10 @@ function MainEditorContainer() {
 
           {popupState === 'text' && <TextEditorContainer drag={drag} />}
         </PopUp>
+
+        <ModalBackground isModalShow={isModalShow} setIsModalShow={setIsModalShow}>
+          <GalleryControlModal handleModalClose={handleModalClose} />
+        </ModalBackground>
       </div>
     </TextPopupContextSection>
   )
