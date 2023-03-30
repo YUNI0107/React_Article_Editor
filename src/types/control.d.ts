@@ -1,6 +1,7 @@
 export type ClickEventType = 'image-popup' | 'link'
 export type LineHeightType = 'auto' | 'custom'
 export type RoundedType = 'none' | 'circle' | 'custom'
+export type GalleryDescriptionType = 'description' | 'none'
 export type RoundedCustomInputType = {
   leftTop: number
   rightTop: number

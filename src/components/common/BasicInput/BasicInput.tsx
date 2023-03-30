@@ -12,6 +12,7 @@ function BasicInput({
   customInputClassNames,
   icon,
   type,
+  handleOnBlur,
 }: {
   value: string | number
   setValue: (value: string) => void
@@ -23,6 +24,7 @@ function BasicInput({
   customInputClassNames?: string
   icon?: ReactNode
   type?: string
+  handleOnBlur?: () => void
 }) {
   const inputRef = useRef<HTMLInputElement | null>(null)
   const [infoShow, setInfoShow] = useState(false)
@@ -60,6 +62,7 @@ function BasicInput({
           ref={inputRef}
           value={value}
           onChange={handleInputChange}
+          onBlur={handleOnBlur}
           disabled={disabled}
         />
         {icon && <div className="absolute left-2 top-1/2 -translate-y-1/2">{icon}</div>}

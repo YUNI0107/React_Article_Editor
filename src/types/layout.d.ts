@@ -18,6 +18,12 @@ export interface ISchemaDragItem {
   type: string
 }
 
+export interface IImageBlockDragItem {
+  index: number
+  id: string
+  type: string
+}
+
 export interface IUseScroll {
   position: number
   isScrollAllowed: boolean

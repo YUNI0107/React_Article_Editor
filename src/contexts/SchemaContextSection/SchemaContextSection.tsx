@@ -68,26 +68,31 @@ function SchemaContextSection({ children }: { children: ReactNode }) {
     props: {
       images: [
         {
+          id: '22222',
           imgPath:
             'https://images.unsplash.com/photo-1661956601349-f61c959a8fd4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80',
           description: '',
         },
         {
+          id: '22dddd222',
           imgPath:
             'https://images.unsplash.com/photo-1661961110218-35af7210f803?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
           description: '',
         },
         {
+          id: '22dsfesf22',
           imgPath:
             'https://images.unsplash.com/photo-1661961112835-ca6f5811d2af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80',
           description: '',
         },
         {
+          id: '22dsdeadfewffesf22',
           imgPath:
             'https://images.unsplash.com/photo-1661961111184-11317b40adb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80',
           description: '',
         },
         {
+          id: '22dsdeadfewsdfeffesf22',
           imgPath:
             'https://images.unsplash.com/photo-1606868304424-cbfb9165ffde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
           description: '',

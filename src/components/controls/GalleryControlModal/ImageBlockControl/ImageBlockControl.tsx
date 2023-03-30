@@ -1,31 +1,54 @@
-import { useContext, useState } from 'react'
+import { useContext, useState, useEffect } from 'react'
 
 // components
 import IconRectangleButton from '../../../common/IconRectangleButton'
 import ControllerTitle from '../../components/ControllerTitle'
 import RadioButton from '../../../common/RadioButton'
 import BasicInput from '../../../common/BasicInput'
+import ImgPathControl from '../../ImgPathControl'
 
 // context
 import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
 
-function ImageBlockControl() {
-  const { previewMode } = useContext(EditorInfoContext)
-  const [descriptionEvent, setDescriptionEvent] = useState('description')
-  const [description, setDescription] = useState('')
+// types
+import { IGalleryImage } from '../../../../types/editor'
+import { GalleryDescriptionType } from '../../../../types/control'
 
-  const changeDescriptionValue = (value: string) => {
+function ImageBlockControl({
+  selectImage,
+  handleImageUpdate,
+}: {
+  selectImage: IGalleryImage
+  handleImageUpdate: (image: string) => void
+}) {
+  const { previewMode } = useContext(EditorInfoContext)
+  const [descriptionEvent, setDescriptionEvent] = useState<GalleryDescriptionType>(
+    selectImage.description ? 'description' : 'none'
+  )
+  const [description, setDescription] = useState(selectImage.description)
+
+  const changeDescriptionValue = (value: GalleryDescriptionType) => {
     setDescriptionEvent(value)
   }
+
+  const handleOnBlur = () => {
+    selectImage.description = description
+  }
+
+  const onImgPathChange = (image: string) => {
+    handleImageUpdate(image)
+  }
+
+  useEffect(() => {
+    // Update selectImage
+    setDescriptionEvent(selectImage.description ? 'description' : 'none')
+    setDescription(selectImage.description)
+  }, [selectImage])
 
   return (
     <>
       <div className="relative w-full h-56 group">
-        <img
-          className="w-full h-full object-cover"
-          src="https://images.unsplash.com/photo-1679678691006-3afa56204979?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2069&q=80"
-          alt=""
-        />
+        <img className="w-full h-full object-cover" src={selectImage.imgPath} />
 
         <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-30 hidden justify-center items-center group-hover:flex">
           <IconRectangleButton
@@ -34,7 +57,7 @@ function ImageBlockControl() {
             customClassNames="mr-2"
             isPreviewSmMode={previewMode === 'sm'}
           >
-            {/* <ImgPathControl uuid={uuid} /> */}
+            <ImgPathControl onImgPathChange={onImgPathChange} />
           </IconRectangleButton>
         </div>
       </div>
@@ -58,11 +81,11 @@ function ImageBlockControl() {
 
           <div className="flex items-start">
             <RadioButton
-              value="description-none"
+              value="none"
               name="description-event"
               id="description-none"
               onValueChange={changeDescriptionValue}
-              checked={descriptionEvent === 'description-none'}
+              checked={descriptionEvent === 'none'}
             />
             <label className="text-[10px] ml-2 -translate-y-[2px]" htmlFor="description-none">
               無
@@ -71,7 +94,7 @@ function ImageBlockControl() {
         </div>
 
         {descriptionEvent === 'description' && (
-          <BasicInput value={description} setValue={setDescription} />
+          <BasicInput value={description} setValue={setDescription} handleOnBlur={handleOnBlur} />
         )}
       </div>
     </>

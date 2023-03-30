@@ -36,6 +36,7 @@ type imagesType =
 // gallery
 type galleryType = 'nine-square' | 'fence' | 'carousel' | 'irregular'
 interface IGalleryImage {
+  id: string
   imgPath: string
   description: string
 }
@@ -76,6 +77,7 @@ export interface IControlProps extends CSSProperties {
 }
 
 export type IControlPropsKey = keyof IControlProps
+export type IControlPropsValue = IControlProps[keyof IControlProps]
 
 // controls
 export type IControls =

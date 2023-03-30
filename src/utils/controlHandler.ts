@@ -1,4 +1,9 @@
-import { IComponentSchema, IMultipleSchema, ISingleSchema } from '../types/editor'
+import {
+  IComponentSchema,
+  IControlPropsValue,
+  IMultipleSchema,
+  ISingleSchema,
+} from '../types/editor'
 
 class ControlHandler {
   schemas: Array<IComponentSchema>
@@ -12,7 +17,7 @@ class ControlHandler {
     this.handleSchema = handleSchema
   }
 
-  changeValue(controlName: string, value: string, uuid: string, childUuid?: string) {
+  changeValue(controlName: string, value: IControlPropsValue, uuid: string, childUuid?: string) {
     const newSchemas = [...this.schemas]
     const targetIndex = newSchemas.findIndex((item) => item.uuid === uuid)
 

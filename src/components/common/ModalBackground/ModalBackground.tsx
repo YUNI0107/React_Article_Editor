@@ -19,7 +19,7 @@ function ModalBackground({
   isPopup?: boolean
 }) {
   const [isVisible, setIsVisible] = useState(false)
-  const { setIsPopupShow, isEditorMode, previewMode } = useContext(EditorInfoContext)
+  const { setIsPopupShow } = useContext(EditorInfoContext)
 
   // operation
   const handleTransitionEnd = (event: TransitionEvent<HTMLDivElement>) => {
@@ -41,13 +41,10 @@ function ModalBackground({
   return (
     <div
       className={classNames(
-        'z-50 fixed top-0 left-0 w-screen flex justify-center items-center transition-opacity duration-500',
+        'z-50 fixed top-0 left-0 w-screen flex justify-center items-center transition-opacity duration-500 h-screen',
         {
           'opacity-0': !isModalShow,
-        },
-        isEditorMode && (previewMode === 'md' || previewMode === 'sm')
-          ? 'h-[calc(100vh-80px)]'
-          : 'h-screen'
+        }
       )}
       onTransitionEndCapture={handleTransitionEnd}
     >

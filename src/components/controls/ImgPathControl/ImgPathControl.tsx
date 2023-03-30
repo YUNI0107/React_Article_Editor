@@ -14,9 +14,9 @@ function ImgPathControl({
   childUuid,
   onImgPathChange,
 }: {
-  uuid: string
+  uuid?: string
   childUuid?: string
-  onImgPathChange?: () => void
+  onImgPathChange?: (image: string) => void
 }) {
   const { controlHandler } = useContext(SchemaContext)
 
@@ -28,9 +28,11 @@ function ImgPathControl({
 
     const imageBase64 = await getBase64(event.target.files[0])
     if (typeof imageBase64 === 'string') {
-      controlHandler?.changeValue('imgPath', imageBase64, uuid, childUuid)
+      if (controlHandler && uuid) {
+        controlHandler.changeValue('imgPath', imageBase64, uuid, childUuid)
+      }
 
-      if (onImgPathChange) onImgPathChange()
+      if (onImgPathChange) onImgPathChange(imageBase64)
     }
   }
 
