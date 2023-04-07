@@ -10,22 +10,19 @@ import { IGallery } from '../../../types/editor'
 // contexts
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
+// constants
+import { galleryTypeList } from '../../../constants/gallery'
+
 function GalleryComponent({ schema, isButtonShow }: { schema: IGallery; isButtonShow: boolean }) {
   const buttonStyle = isButtonShow ? 'block' : 'hidden pointer-events-none'
   const { previewMode, setIsModalShow } = useContext(EditorInfoContext)
+  const { type } = schema
+  const Gallery = galleryTypeList[type].as
 
   return (
     <>
       <div className="relative">
-        <div className="grid grid-cols-5">
-          {schema.props?.images?.map((image, index) => {
-            return (
-              <div key={index} className="w-40 h-40 overflow-hidden ">
-                <img className="w-full h-full object-cover" src={image.imgPath} />
-              </div>
-            )
-          })}
-        </div>
+        {schema.props?.images && <Gallery images={schema.props.images} />}
 
         {/* edit cover */}
         <div

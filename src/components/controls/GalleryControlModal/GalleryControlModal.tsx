@@ -10,10 +10,13 @@ import { SchemaContext } from '../../../contexts/SchemaContextSection'
 import ImageBlockControl from './ImageBlockControl'
 
 // types
-import { IGalleryImage } from '../../../types/editor'
+import { galleryType, IGalleryImage } from '../../../types/editor'
 import type { Identifier, XYCoord } from 'dnd-core'
 import { useDrag, useDrop } from 'react-dnd'
 import { IImageBlockDragItem } from '../../../types/layout'
+
+// constants
+import { galleryTypeList } from '../../../constants/gallery'
 
 const defaultGalleryImage = {
   id: 'sdcsdcds',
@@ -164,6 +167,7 @@ const ImageBlock = ({
 function GalleryControlModal({ handleModalClose }: { handleModalClose: () => void }) {
   const { focusElementSchema } = useContext(EditorInfoContext)
   const { controlHandler } = useContext(SchemaContext)
+  const type = focusElementSchema && (focusElementSchema.type as galleryType)
 
   const [isSorting, setIsSorting] = useState(false)
   const [currentSelect, setCurrentSelect] = useState<number | null>(null)
@@ -315,7 +319,7 @@ function GalleryControlModal({ handleModalClose }: { handleModalClose: () => voi
 
             <div>
               <p className="font-bold">
-                <span className="text-4xl mr-1">8</span>
+                <span className="text-4xl mr-1">{type ? galleryTypeList[type].amount : 0}</span>
                 <span className="mr-2">張</span>
                 可呈現此圖庫的最佳效果
               </p>
