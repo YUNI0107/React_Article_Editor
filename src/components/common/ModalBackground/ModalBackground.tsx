@@ -41,7 +41,7 @@ function ModalBackground({
   return (
     <div
       className={classNames(
-        'z-50 fixed top-0 left-0 w-screen flex justify-center items-center transition-opacity duration-500 h-screen',
+        'z-50 fixed top-0 left-0 w-screen transition-opacity duration-500 h-screen',
         {
           'opacity-0': !isModalShow,
         }
@@ -58,7 +58,9 @@ function ModalBackground({
       {isPopup ? (
         <>{/* <Popup>{children}</Popup> */}</>
       ) : (
-        <div className="relative z-20 shadow-lg">{children}</div>
+        <div className="w-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex justify-center items-center px-2">
+          {children}
+        </div>
       )}
     </div>
   )

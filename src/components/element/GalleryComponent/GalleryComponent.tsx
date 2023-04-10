@@ -1,8 +1,10 @@
-import { useContext } from 'react'
+import { useState, useContext } from 'react'
 import classNames from 'classnames'
 
 // components
 import IconRectangleButton from '../../common/IconRectangleButton/IconRectangleButton'
+import ModalBackground from '../../common/ModalBackground'
+import CarouselGallery from './components/CarouselGallery'
 
 // types
 import { IGallery } from '../../../types/editor'
@@ -14,15 +16,40 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 import { galleryTypeList } from '../../../constants/gallery'
 
 function GalleryComponent({ schema, isButtonShow }: { schema: IGallery; isButtonShow: boolean }) {
+  // const buttonStyle = isButtonShow ? 'hidden pointer-events-none' : 'hidden pointer-events-none'
   const buttonStyle = isButtonShow ? 'block' : 'hidden pointer-events-none'
   const { previewMode, setIsModalShow } = useContext(EditorInfoContext)
+  const [isGalleryDetailModalShow, setIsGalleryDetailModalShow] = useState(false)
+  const [clickedIndex, setClickedIndex] = useState(0)
   const { type } = schema
   const Gallery = galleryTypeList[type].as
+
+  // operations
+  const handleModalShow = (index: number) => {
+    setIsGalleryDetailModalShow(true)
+    setClickedIndex(index)
+  }
+
+  if (!(schema.props && schema.props.images)) return null
 
   return (
     <>
       <div className="relative">
-        {schema.props?.images && <Gallery images={schema.props.images} />}
+        <Gallery images={schema.props.images} handleModalShow={handleModalShow} />
+
+        {/* modal */}
+        <ModalBackground
+          isModalShow={isGalleryDetailModalShow}
+          setIsModalShow={setIsGalleryDetailModalShow}
+        >
+          <div className="w-full max-w-[800px]">
+            <CarouselGallery
+              images={schema.props.images}
+              slideIndex={clickedIndex}
+              onClose={() => setIsGalleryDetailModalShow(false)}
+            />
+          </div>
+        </ModalBackground>
 
         {/* edit cover */}
         <div

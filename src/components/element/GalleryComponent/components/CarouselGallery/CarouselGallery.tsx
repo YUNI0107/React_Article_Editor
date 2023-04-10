@@ -5,9 +5,9 @@ import Carousel from 'nuka-carousel'
 // types
 import { IGalleryImage } from '../../../../../types/editor'
 
-const CarouselImage = ({ image }: { image: IGalleryImage }) => {
+const CarouselImage = ({ image, onClick }: { image: IGalleryImage; onClick: () => void }) => {
   return (
-    <div className="relative w-full pt-[60%]">
+    <div className="relative w-full pt-[60%]" onClick={onClick}>
       <img
         className="absolute top-0 left-0 w-full h-full object-cover"
         src={image.imgPath}
@@ -90,21 +90,31 @@ const CustomPaginationControls = ({
 function CarouselGallery({
   images,
   autoplay,
+  slideIndex = 0,
   onClose,
+  handleModalShow,
 }: {
   images: Array<IGalleryImage>
   autoplay?: boolean
+  slideIndex?: number
   onClose?: () => void
+  handleModalShow?: (index: number) => void
 }) {
-  const [paginationCurrent, setPaginationCurrent] = useState(0)
+  const [paginationCurrent, setPaginationCurrent] = useState(slideIndex)
+  const [isFirstSetSlideIndex, setIsFirstSetSlideIndex] = useState(false)
 
   useEffect(() => {
-    setPaginationCurrent(0)
+    if (isFirstSetSlideIndex) {
+      setPaginationCurrent(0)
+    } else {
+      setIsFirstSetSlideIndex(true)
+    }
   }, [images])
 
   return (
     <div className="relative">
       <Carousel
+        slideIndex={slideIndex}
         autoplay={autoplay}
         defaultControlsConfig={{
           nextButtonClassName:
@@ -123,8 +133,12 @@ function CarouselGallery({
           />
         )}
       >
-        {images.map((image) => (
-          <CarouselImage image={image} key={image.id} />
+        {images.map((image, index) => (
+          <CarouselImage
+            image={image}
+            key={image.id}
+            onClick={() => handleModalShow && handleModalShow(index)}
+          />
         ))}
       </Carousel>
       <CustomPaginationControls
