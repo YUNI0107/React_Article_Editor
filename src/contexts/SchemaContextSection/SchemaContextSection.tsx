@@ -1,12 +1,12 @@
 import { ReactNode, createContext, useState } from 'react'
-import { v4 as uuidv4 } from 'uuid'
+// import { v4 as uuidv4 } from 'uuid'
 import update from 'immutability-helper'
 
 // constants
-import { groupTypeEnum } from '../../constants/enums/editorEnums'
+// import { groupTypeEnum } from '../../constants/enums/editorEnums'
 
 // types
-import { IComponentSchema, IGallery } from '../../types/editor'
+import { IComponentSchema } from '../../types/editor'
 
 // utils
 import ControlHandler from '../../utils/controlHandler'
@@ -14,10 +14,7 @@ import ControlHandler from '../../utils/controlHandler'
 // temp
 // import { paragraphJsonContent } from '../../constants/defaultTextEditorContent'
 
-const uuid1 = uuidv4()
-// const uuid1_1 = uuidv4()
-// const uuid1_2 = uuidv4()
-// const uuid1_3 = uuidv4()
+// const uuid1 = uuidv4()
 
 const defaultSchemas: {
   schemas: Array<IComponentSchema>
@@ -61,76 +58,7 @@ const defaultSchemas: {
 export const SchemaContext = createContext(defaultSchemas)
 
 function SchemaContextSection({ children }: { children: ReactNode }) {
-  const a: IGallery = {
-    uuid: uuid1,
-    groupType: groupTypeEnum.gallery,
-    type: 'nine-square',
-    props: {
-      images: [
-        {
-          id: '22222',
-          imgPath:
-            'https://images.unsplash.com/photo-1661956601349-f61c959a8fd4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80',
-          description: 'sada3der23rer23r432r43wr43r',
-        },
-        {
-          id: '22dddd222',
-          imgPath:
-            'https://images.unsplash.com/photo-1661961110218-35af7210f803?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2070&q=80',
-          description: 'eeeeeeeeeeeeee',
-        },
-        {
-          id: '22dsfesf22',
-          imgPath:
-            'https://images.unsplash.com/photo-1661961112835-ca6f5811d2af?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80',
-          description: '',
-        },
-        // {
-        //   id: '22dsdeadfewffesf22',
-        //   imgPath:
-        //     'https://images.unsplash.com/photo-1661961111184-11317b40adb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80',
-        //   description: '',
-        // },
-        // {
-        //   id: '22dsdeadfewsdfeffesf22',
-        //   imgPath:
-        //     'https://images.unsplash.com/photo-1606868304424-cbfb9165ffde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
-        //   description: '',
-        // },
-        // {
-        //   id: '22dsdeadfewsdsssfeffesf22',
-        //   imgPath:
-        //     'https://images.unsplash.com/photo-1606868304424-cbfb9165ffde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
-        //   description: '',
-        // },
-        // {
-        //   id: '22dsdeadfewfffesf22',
-        //   imgPath:
-        //     'https://images.unsplash.com/photo-1661961111184-11317b40adb2?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2072&q=80',
-        //   description: '',
-        // },
-        // {
-        //   id: '22dsdeadfeswsdfeffesf22',
-        //   imgPath:
-        //     'https://images.unsplash.com/photo-1606868304424-cbfb9165ffde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
-        //   description: '',
-        // },
-        // {
-        //   id: '22dsdeadffewsdsssfeffesf22',
-        //   imgPath:
-        //     'https://images.unsplash.com/photo-1606868304424-cbfb9165ffde?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1674&q=80',
-        //   description: '',
-        // },
-        // {
-        //   id: '22e222',
-        //   imgPath:
-        //     'https://images.unsplash.com/photo-1661956601349-f61c959a8fd4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80',
-        //   description: '',
-        // },
-      ],
-    },
-  }
-  const [schemas, setSchemas] = useState<Array<IComponentSchema>>([a])
+  const [schemas, setSchemas] = useState<Array<IComponentSchema>>([])
   const [title, setTitle] = useState('')
   const [author, setAuthor] = useState('')
 

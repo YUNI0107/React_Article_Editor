@@ -11,6 +11,10 @@ import DoubleSquareImage from '../../../../../assets/add/double-square.png'
 import DoubleCircleImage from '../../../../../assets/add/double-circle.png'
 import DoubleRectImage from '../../../../../assets/add/double-rectangle.png'
 import ParagraphImage from '../../../../../assets/add/paragraph.png'
+import NineSquareImage from '../../../../../assets/add/nine-square.png'
+import FenceImage from '../../../../../assets/add/fence.png'
+import CarouselImage from '../../../../../assets/add/carousel.png'
+import IrregularImage from '../../../../../assets/add/irregular.png'
 
 // default schema
 import {
@@ -18,6 +22,7 @@ import {
   getRandomDefaultButtonSchema,
   getRandomImagesSchema,
   defaultParagraph,
+  getRandomGallerySchema,
 } from '../../../../../constants/defaultComponentSchema'
 
 function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
@@ -95,6 +100,28 @@ function AddDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
           {
             imgPath: DoubleRectImage,
             defaultSchema: () => getRandomImagesSchema('double-rectangle'),
+          },
+        ]}
+      />
+
+      <AddBlock
+        title="圖庫模組"
+        blocks={[
+          {
+            imgPath: NineSquareImage,
+            defaultSchema: () => getRandomGallerySchema('nine-square'),
+          },
+          {
+            imgPath: FenceImage,
+            defaultSchema: () => getRandomGallerySchema('fence'),
+          },
+          {
+            imgPath: CarouselImage,
+            defaultSchema: () => getRandomGallerySchema('carousel'),
+          },
+          {
+            imgPath: IrregularImage,
+            defaultSchema: () => getRandomGallerySchema('irregular'),
           },
         ]}
       />

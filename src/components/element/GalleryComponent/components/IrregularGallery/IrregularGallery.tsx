@@ -18,7 +18,7 @@ function IrregularGallery({
 }) {
   return (
     <>
-      <div className="max-h-[800px] grid grid-cols-4 grid-rows-3 gap-x-2">
+      <div className="max-h-[800px] grid grid-cols-4 grid-rows-3 gap-2">
         {images.slice(0, 5).map((image, index) => (
           <div
             key={image.id}

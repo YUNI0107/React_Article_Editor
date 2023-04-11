@@ -9,7 +9,7 @@ function NineSquareGallery({
   handleModalShow: (index: number) => void
 }) {
   return (
-    <div className="px-5">
+    <>
       <div className="grid grid-cols-3 gap-2">
         {images.slice(0, 9).map((image, index) => {
           return (
@@ -34,7 +34,7 @@ function NineSquareGallery({
           </p>
         </div>
       )}
-    </div>
+    </>
   )
 }
 
