@@ -16,9 +16,8 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 import { galleryTypeList } from '../../../constants/gallery'
 
 function GalleryComponent({ schema, isButtonShow }: { schema: IGallery; isButtonShow: boolean }) {
-  // const buttonStyle = isButtonShow ? 'hidden pointer-events-none' : 'hidden pointer-events-none'
   const buttonStyle = isButtonShow ? 'block' : 'hidden pointer-events-none'
-  const { previewMode, setIsModalShow } = useContext(EditorInfoContext)
+  const { setIsModalShow, previewMode } = useContext(EditorInfoContext)
   const [isGalleryDetailModalShow, setIsGalleryDetailModalShow] = useState(false)
   const [clickedIndex, setClickedIndex] = useState(0)
   const { type } = schema
@@ -35,7 +34,12 @@ function GalleryComponent({ schema, isButtonShow }: { schema: IGallery; isButton
   return (
     <>
       <div className="relative">
-        <Gallery images={schema.props.images} handleModalShow={handleModalShow} />
+        <Gallery
+          images={schema.props.images}
+          handleModalShow={handleModalShow}
+          previewMode={previewMode}
+          isEditorMode
+        />
 
         {/* modal */}
         <ModalBackground
@@ -63,7 +67,6 @@ function GalleryComponent({ schema, isButtonShow }: { schema: IGallery; isButton
             onClick={() => setIsModalShow(true)}
             text="編輯圖庫"
             customClassNames={classNames(buttonStyle, 'my-5 mx-auto')}
-            isPreviewSmMode={previewMode === 'sm'}
           />
         </div>
       </div>

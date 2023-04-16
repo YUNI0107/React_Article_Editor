@@ -15,6 +15,14 @@ import CircleButton from '../../../common/CircleButton'
 
 // utils
 import { urlValidate } from '../../../../validator/commonValidate'
+import getStyleSetting, { IStyleMapList } from '../../../../utils/getStyleSetting'
+
+const styleMapList: IStyleMapList = {
+  publish: 'mb-4 md:mb-0',
+  editor: {
+    sm: 'mb-4',
+  },
+}
 
 function ImageComponent({
   schema,
@@ -32,6 +40,7 @@ function ImageComponent({
   setIsModalShow?: (isShow: boolean) => void
 }) {
   const { previewMode } = useContext(EditorInfoContext)
+  const styleSetting = getStyleSetting(styleMapList, previewMode, isEditorMode)
 
   const { props, uuid } = schema || {}
   const { uuid: parentUuid, props: parentProps } = parentSchema || {}
@@ -82,7 +91,7 @@ function ImageComponent({
   }
 
   return (
-    <div>
+    <div className={styleSetting}>
       <div
         className={classNames('relative group overflow-hidden', {
           'cursor-pointer': props?.clickEvent === 'image-popup',
@@ -123,7 +132,6 @@ function ImageComponent({
             onClick={popupShowHandler}
             text="變更圖片"
             customClassNames="mb-2 !py-2 !px-4"
-            isPreviewSmMode={previewMode === 'sm'}
           >
             <ImgPathControl
               uuid={pathControlUuidMap.uuid}
@@ -134,7 +142,6 @@ function ImageComponent({
           <CircleButton
             onClick={popupShowHandler}
             iconTag="ri-settings-3-fill"
-            isPreviewSmMode={previewMode === 'sm'}
             dataType="popupEdit"
           />
         </div>

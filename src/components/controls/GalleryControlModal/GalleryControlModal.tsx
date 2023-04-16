@@ -1,6 +1,7 @@
 import { useState, useEffect, useContext, MouseEvent, useRef } from 'react'
 import classNames from 'classnames'
 import update from 'immutability-helper'
+import { v4 as uuidv4 } from 'uuid'
 
 // contexts
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
@@ -8,6 +9,9 @@ import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // components
 import ImageBlockControl from './ImageBlockControl'
+
+// images
+import DefaultImage from '../../../assets/default/default_1.jpg'
 
 // types
 import { galleryType, IGalleryImage } from '../../../types/editor'
@@ -17,13 +21,6 @@ import { IImageBlockDragItem } from '../../../types/layout'
 
 // constants
 import { galleryTypeList } from '../../../constants/gallery'
-
-const defaultGalleryImage = {
-  id: 'sdcsdcds',
-  imgPath:
-    'https://images.unsplash.com/photo-1661956601349-f61c959a8fd4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2071&q=80',
-  description: '',
-}
 
 const ImageBlock = ({
   image,
@@ -202,7 +199,14 @@ function GalleryControlModal({ handleModalClose }: { handleModalClose: () => voi
 
   const addImage = () => {
     setModalImages((images) => {
-      const addedImages = [...images, defaultGalleryImage]
+      const addedImages = [
+        ...images,
+        {
+          id: uuidv4(),
+          imgPath: DefaultImage,
+          description: '',
+        },
+      ]
       setCurrentSelect(modalImages.length)
 
       return addedImages

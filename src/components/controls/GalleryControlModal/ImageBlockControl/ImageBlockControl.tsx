@@ -1,4 +1,4 @@
-import { useContext, useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 // components
 import IconRectangleButton from '../../../common/IconRectangleButton'
@@ -6,9 +6,6 @@ import ControllerTitle from '../../components/ControllerTitle'
 import RadioButton from '../../../common/RadioButton'
 import BasicInput from '../../../common/BasicInput'
 import ImgPathControl from '../../ImgPathControl'
-
-// context
-import { EditorInfoContext } from '../../../../contexts/EditorInfoContextSection'
 
 // types
 import { IGalleryImage } from '../../../../types/editor'
@@ -21,7 +18,6 @@ function ImageBlockControl({
   selectImage: IGalleryImage
   handleImageUpdate: (image: string) => void
 }) {
-  const { previewMode } = useContext(EditorInfoContext)
   const [descriptionEvent, setDescriptionEvent] = useState<GalleryDescriptionType>(
     selectImage.description ? 'description' : 'none'
   )
@@ -51,12 +47,7 @@ function ImageBlockControl({
         <img className="w-full h-full object-cover" src={selectImage.imgPath} />
 
         <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-30 hidden justify-center items-center group-hover:flex">
-          <IconRectangleButton
-            icon="ri-image-add-fill"
-            text="變更圖片"
-            customClassNames="mr-2"
-            isPreviewSmMode={previewMode === 'sm'}
-          >
+          <IconRectangleButton icon="ri-image-add-fill" text="變更圖片" customClassNames="mr-2">
             <ImgPathControl onImgPathChange={onImgPathChange} />
           </IconRectangleButton>
         </div>

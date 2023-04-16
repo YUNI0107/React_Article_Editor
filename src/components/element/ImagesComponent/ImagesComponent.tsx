@@ -1,4 +1,4 @@
-import { useMemo, useContext } from 'react'
+import { useEffect, useContext } from 'react'
 import classNames from 'classnames'
 
 // types
@@ -10,6 +10,14 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 // components
 import ImageComponent from './ImageComponent'
 import IconRectangleButton from '../../common/IconRectangleButton/IconRectangleButton'
+
+// utils
+import getStyleSetting, { IStyleMapList } from '../../../utils/getStyleSetting'
+
+const styleMapList: IStyleMapList = {
+  general: 'grid gap-x-2',
+  editor: {},
+}
 
 function ImagesComponent({
   schema,
@@ -29,25 +37,36 @@ function ImagesComponent({
   const { children, type } = schema
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
   const { previewMode } = useContext(EditorInfoContext)
+  const styleSetting = getStyleSetting(styleMapList, previewMode, isEditorMode)
 
-  const gridColsClassName = useMemo(() => {
+  useEffect(() => {
+    if (!styleMapList.editor) return
+
     switch (type) {
       case 'triplicate-square':
       case 'triplicate-circle':
       case 'triplicate-rectangle':
-        return 'grid-cols-3'
+        styleMapList.editor.lg = 'grid-cols-3'
+        styleMapList.editor.md = 'grid-cols-3'
+        styleMapList.editor.sm = 'grid-cols-1'
+        styleMapList.publish = 'grid-cols-1 md:grid-cols-3'
+        break
       case 'double-square':
       case 'double-circle':
       case 'double-rectangle':
-        return 'grid-cols-2'
+        styleMapList.editor.lg = 'grid-cols-2'
+        styleMapList.editor.md = 'grid-cols-2'
+        styleMapList.editor.sm = 'grid-cols-1'
+        styleMapList.publish = 'grid-cols-1 md:grid-cols-2'
+        break
       default:
-        return 'grid-cols-1'
+        break
     }
-  }, [])
+  }, [type])
 
   return (
     <>
-      <div className={classNames('grid gap-x-2', gridColsClassName)}>
+      <div className={styleSetting}>
         {children.map((child, index) => {
           return (
             <ImageComponent
@@ -69,7 +88,6 @@ function ImagesComponent({
           onClick={() => popupShowHandler(null)}
           text="編輯群組"
           customClassNames={classNames(buttonStyle, 'my-5 mx-auto')}
-          isPreviewSmMode={previewMode === 'sm'}
         />
       </div>
     </>

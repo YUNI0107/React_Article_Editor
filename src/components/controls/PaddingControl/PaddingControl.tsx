@@ -59,7 +59,7 @@ function PaddingControl({
         <div className="grid grid-cols-2 gap-x-2">
           {Object.entries(padding).map(([key, value], index) => {
             const inputValue = (value as number).toString()
-            const textMap: Array<string> = ['上下', '左右']
+            const textMap: Array<string> = ['左右', '上下']
 
             return (
               <PaddingInput

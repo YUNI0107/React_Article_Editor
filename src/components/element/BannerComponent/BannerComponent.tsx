@@ -1,4 +1,3 @@
-import { useContext } from 'react'
 import classNames from 'classnames'
 
 // types
@@ -16,9 +15,6 @@ import CircleButton from '../../common/CircleButton'
 import ImgPathControl from '../../controls/ImgPathControl'
 import BasicEditorContent from '../../text/BasicEditorContent'
 
-// contexts
-import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
-
 function BannerComponent({
   schema,
   popupShowHandler,
@@ -34,7 +30,6 @@ function BannerComponent({
 }) {
   if (!schema) return null
 
-  const { previewMode } = useContext(EditorInfoContext)
   const { props, uuid } = schema
   const { filter: filterStyleClass, textShowChecks } = props || {}
 
@@ -93,14 +88,12 @@ function BannerComponent({
               onClick={() => popupShowHandler(null)}
               text="變更圖片"
               customClassNames="mr-2"
-              isPreviewSmMode={previewMode === 'sm'}
             >
               <ImgPathControl uuid={uuid} />
             </IconRectangleButton>
             <CircleButton
               onClick={() => popupShowHandler(null)}
               iconTag="ri-settings-3-fill"
-              isPreviewSmMode={previewMode === 'sm'}
               dataType="popupEdit"
             />
           </div>

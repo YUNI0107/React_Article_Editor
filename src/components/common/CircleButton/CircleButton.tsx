@@ -1,20 +1,26 @@
 import classNames from 'classnames'
+import { useContext } from 'react'
+
+// contexts
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 function CircleButton({
   iconTag,
   customClassNames,
   customIconClassNames,
   onClick,
-  isPreviewSmMode,
+
   dataType,
 }: {
   iconTag: string
   customClassNames?: string
   customIconClassNames?: string
   onClick: () => void
-  isPreviewSmMode?: boolean
   dataType?: string
 }) {
+  const { previewMode } = useContext(EditorInfoContext)
+  const isPreviewSmMode = previewMode === 'sm'
+
   return (
     <button
       onClick={onClick}

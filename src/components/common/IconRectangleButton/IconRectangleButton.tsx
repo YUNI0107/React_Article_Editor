@@ -1,12 +1,14 @@
-import { ReactNode } from 'react'
+import { ReactNode, useContext } from 'react'
 import classNames from 'classnames'
+
+// contexts
+import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 function IconRectangleButton({
   children,
   text,
   customClassNames,
   onClick,
-  isPreviewSmMode,
   dataType,
   icon,
 }: {
@@ -14,10 +16,13 @@ function IconRectangleButton({
   text: string
   customClassNames?: string
   onClick?: () => void
-  isPreviewSmMode?: boolean
   dataType?: string
   icon: string
 }) {
+  const { previewMode } = useContext(EditorInfoContext)
+  const isPreviewSmMode = previewMode === 'sm'
+
+  // operations
   const handleOnClick = () => {
     if (children || !onClick) return
     onClick()

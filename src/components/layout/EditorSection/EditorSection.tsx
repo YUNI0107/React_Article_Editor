@@ -1,5 +1,5 @@
 import { Fragment, useContext } from 'react'
-import classNames from 'classnames'
+// import classNames from 'classnames'
 
 // components
 import RenderElement from '../../common/RenderElement'
@@ -9,14 +9,23 @@ import ButtonsControl from '../ButtonsControl'
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
+// utils
+import getStyleSetting, { IStyleMapList } from '../../../utils/getStyleSetting'
+
+const schemaStyleMapList: IStyleMapList = {
+  general: 'relative transition-all duration-700',
+  publish: 'px-2 md:px-4 lg:px-6',
+  editor: {
+    sm: 'w-mobile px-2',
+    md: 'w-tablet px-4',
+    lg: 'w-desktop px-6',
+  },
+}
+
 function EditorSection() {
   const { schemas } = useContext(SchemaContext)
-  const { previewMode } = useContext(EditorInfoContext)
-  const schemaStyleSetting = classNames('relative px-2 transition-all duration-700', {
-    'w-mobile': previewMode === 'sm',
-    'w-tablet': previewMode === 'md',
-    'w-desktop': previewMode === 'lg',
-  })
+  const { previewMode, isEditorMode } = useContext(EditorInfoContext)
+  const schemaStyleSetting = getStyleSetting(schemaStyleMapList, previewMode, isEditorMode)
 
   return (
     <>
