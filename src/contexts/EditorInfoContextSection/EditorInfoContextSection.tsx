@@ -49,7 +49,13 @@ const defaultInformation: {
 
 export const EditorInfoContext = createContext(defaultInformation)
 
-function EditorInfoContextSection({ children }: { children: ReactNode }) {
+function EditorInfoContextSection({
+  isEditorMode,
+  children,
+}: {
+  isEditorMode: boolean
+  children: ReactNode
+}) {
   const [previewMode, setPreviewMode] = useState<PreviewModesType>('lg')
   const [focusElementSchema, setFocusElementSchema] = useState<IComponentSchema | null>(null)
   const [focusElementHeight, setFocusElementHeight] = useState<number>(0)
@@ -60,8 +66,6 @@ function EditorInfoContextSection({ children }: { children: ReactNode }) {
   const [popupState, setPopupState] = useState<PopupStateType>('schema')
   const [popupChildrenIndex, setPopupChildrenIndex] = useState<number | null>(null)
   const [isModalShow, setIsModalShow] = useState(false)
-
-  const isEditorMode = true
 
   // operations
   const handlePreviewMode = (mode: PreviewModesType) => {

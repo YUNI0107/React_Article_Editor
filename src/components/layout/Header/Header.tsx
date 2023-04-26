@@ -1,12 +1,16 @@
+import { Link } from 'react-router-dom'
+
 function Header() {
   return (
     <div className="fixed z-30 w-full bg-white h-20 flex flex-col basic-shadow">
       {/* top */}
       <div className="flex-1 flex justify-end px-5 items-center">
         <div>
-          <button className="default-button bg-main-yellow text-white font-semibold mr-2">
-            Preview
-          </button>
+          <Link to="/preview">
+            <button className="default-button bg-main-yellow text-white font-semibold mr-2">
+              Preview
+            </button>
+          </Link>
           <button className="default-button bg-main-blue text-white font-semibold">Publish</button>
         </div>
       </div>

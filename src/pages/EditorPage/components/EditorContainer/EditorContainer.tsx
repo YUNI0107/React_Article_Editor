@@ -25,7 +25,7 @@ import { groupTypeEnum } from '../../../../constants/enums/editorEnums'
 import ModalBackground from '../../../../components/common/ModalBackground'
 import GalleryControlModal from '../../../../components/controls/GalleryControlModal'
 
-function MainEditorContainer() {
+function EditorContainer() {
   const {
     previewMode,
     focusElementSchema,
@@ -222,4 +222,4 @@ function MainEditorContainer() {
   )
 }
 
-export default MainEditorContainer
+export default EditorContainer
