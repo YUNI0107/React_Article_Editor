@@ -2,7 +2,6 @@ import { Fragment, useContext } from 'react'
 // import classNames from 'classnames'
 
 // components
-import RenderElement from '../../common/RenderElement'
 import ButtonsControl from '../ButtonsControl'
 
 // contexts
@@ -11,6 +10,8 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 
 // utils
 import getStyleSetting, { IStyleMapList } from '../../../utils/getStyleSetting'
+// import EachContainer from '../../common/FocusElement/EachContainer/EachContainer'
+import FocusElement from '../../common/FocusElement'
 
 const schemaStyleMapList: IStyleMapList = {
   general: 'relative transition-all duration-700',
@@ -27,6 +28,10 @@ function EditorSection() {
   const { previewMode, isEditorMode } = useContext(EditorInfoContext)
   const schemaStyleSetting = getStyleSetting(schemaStyleMapList, previewMode, isEditorMode)
 
+  const handleModalShow = () => {
+    console.log('/')
+  }
+
   return (
     <>
       {schemas.map((schema, schemaIndex) => {
@@ -35,7 +40,12 @@ function EditorSection() {
         return (
           <Fragment key={schema.uuid}>
             <div className={schemaStyleSetting}>
-              <RenderElement schema={schema} schemaIndex={schemaIndex} />
+              <FocusElement
+                schema={schema}
+                schemaIndex={schemaIndex}
+                key={schema.uuid}
+                setIsModalShow={handleModalShow}
+              />
               <ButtonsControl uuid={schema.uuid} />
             </div>
           </Fragment>

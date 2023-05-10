@@ -15,7 +15,7 @@ import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 // constants
 import { galleryTypeList } from '../../../constants/gallery'
 
-function GalleryComponent({ schema, isButtonShow }: { schema: IGallery; isButtonShow: boolean }) {
+function GalleryComponent({ schema, isButtonShow }: { schema: IGallery; isButtonShow?: boolean }) {
   const buttonStyle = isButtonShow ? 'block' : 'hidden pointer-events-none'
   const { setIsModalShow, previewMode } = useContext(EditorInfoContext)
   const [isGalleryDetailModalShow, setIsGalleryDetailModalShow] = useState(false)

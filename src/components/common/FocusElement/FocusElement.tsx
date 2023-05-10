@@ -3,13 +3,6 @@ import classNames from 'classnames'
 import { useDrag, useDrop } from 'react-dnd'
 import type { Identifier, XYCoord } from 'dnd-core'
 
-// components
-import EachContainer from './EachContainer'
-
-// types
-import { IComponentSchema } from '../../../types/editor'
-import { ISchemaDragItem } from '../../../types/layout'
-
 // context
 import { EditorInfoContext } from '../../../contexts/EditorInfoContextSection'
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
@@ -19,6 +12,11 @@ import getElementPosition from '../../../utils/getElementPosition'
 
 // hooks
 import { useWindowScroll } from '../../../hooks/useWindowScroll'
+
+// types
+import { IComponentSchema } from '../../../types/editor'
+import { ISchemaDragItem } from '../../../types/layout'
+import EachContainer from './EachContainer'
 
 /**
  *A Component contain focus & pop up feature
@@ -41,12 +39,10 @@ import { useWindowScroll } from '../../../hooks/useWindowScroll'
 function FocusElement({
   schema,
   schemaIndex,
-  id,
   ...props
 }: {
   schema: IComponentSchema
   schemaIndex: number
-  id: string
   setIsModalShow?: (isShow: boolean, index?: number) => void
 }) {
   const [isFocused, setIsFocused] = useState(false)
@@ -130,7 +126,7 @@ function FocusElement({
   const [{ isDragging }, drag] = useDrag({
     type: 'schema',
     item: () => {
-      return { id, index: schemaIndex }
+      return { id: schema.uuid, index: schemaIndex }
     },
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     collect: (monitor: any) => ({

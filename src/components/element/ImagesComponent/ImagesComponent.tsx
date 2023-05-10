@@ -27,9 +27,9 @@ function ImagesComponent({
   setIsModalShow,
 }: {
   schema: IImages
-  popupShowHandler: (index: number | null) => void
-  isButtonShow: boolean
-  isEditorMode: boolean
+  popupShowHandler?: (index: number | null) => void
+  isButtonShow?: boolean
+  isEditorMode?: boolean
   setIsModalShow?: (isShow: boolean, index?: number) => void
 }) {
   if (!schema) return null
@@ -37,7 +37,7 @@ function ImagesComponent({
   const { children, type } = schema
   const buttonStyle = isButtonShow ? 'block pointer-events-auto' : 'hidden pointer-events-none'
   const { previewMode } = useContext(EditorInfoContext)
-  const styleSetting = getStyleSetting(styleMapList, previewMode, isEditorMode)
+  const styleSetting = getStyleSetting(styleMapList, previewMode, !!isEditorMode)
 
   useEffect(() => {
     if (!styleMapList.editor) return
@@ -74,8 +74,8 @@ function ImagesComponent({
               key={index}
               schema={child}
               parentSchema={schema}
-              popupShowHandler={() => popupShowHandler(index)}
-              isEditorMode={isEditorMode}
+              popupShowHandler={() => popupShowHandler && popupShowHandler(index)}
+              isEditorMode={!!isEditorMode}
               setIsModalShow={(isShow) => setIsModalShow && setIsModalShow(isShow, index)}
             />
           )
@@ -85,7 +85,7 @@ function ImagesComponent({
       <div className="w-full">
         <IconRectangleButton
           icon="ri-edit-2-fill"
-          onClick={() => popupShowHandler(null)}
+          onClick={() => popupShowHandler && popupShowHandler(null)}
           text="編輯群組"
           customClassNames={classNames(buttonStyle, 'my-5 mx-auto')}
         />

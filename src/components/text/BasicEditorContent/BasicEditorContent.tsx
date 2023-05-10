@@ -25,6 +25,17 @@ import SimpleTextEditor from '../../layout/SimpleTextEditor'
 // content
 import { defaultHTMLContent } from '../../../constants/defaultTextEditorContent'
 
+export const covertJsonStringContent = (jsonString: string): Promise<Content> => {
+  return new Promise((resolve, reject) => {
+    try {
+      const previousJSON = JSON.parse(jsonString) as Content
+      resolve(previousJSON)
+    } catch (error) {
+      reject(error)
+    }
+  })
+}
+
 function BasicEditorContent({
   schema,
   childUuid,
@@ -147,17 +158,6 @@ function BasicEditorContent({
 
     setLink(editor.getAttributes('link').href || null)
     setColor(editor.getAttributes('textStyle').color || '#000000')
-  }
-
-  const covertJsonStringContent = (jsonString: string): Promise<Content> => {
-    return new Promise((resolve, reject) => {
-      try {
-        const previousJSON = JSON.parse(jsonString) as Content
-        resolve(previousJSON)
-      } catch (error) {
-        reject(error)
-      }
-    })
   }
 
   const defaultContent = useMemo(() => {

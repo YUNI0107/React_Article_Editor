@@ -40,7 +40,7 @@ function BasicImageModal({
     <div
       className={classNames(
         isEditorMode ? editorClassNames[previewMode].modal : realTimeClassNames.modal,
-        'shadow-md border-4 border-white bg-white/25'
+        'relative shadow-md border-4 border-white bg-white/25'
       )}
     >
       <div className="absolute right-3 top-3 cursor-pointer" onClick={handleModalClose}>

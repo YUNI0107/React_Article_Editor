@@ -11,10 +11,11 @@ import { groupTypeEnum } from '../../../../constants/enums/editorEnums'
 
 interface IEachContainer {
   schema: IComponentSchema
-  popupShowHandler: (index: number | null) => void
-  isButtonShow: boolean
-  distance: { top: number; left: number }
-  isEditorMode: boolean
+  popupShowHandler?: (index: number | null) => void
+  isButtonShow?: boolean
+  distance?: { top: number; left: number }
+  isEditorMode?: boolean
+  setIsModalShow?: (isShow: boolean, index?: number) => void
 }
 function EachContainer(props: IEachContainer) {
   const { schema } = props

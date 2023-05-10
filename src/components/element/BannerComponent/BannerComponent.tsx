@@ -13,7 +13,7 @@ import DefaultImage from '../../../assets/default.png'
 import IconRectangleButton from '../../common/IconRectangleButton/IconRectangleButton'
 import CircleButton from '../../common/CircleButton'
 import ImgPathControl from '../../controls/ImgPathControl'
-import BasicEditorContent from '../../text/BasicEditorContent'
+import TextContent from '../../text/TextContent'
 
 function BannerComponent({
   schema,
@@ -23,10 +23,10 @@ function BannerComponent({
   isEditorMode,
 }: {
   schema: IBanner
-  popupShowHandler: (index: null) => void
-  isButtonShow: boolean
+  popupShowHandler?: (index: null) => void
+  isButtonShow?: boolean
   setIsModalShow?: (isShow: boolean, index?: number) => void
-  isEditorMode: boolean
+  isEditorMode?: boolean
 }) {
   if (!schema) return null
 
@@ -69,30 +69,30 @@ function BannerComponent({
             )}
         </div>
 
-        <div className="absolute top-0 left-0 z-20 w-full h-full flex flex-col items-center justify-center">
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 flex flex-col items-center justify-center">
           {/* title */}
           {textShowChecks?.title && (
             <div className="mb-2">
-              <BasicEditorContent schema={schema} controlName="title" />
+              <TextContent isEditorMode={isEditorMode} schema={schema} controlName="title" />
             </div>
           )}
 
           {/* description */}
           {textShowChecks?.description && (
-            <BasicEditorContent schema={schema} controlName="description" />
+            <TextContent isEditorMode={isEditorMode} schema={schema} controlName="description" />
           )}
 
           <div className={classNames(buttonStyle, 'flex mt-7 w-full justify-center')}>
             <IconRectangleButton
               icon="ri-image-add-fill"
-              onClick={() => popupShowHandler(null)}
+              onClick={() => popupShowHandler && popupShowHandler(null)}
               text="變更圖片"
               customClassNames="mr-2"
             >
               <ImgPathControl uuid={uuid} />
             </IconRectangleButton>
             <CircleButton
-              onClick={() => popupShowHandler(null)}
+              onClick={() => popupShowHandler && popupShowHandler(null)}
               iconTag="ri-settings-3-fill"
               dataType="popupEdit"
             />

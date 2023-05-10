@@ -15,9 +15,9 @@ function ButtonComponent({
   isEditorMode,
 }: {
   schema: IButton
-  popupShowHandler: (index: null) => void
-  isButtonShow: boolean
-  isEditorMode: boolean
+  popupShowHandler?: (index: null) => void
+  isButtonShow?: boolean
+  isEditorMode?: boolean
 }) {
   if (!schema) return null
   const buttonStyle = isButtonShow ? 'block' : 'hidden pointer-events-none'
@@ -152,7 +152,7 @@ function ButtonComponent({
             )}
           >
             <CircleButton
-              onClick={() => popupShowHandler(null)}
+              onClick={() => popupShowHandler && popupShowHandler(null)}
               iconTag="ri-settings-3-fill "
               dataType="popupEdit"
               customClassNames="min-w-[24px] w-6 h-6"
