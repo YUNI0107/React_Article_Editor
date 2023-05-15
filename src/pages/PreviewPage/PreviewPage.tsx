@@ -7,7 +7,30 @@ import { SchemaContext } from '../../contexts/SchemaContextSection'
 import ModalBackground from '../../components/common/ModalBackground'
 import BasicImageModal from '../../components/common/BasicImageModal'
 import EachContainer from '../../components/common/FocusElement/EachContainer'
+
+// types
 import classNames from 'classnames'
+import { IBanner, IImages } from '../../types/editor'
+
+const ImageModal = ({
+  schema,
+  popupChildrenIndex,
+  handleModalClose,
+}: {
+  schema: IBanner | IImages
+  popupChildrenIndex: number | null
+  handleModalClose: () => void
+}) => {
+  const imgPath = useMemo(() => {
+    if (popupChildrenIndex !== null && 'children' in schema) {
+      return schema.children[popupChildrenIndex].props?.imgPath
+    } else {
+      return schema.props?.imgPath
+    }
+  }, [schema, popupChildrenIndex])
+
+  return <BasicImageModal imgPath={imgPath} handleModalClose={handleModalClose} />
+}
 
 function PreviewPage() {
   const { schemas, title, author } = useContext(SchemaContext)
@@ -15,17 +38,6 @@ function PreviewPage() {
 
   const [isModalShow, setIsModalShow] = useState(false)
   const [popupChildrenIndex, setPopupChildrenIndex] = useState<number | null>(null)
-
-  const imgPath = useMemo(() => {
-    // if (popupChildrenIndex !== null && 'children' in schema) {
-    //   return schema.children[popupChildrenIndex].props?.imgPath
-    // } else {
-    //   return schema.props?.imgPath
-    // }
-    console.log(popupChildrenIndex)
-    return ''
-    // }, [schema, popupChildrenIndex])
-  }, [])
 
   // operations
   const handleModalClose = () => {
@@ -37,15 +49,9 @@ function PreviewPage() {
     setPopupChildrenIndex(index !== undefined ? index : null)
   }
 
-  const popupShowHandler = (index: number | null) => {
-    console.log(index)
-  }
-
-  handleModalShow
-
   return (
-    <div className="px-8 bg-white">
-      <div className="my-8 flex justify-between items-end">
+    <div className="bg-white w-full px-8 md:px-12 lg:20">
+      <div className="my-8 flex justify-between flex-col md:flex-row md:items-end">
         <div className="flex-1">
           <h1 className="font-bold text-4xl">{title}</h1>
           <p className="mt-2">
@@ -63,24 +69,22 @@ function PreviewPage() {
       {schemas.map((schema, schemaIndex) => {
         if (!schema) return null
 
-        console.log(schemaIndex)
-
         return (
           <div
             key={schema.uuid}
             className={classNames({
-              'mb-2': schemaIndex !== schemas.length - 1 && schemaIndex === 0,
+              'mb-4': schemaIndex !== schemas.length - 1,
             })}
           >
-            <EachContainer
-              schema={schema}
-              popupShowHandler={popupShowHandler}
-              setIsModalShow={setIsModalShow}
-            />
+            <EachContainer schema={schema} setIsModalShow={handleModalShow} />
 
             <ModalBackground isModalShow={isModalShow} setIsModalShow={setIsModalShow}>
               {(schema.groupType === 'banner' || schema.groupType === 'images') && (
-                <BasicImageModal imgPath={imgPath} handleModalClose={handleModalClose} />
+                <ImageModal
+                  schema={schema}
+                  popupChildrenIndex={popupChildrenIndex}
+                  handleModalClose={handleModalClose}
+                />
               )}
             </ModalBackground>
           </div>

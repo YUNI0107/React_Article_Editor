@@ -7,6 +7,7 @@ import { SchemaContext } from '../../../../../contexts/SchemaContextSection'
 
 function InfoDrawer({ setIsShow }: { setIsShow: (isShow: boolean) => void }) {
   const { title, setTitle, author, setAuthor } = useContext(SchemaContext)
+
   return (
     <>
       <div className="mb-5">

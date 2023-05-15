@@ -28,6 +28,7 @@ const getStyleSetting = (
     }
   } else {
     arrangedClassNames.push(schemaStyleMapList.general)
+    arrangedClassNames.push(schemaStyleMapList.publish)
   }
 
   return arrangedClassNames.toString().replaceAll(',', ' ')
