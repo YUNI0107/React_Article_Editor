@@ -14,8 +14,8 @@ function EditorPage() {
       {/* left-drawer */}
       <Drawer />
 
-      {/* main-editor-container */}
       <EditorInfoContextSection isEditorMode>
+        {/* main-editor-container */}
         <MainEditorContainer />
       </EditorInfoContextSection>
     </DndProvider>

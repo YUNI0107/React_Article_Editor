@@ -6,7 +6,7 @@ import update from 'immutability-helper'
 // import { groupTypeEnum } from '../../constants/enums/editorEnums'
 
 // types
-import { IComponentSchema } from '../../types/editor'
+import { IComponentSchema, IPublishedData } from '../../types/editor'
 
 // utils
 import ControlHandler from '../../utils/controlHandler'
@@ -57,10 +57,18 @@ const defaultSchemas: {
 
 export const SchemaContext = createContext(defaultSchemas)
 
-function SchemaContextSection({ children }: { children: ReactNode }) {
-  const [schemas, setSchemas] = useState<Array<IComponentSchema>>([])
-  const [title, setTitle] = useState('')
-  const [author, setAuthor] = useState('')
+function SchemaContextSection({
+  children,
+  publishedData,
+}: {
+  children: ReactNode
+  publishedData: IPublishedData | null
+}) {
+  const [schemas, setSchemas] = useState<Array<IComponentSchema>>(
+    publishedData ? publishedData.schemas : []
+  )
+  const [title, setTitle] = useState(publishedData ? publishedData.title : '')
+  const [author, setAuthor] = useState(publishedData ? publishedData.author : '')
 
   const addSchema = (newSchema: IComponentSchema) => {
     setSchemas((prevSchema) => [...prevSchema, newSchema])

@@ -148,3 +148,9 @@ interface IButton {
   type: buttonType
   props?: IControlProps
 }
+
+interface IPublishedData {
+  schemas: Array<IComponentSchema>
+  author: string
+  title: string
+}

@@ -7,7 +7,16 @@ import Header from '../../components/layout/Header'
 // contexts
 import SchemaContextSection from '../../contexts/SchemaContextSection'
 
-function MainPage() {
+// types
+import { IPublishedData } from '../../types/editor'
+
+function MainPage({
+  publishedData,
+  setPublishedData,
+}: {
+  publishedData: IPublishedData | null
+  setPublishedData: (data: IPublishedData) => void
+}) {
   const location = useLocation()
   const isPreview = location.pathname === '/preview'
 
@@ -17,8 +26,8 @@ function MainPage() {
         'min-w-[1052px]': !isPreview,
       })}
     >
-      <SchemaContextSection>
-        <Header />
+      <SchemaContextSection publishedData={publishedData}>
+        <Header setPublishedData={setPublishedData} />
         <div className="flex-1 flex h-full pt-20 overflow-y-auto">
           <Outlet />
         </div>

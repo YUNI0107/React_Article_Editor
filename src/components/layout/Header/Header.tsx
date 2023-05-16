@@ -8,17 +8,24 @@ import { SchemaContext } from '../../../contexts/SchemaContextSection'
 // components
 import ModalBackground from '../../common/ModalBackground'
 
-function Header() {
+// types
+import { IPublishedData } from '../../../types/editor'
+
+function Header({ setPublishedData }: { setPublishedData: (data: IPublishedData) => void }) {
   const [isModalShow, setIsModalShow] = useState(false)
   const location = useLocation()
   const isPreview = location.pathname === '/preview'
-  const { title, author } = useContext(SchemaContext)
+  const { title, author, schemas } = useContext(SchemaContext)
 
   const isCompleted = !!(title && author)
 
-  const handlePrompt = () => {
+  const handleUnCompleted = () => {
     if (isCompleted) return
     setIsModalShow(true)
+  }
+
+  const submitPublishedSchemas = () => {
+    setPublishedData({ schemas, title, author })
   }
 
   return (
@@ -26,7 +33,7 @@ function Header() {
       <div className="fixed z-30 w-full bg-white h-20 flex flex-col basic-shadow">
         {/* top */}
         <div className="flex-1 flex justify-end px-5 items-center">
-          <div onClick={handlePrompt}>
+          <div onClick={handleUnCompleted}>
             <Link
               to={isPreview ? '/' : '/preview'}
               className={classNames({ 'pointer-events-none': !isCompleted })}
@@ -41,7 +48,23 @@ function Header() {
               </button>
             </Link>
           </div>
-          <button className="default-button bg-main-blue text-white font-semibold">Publish</button>
+
+          <div onClick={handleUnCompleted}>
+            <Link
+              to="/publish"
+              onClick={submitPublishedSchemas}
+              className={classNames({ 'pointer-events-none': !isCompleted })}
+            >
+              <button
+                className={classNames(
+                  'default-button  text-white font-semibold',
+                  isCompleted ? 'bg-main-blue' : 'bg-main-gray-400'
+                )}
+              >
+                Publish
+              </button>
+            </Link>
+          </div>
         </div>
 
         {/* bottom */}
