@@ -25,7 +25,11 @@ import { groupTypeEnum } from '../../../../constants/enums/editorEnums'
 import ModalBackground from '../../../../components/common/ModalBackground'
 import GalleryControlModal from '../../../../components/controls/GalleryControlModal'
 
-function EditorContainer() {
+function EditorContainer({
+  editorSection,
+}: {
+  editorSection: React.MutableRefObject<HTMLDivElement>
+}) {
   const {
     previewMode,
     focusElementSchema,
@@ -186,7 +190,10 @@ function EditorContainer() {
                 'h-full': previewMode === 'lg',
               })}
             >
-              <div className="h-full w-full flex flex-col justify-start items-center py-4 px-2">
+              <div
+                className="h-full w-full flex flex-col justify-start items-center py-4 px-2"
+                ref={editorSection}
+              >
                 <EditorSection />
               </div>
             </div>

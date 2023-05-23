@@ -153,4 +153,5 @@ interface IPublishedData {
   schemas: Array<IComponentSchema>
   author: string
   title: string
+  previewImage: string
 }

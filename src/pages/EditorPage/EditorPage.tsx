@@ -8,7 +8,7 @@ import MainEditorContainer from './components/EditorContainer'
 // components
 import Drawer from '../../components/layout/Drawer'
 
-function EditorPage() {
+function EditorPage({ editorSection }: { editorSection: React.MutableRefObject<HTMLDivElement> }) {
   return (
     <DndProvider backend={HTML5Backend}>
       {/* left-drawer */}
@@ -16,7 +16,7 @@ function EditorPage() {
 
       <EditorInfoContextSection isEditorMode>
         {/* main-editor-container */}
-        <MainEditorContainer />
+        <MainEditorContainer editorSection={editorSection} />
       </EditorInfoContextSection>
     </DndProvider>
   )

@@ -13,9 +13,13 @@ import { IPublishedData } from '../../types/editor'
 function MainPage({
   publishedData,
   setPublishedData,
+  editorSection,
+  setIsPublishing,
 }: {
   publishedData: IPublishedData | null
   setPublishedData: (data: IPublishedData) => void
+  editorSection: React.MutableRefObject<HTMLDivElement>
+  setIsPublishing: (isPublishing: boolean) => void
 }) {
   const location = useLocation()
   const isPreview = location.pathname === '/preview'
@@ -27,7 +31,11 @@ function MainPage({
       })}
     >
       <SchemaContextSection publishedData={publishedData}>
-        <Header setPublishedData={setPublishedData} />
+        <Header
+          setPublishedData={setPublishedData}
+          editorSection={editorSection}
+          setIsPublishing={setIsPublishing}
+        />
         <div className="flex-1 flex h-full pt-20 overflow-y-auto">
           <Outlet />
         </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Routes, Route } from 'react-router-dom'
 
 import './styles/global.css'
@@ -16,19 +16,31 @@ import { IPublishedData } from './types/editor'
 
 function App() {
   const [publishedData, setPublishedData] = useState<IPublishedData | null>(null)
+  const [isPublishing, setIsPublishing] = useState(false)
+  const editorSection = useRef<HTMLDivElement>(null!)
 
   return (
     <>
       <Routes>
         <Route
           path="/"
-          element={<MainPage publishedData={publishedData} setPublishedData={setPublishedData} />}
+          element={
+            <MainPage
+              publishedData={publishedData}
+              setPublishedData={setPublishedData}
+              editorSection={editorSection}
+              setIsPublishing={setIsPublishing}
+            />
+          }
         >
-          <Route index element={<EditorPage />} />
+          <Route index element={<EditorPage editorSection={editorSection} />} />
           <Route path="/preview" element={<PreviewPage />} />
         </Route>
 
-        <Route path="/publish" element={<PublishPage publishedData={publishedData} />} />
+        <Route
+          path="/publish"
+          element={<PublishPage isPublishing={isPublishing} publishedData={publishedData} />}
+        />
       </Routes>
     </>
   )

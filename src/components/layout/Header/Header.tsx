@@ -10,8 +10,17 @@ import ModalBackground from '../../common/ModalBackground'
 
 // types
 import { IPublishedData } from '../../../types/editor'
+import html2canvas from 'html2canvas-objectfit-fix'
 
-function Header({ setPublishedData }: { setPublishedData: (data: IPublishedData) => void }) {
+function Header({
+  setIsPublishing,
+  setPublishedData,
+  editorSection,
+}: {
+  setIsPublishing: (isPublishing: boolean) => void
+  setPublishedData: (data: IPublishedData) => void
+  editorSection: React.MutableRefObject<HTMLDivElement>
+}) {
   const [isModalShow, setIsModalShow] = useState(false)
   const location = useLocation()
   const isPreview = location.pathname === '/preview'
@@ -25,7 +34,11 @@ function Header({ setPublishedData }: { setPublishedData: (data: IPublishedData)
   }
 
   const submitPublishedSchemas = () => {
-    setPublishedData({ schemas, title, author })
+    setIsPublishing(true)
+    html2canvas(editorSection.current).then(function (canvas) {
+      setIsPublishing(false)
+      setPublishedData({ schemas, title, author, previewImage: canvas.toDataURL() })
+    })
   }
 
   return (
@@ -44,7 +57,7 @@ function Header({ setPublishedData }: { setPublishedData: (data: IPublishedData)
                   isCompleted ? 'bg-main-yellow' : 'bg-main-gray-400'
                 )}
               >
-                {isPreview ? 'Edit' : 'Preview'}
+                {isPreview ? 'Back to Edit Page' : 'Preview'}
               </button>
             </Link>
           </div>
@@ -55,14 +68,16 @@ function Header({ setPublishedData }: { setPublishedData: (data: IPublishedData)
               onClick={submitPublishedSchemas}
               className={classNames({ 'pointer-events-none': !isCompleted })}
             >
-              <button
-                className={classNames(
-                  'default-button  text-white font-semibold',
-                  isCompleted ? 'bg-main-blue' : 'bg-main-gray-400'
-                )}
-              >
-                Publish
-              </button>
+              {!isPreview && (
+                <button
+                  className={classNames(
+                    'default-button  text-white font-semibold',
+                    isCompleted ? 'bg-main-blue' : 'bg-main-gray-400'
+                  )}
+                >
+                  Publish
+                </button>
+              )}
             </Link>
           </div>
         </div>
