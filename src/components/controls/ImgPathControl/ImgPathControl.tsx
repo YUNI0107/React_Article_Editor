@@ -3,9 +3,6 @@ import { ChangeEvent, useContext } from 'react'
 // contexts
 import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
-// utils
-import getBase64 from '../../../utils/getBase64'
-
 // validator
 import imageTypeValidate from '../../../validator/imageTypeValidate'
 
@@ -26,14 +23,24 @@ function ImgPathControl({
       return
     }
 
-    const imageBase64 = await getBase64(event.target.files[0])
-    if (typeof imageBase64 === 'string') {
-      if (controlHandler && uuid) {
-        controlHandler.changeValue('imgPath', imageBase64, uuid, childUuid)
-      }
+    const image = event.target.files[0]
+    const formData = new FormData()
+    formData.append('image', image)
+    const fileName = `${Date.now()}_${image.name}`
+    const queryParams = new URLSearchParams({ key: fileName }).toString()
 
-      if (onImgPathChange) onImgPathChange(imageBase64)
-    }
+    fetch(`${process.env.REACT_APP_SERVER_URL}/image/upload/?${queryParams}`, {
+      body: formData,
+      method: 'POST',
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (controlHandler && uuid) {
+          controlHandler.changeValue('imgPath', result.url, uuid, childUuid)
+        }
+
+        if (onImgPathChange) onImgPathChange(result.url)
+      })
   }
 
   return (
