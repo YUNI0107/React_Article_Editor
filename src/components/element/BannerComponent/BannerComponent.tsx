@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import classNames from 'classnames'
 
 // types
@@ -14,6 +15,7 @@ import IconRectangleButton from '../../common/IconRectangleButton/IconRectangleB
 import CircleButton from '../../common/CircleButton'
 import ImgPathControl from '../../controls/ImgPathControl'
 import TextContent from '../../text/TextContent'
+import ModalBackground from '../../common/ModalBackground/ModalBackground'
 
 function BannerComponent({
   schema,
@@ -30,6 +32,7 @@ function BannerComponent({
 }) {
   if (!schema) return null
 
+  const [isLoading, setIsLoading] = useState(false)
   const { props, uuid } = schema
   const { filter: filterStyleClass, textShowChecks } = props || {}
 
@@ -56,6 +59,7 @@ function BannerComponent({
             src={props?.imgPath || DefaultImage}
             alt="images"
           />
+
           {props?.linkUrl &&
             urlValidate(props.linkUrl) &&
             props?.clickEvent === 'link' &&
@@ -88,8 +92,9 @@ function BannerComponent({
               onClick={() => popupShowHandler && popupShowHandler(null)}
               text="變更圖片"
               customClassNames="mr-2"
+              disabled={isLoading}
             >
-              <ImgPathControl uuid={uuid} />
+              <ImgPathControl uuid={uuid} setIsLoading={setIsLoading} />
             </IconRectangleButton>
             <CircleButton
               onClick={() => popupShowHandler && popupShowHandler(null)}
@@ -106,6 +111,11 @@ function BannerComponent({
           )}
         ></div>
       </div>
+
+      <ModalBackground isModalShow={isLoading}>
+        <i className="ri-loader-2-line text-5xl mr-2 text-white animate-spin"></i>
+        <h2 className="text-2xl text-white font-semibold">Uploading Image...</h2>
+      </ModalBackground>
     </>
   )
 }

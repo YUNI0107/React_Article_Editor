@@ -11,6 +11,7 @@ function IconRectangleButton({
   onClick,
   dataType,
   icon,
+  disabled,
 }: {
   children?: ReactNode
   text: string
@@ -18,6 +19,7 @@ function IconRectangleButton({
   onClick?: () => void
   dataType?: string
   icon: string
+  disabled?: boolean
 }) {
   const { previewMode } = useContext(EditorInfoContext)
   const isPreviewSmMode = previewMode === 'sm'
@@ -34,6 +36,7 @@ function IconRectangleButton({
       className={classNames(
         'px-10 py-2 flex flex-wrap justify-center items-center text-main-gray-500 bg-white rounded-3xl drop-shadow-lg overflow-hidden hover:brightness-90',
         { '!px-5 min-w-[150px]': isPreviewSmMode },
+        { 'pointer-events-none opacity-80': disabled },
         customClassNames
       )}
       data-type={dataType}

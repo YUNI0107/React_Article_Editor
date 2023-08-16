@@ -22,6 +22,7 @@ function ImageBlockControl({
     selectImage.description ? 'description' : 'none'
   )
   const [description, setDescription] = useState(selectImage.description)
+  const [isLoading, setIsLoading] = useState(false)
 
   const changeDescriptionValue = (value: GalleryDescriptionType) => {
     setDescriptionEvent(value)
@@ -47,8 +48,13 @@ function ImageBlockControl({
         <img className="w-full h-full object-cover" src={selectImage.imgPath} />
 
         <div className="absolute top-0 left-0 w-full h-full bg-white bg-opacity-30 hidden justify-center items-center group-hover:flex">
-          <IconRectangleButton icon="ri-image-add-fill" text="變更圖片" customClassNames="mr-2">
-            <ImgPathControl onImgPathChange={onImgPathChange} />
+          <IconRectangleButton
+            icon="ri-image-add-fill"
+            text={isLoading ? 'Uploading...' : '變更圖片'}
+            customClassNames="mr-2"
+            disabled={isLoading}
+          >
+            <ImgPathControl onImgPathChange={onImgPathChange} setIsLoading={setIsLoading} />
           </IconRectangleButton>
         </div>
       </div>

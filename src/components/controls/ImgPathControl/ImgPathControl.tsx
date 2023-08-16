@@ -10,10 +10,12 @@ function ImgPathControl({
   uuid,
   childUuid,
   onImgPathChange,
+  setIsLoading,
 }: {
   uuid?: string
   childUuid?: string
   onImgPathChange?: (image: string) => void
+  setIsLoading?: (isLoading: boolean) => void
 }) {
   const { controlHandler } = useContext(SchemaContext)
 
@@ -23,6 +25,7 @@ function ImgPathControl({
       return
     }
 
+    if (setIsLoading) setIsLoading(true)
     const image = event.target.files[0]
     const formData = new FormData()
     formData.append('image', image)
@@ -40,16 +43,20 @@ function ImgPathControl({
         }
 
         if (onImgPathChange) onImgPathChange(result.url)
+
+        if (setIsLoading) setIsLoading(false)
       })
   }
 
   return (
-    <input
-      className="w-full h-full opacity-0 cursor-pointer"
-      type="file"
-      onChange={changeInputValue}
-      accept="image/png, image/jpeg, image/jpg, image/gif, image/svg "
-    />
+    <>
+      <input
+        className="w-full h-full opacity-0 cursor-pointer"
+        type="file"
+        onChange={changeInputValue}
+        accept="image/png, image/jpeg, image/jpg, image/gif, image/svg "
+      />
+    </>
   )
 }
 

@@ -1,4 +1,4 @@
-import { useMemo, useContext } from 'react'
+import { useMemo, useContext, useState } from 'react'
 import classNames from 'classnames'
 
 // types
@@ -39,6 +39,7 @@ function ImageComponent({
   isEditorMode: boolean
   setIsModalShow?: (isShow: boolean) => void
 }) {
+  const [isLoading, setIsLoading] = useState(false)
   const { previewMode } = useContext(EditorInfoContext)
   const styleSetting = getStyleSetting(styleMapList, previewMode, isEditorMode)
 
@@ -130,10 +131,12 @@ function ImageComponent({
           <IconRectangleButton
             icon="ri-image-add-fill"
             onClick={popupShowHandler}
-            text="變更圖片"
+            text={isLoading ? 'Uploading...' : '變更圖片'}
             customClassNames="mb-2 !py-2 !px-4"
+            disabled={isLoading}
           >
             <ImgPathControl
+              setIsLoading={setIsLoading}
               uuid={pathControlUuidMap.uuid}
               childUuid={pathControlUuidMap.childUuid}
             />
