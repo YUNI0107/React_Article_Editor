@@ -190,11 +190,10 @@ function EditorContainer({
                 'h-full': previewMode === 'lg',
               })}
             >
-              <div
-                className="h-full w-full flex flex-col justify-start items-center py-4 px-2"
-                ref={editorSection}
-              >
-                <EditorSection />
+              <div className="h-full w-full flex flex-col justify-start items-center py-4 px-2">
+                <div ref={editorSection}>
+                  <EditorSection />
+                </div>
               </div>
             </div>
           </div>

@@ -35,7 +35,11 @@ function Header({
 
   const submitPublishedSchemas = () => {
     setIsPublishing(true)
-    html2canvas(editorSection.current).then(function (canvas) {
+
+    editorSection.current.style.paddingTop = '20px'
+    editorSection.current.style.paddingBottom = '20px'
+
+    html2canvas(editorSection.current).then((canvas) => {
       setIsPublishing(false)
       setPublishedData({ schemas, title, author, previewImage: canvas.toDataURL() })
     })
