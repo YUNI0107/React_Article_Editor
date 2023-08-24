@@ -154,4 +154,5 @@ interface IPublishedData {
   author: string
   title: string
   previewImage: string
+  timestamp: number
 }

@@ -27,7 +27,7 @@ function PublishPage({
   }
 
   const schemaText = publishedData ? JSON.stringify(publishedData.schemas) : ''
-  const timeText = Date.now()
+  const timeText = publishedData ? publishedData.timestamp : 0
 
   const copyText = (text: string) => {
     if (!text) return

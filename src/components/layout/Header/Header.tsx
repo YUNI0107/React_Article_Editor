@@ -12,6 +12,9 @@ import ModalBackground from '../../common/ModalBackground'
 import { IPublishedData } from '../../../types/editor'
 import html2canvas from 'html2canvas-objectfit-fix'
 
+// utils
+import createFileFromCanvas from '../../../utils/createFileFromCanvas'
+
 function Header({
   setIsPublishing,
   setPublishedData,
@@ -33,15 +36,74 @@ function Header({
     setIsModalShow(true)
   }
 
+  const uploadPreviewImage = (canvas: HTMLCanvasElement) => {
+    const file = createFileFromCanvas(canvas)
+
+    const formData = new FormData()
+    formData.append('image', file)
+    const fileName = `${Date.now()}_preview_image.png`
+    const queryParams = new URLSearchParams({ key: fileName }).toString()
+
+    return new Promise<string>((resolve, reject) => {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/image/upload/?${queryParams}`, {
+        body: formData,
+        method: 'POST',
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          resolve(result.url)
+        })
+        .catch((error) => {
+          reject()
+          console.error(`Upload: ${error}`)
+        })
+    })
+  }
+
+  const uploadArticle = (
+    schemas: string,
+    title: string,
+    author: string,
+    timestamp: number,
+    previewImage: string
+  ) => {
+    return new Promise<{ result: string }>((resolve, reject) => {
+      fetch(`${process.env.REACT_APP_SERVER_URL}/article/upload`, {
+        body: JSON.stringify({
+          title,
+          author,
+          timestamp,
+          schemas,
+          previewImage,
+        }),
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((result) => {
+          resolve(result)
+        })
+        .catch((error) => {
+          reject()
+          console.error(`Upload: ${error}`)
+        })
+    })
+  }
+
   const submitPublishedSchemas = () => {
+    const timestamp = Date.now()
     setIsPublishing(true)
 
     editorSection.current.style.paddingTop = '20px'
     editorSection.current.style.paddingBottom = '20px'
 
-    html2canvas(editorSection.current).then((canvas) => {
+    html2canvas(editorSection.current).then(async (canvas) => {
+      const previewImage = await uploadPreviewImage(canvas)
+      setPublishedData({ schemas, title, author, timestamp, previewImage })
+      await uploadArticle(JSON.stringify(schemas), title, author, timestamp, previewImage)
       setIsPublishing(false)
-      setPublishedData({ schemas, title, author, previewImage: canvas.toDataURL() })
     })
   }
 
