@@ -5,6 +5,7 @@ import { SchemaContext } from '../../../contexts/SchemaContextSection'
 
 // validator
 import imageTypeValidate from '../../../validator/imageTypeValidate'
+import uploadImage from '../../../utils/uploadImage'
 
 function ImgPathControl({
   uuid,
@@ -27,25 +28,17 @@ function ImgPathControl({
 
     if (setIsLoading) setIsLoading(true)
     const image = event.target.files[0]
-    const formData = new FormData()
-    formData.append('image', image)
-    const fileName = `${Date.now()}_${image.name}`
-    const queryParams = new URLSearchParams({ key: fileName }).toString()
 
-    fetch(`${process.env.REACT_APP_SERVER_URL}/image/upload/?${queryParams}`, {
-      body: formData,
-      method: 'POST',
+    uploadImage(image).then((url) => {
+      if (!url) return
+
+      if (controlHandler && uuid) {
+        controlHandler.changeValue('imgPath', url, uuid, childUuid)
+      }
+
+      if (onImgPathChange) onImgPathChange(url)
+      if (setIsLoading) setIsLoading(false)
     })
-      .then((response) => response.json())
-      .then((result) => {
-        if (controlHandler && uuid) {
-          controlHandler.changeValue('imgPath', result.url, uuid, childUuid)
-        }
-
-        if (onImgPathChange) onImgPathChange(result.url)
-
-        if (setIsLoading) setIsLoading(false)
-      })
   }
 
   return (

@@ -14,6 +14,8 @@ import html2canvas from 'html2canvas-objectfit-fix'
 
 // utils
 import createFileFromCanvas from '../../../utils/createFileFromCanvas'
+import uploadImage from '../../../utils/uploadImage'
+import { serverUrl, withServerFeature } from '../../../constants/env'
 
 function Header({
   setIsPublishing,
@@ -38,26 +40,7 @@ function Header({
 
   const uploadPreviewImage = (canvas: HTMLCanvasElement) => {
     const file = createFileFromCanvas(canvas)
-
-    const formData = new FormData()
-    formData.append('image', file)
-    const fileName = `${Date.now()}_preview_image.png`
-    const queryParams = new URLSearchParams({ key: fileName }).toString()
-
-    return new Promise<string>((resolve, reject) => {
-      fetch(`${process.env.REACT_APP_SERVER_URL}/image/upload/?${queryParams}`, {
-        body: formData,
-        method: 'POST',
-      })
-        .then((response) => response.json())
-        .then((result) => {
-          resolve(result.url)
-        })
-        .catch((error) => {
-          reject()
-          console.error(`Upload: ${error}`)
-        })
-    })
+    return uploadImage(file)
   }
 
   const uploadArticle = (
@@ -68,7 +51,7 @@ function Header({
     previewImage: string
   ) => {
     return new Promise<{ result: string }>((resolve, reject) => {
-      fetch(`${process.env.REACT_APP_SERVER_URL}/article/upload`, {
+      fetch(`${serverUrl}/article/upload`, {
         body: JSON.stringify({
           title,
           author,
@@ -100,9 +83,22 @@ function Header({
     editorSection.current.style.paddingBottom = '20px'
 
     html2canvas(editorSection.current).then(async (canvas) => {
-      const previewImage = await uploadPreviewImage(canvas)
-      setPublishedData({ schemas, title, author, timestamp, previewImage })
-      await uploadArticle(JSON.stringify(schemas), title, author, timestamp, previewImage)
+      let previewImage = await uploadPreviewImage(canvas)
+      if (previewImage) {
+        setPublishedData({ schemas, title, author, timestamp, previewImage })
+      } else {
+        previewImage = ''
+        console.warn('submitPublishedSchemas: previewImage upload failed.')
+      }
+
+      if (withServerFeature) {
+        try {
+          await uploadArticle(JSON.stringify(schemas), title, author, timestamp, previewImage)
+        } catch (error) {
+          console.error('submitPublishedSchemas: uploadArticle failed.')
+        }
+      }
+
       setIsPublishing(false)
     })
   }
