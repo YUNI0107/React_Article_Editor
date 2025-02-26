@@ -1,0 +1,31 @@
+{
+  "files": {
+    "main.css": "/React_Article_Editor/static/css/main.bf592d77.css",
+    "main.js": "/React_Article_Editor/static/js/main.6564c66e.js",
+    "static/js/787.e18563ce.chunk.js": "/React_Article_Editor/static/js/787.e18563ce.chunk.js",
+    "static/media/default_2.png": "/React_Article_Editor/static/media/default_2.4ec88fb87e52b8f60bc6.png",
+    "static/media/default_4.png": "/React_Article_Editor/static/media/default_4.531c0e4ee62cd1e0ae36.png",
+    "static/media/default_3.png": "/React_Article_Editor/static/media/default_3.a0f9904980f193e60556.png",
+    "static/media/default_7.png": "/React_Article_Editor/static/media/default_7.57a7aab59d2fc44870d3.png",
+    "static/media/default_8.png": "/React_Article_Editor/static/media/default_8.8e74c886aaec18e0c45e.png",
+    "static/media/default_6.png": "/React_Article_Editor/static/media/default_6.1f392b58ac85519bd079.png",
+    "static/media/default_10.png": "/React_Article_Editor/static/media/default_10.cc0fd61822c159b05fc2.png",
+    "static/media/default_5.png": "/React_Article_Editor/static/media/default_5.393b28fed9503a063274.png",
+    "static/media/default_9.png": "/React_Article_Editor/static/media/default_9.fccc6430361aad907db7.png",
+    "static/media/default.png": "/React_Article_Editor/static/media/default.b32abccedc4d4ef856b4.png",
+    "static/media/remixicon.svg?t=1590207869815": "/React_Article_Editor/static/media/remixicon.9cedd2150922ead84869.svg",
+    "static/media/default_1.jpg": "/React_Article_Editor/static/media/default_1.68b7d381f68067197899.jpg",
+    "static/media/remixicon.eot?t=1590207869815": "/React_Article_Editor/static/media/remixicon.5cb99e6cba5a4619063f.eot",
+    "static/media/remixicon.ttf?t=1590207869815": "/React_Article_Editor/static/media/remixicon.f2616f597cf98f38d234.ttf",
+    "static/media/remixicon.woff?t=1590207869815": "/React_Article_Editor/static/media/remixicon.8d09fa11700ed63cf96e.woff",
+    "static/media/remixicon.woff2?t=1590207869815": "/React_Article_Editor/static/media/remixicon.90668f6f9b3c2c18a090.woff2",
+    "index.html": "/React_Article_Editor/index.html",
+    "main.bf592d77.css.map": "/React_Article_Editor/static/css/main.bf592d77.css.map",
+    "main.6564c66e.js.map": "/React_Article_Editor/static/js/main.6564c66e.js.map",
+    "787.e18563ce.chunk.js.map": "/React_Article_Editor/static/js/787.e18563ce.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.bf592d77.css",
+    "static/js/main.6564c66e.js"
+  ]
+}
